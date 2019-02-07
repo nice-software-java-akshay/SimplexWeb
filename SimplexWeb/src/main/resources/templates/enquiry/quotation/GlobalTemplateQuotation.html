@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Simplex | Quotation : Global Template </title>
+
+	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+	
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+	<link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+	
+    <link th:href="@{/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+    
+	<link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+	
+	<!-- Toastr style -->
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    
+    <!-- Sweet Alert -->
+    <link th:href="@{/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet">
+    
+    <!-- Chosen select -->
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+    
+    <!-- Tags Input -->
+    <link th:href="@{/css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <style type="text/css">
+    	.hr{
+    	 	display: block;
+		    height: 1px;
+		    border: 0;
+		    border-top: 1px solid #ff8d3f;
+		    margin: 1em 0;
+		    padding: 0; 
+    	}
+    	
+    	.bootstrap-tagsinput {
+		  width: 100% !important;
+		}
+    </style>
+</head>
+<body id="body">
+<div th:replace="/contextPage :: contextPage"> </div>
+    <div id="wrapper">
+    <div th:replace="/sidebar :: sidebar"> </div>
+        <div id="page-wrapper" class="gray-bg">
+        <div th:replace="/topbar :: topbar"> </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-title">
+          	<h5>Enquiry Details</h5>
+	        <div class="ibox-tools">
+               <a href="#" class="btn btn-white dowmloadEnquiryQuotationBtn"><i class="fa fa-file-pdf-o"></i> Pdf </a>
+               <a href="#" class="btn btn-white openEnquiryQuotationEmailModalBtn"><i class="fa fa-send-o"></i> Email </a>
+               <a href="invoice_print.html" target="_blank" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Place Order </a>
+	         </div>
+          </div>
+          <form id="enquiryQuotationForm" role="form" method="post" autocomplete="off" th:object="${ENQUIRY}">
+           <div class="ibox-content p-xl">
+                   <div class="row">
+                       <div class="col-sm-6">
+                           <h5>From:</h5>
+                           <address>
+                               <strong><span th:text="${ENQUIRY.requester.companyName}" th:unless="${session == null}"></span></strong><br>
+                               <!-- 106 Jorg Avenu, 600/10<br>
+                               Chicago, VT 32456<br> -->
+                               <strong>Contact Person :</strong> <span th:text="${ENQUIRY.requester.fullName}"></span> <br>
+                               <strong>Email :</strong> <span th:text="${ENQUIRY.requester.email}"></span> <br>
+                               <abbr title="Phone">P:</abbr> <span th:text="${ENQUIRY.requester.primaryContactNumber}"></span>
+                           </address>
+                       </div>
+
+                       <div class="col-sm-6 text-right">
+                           <h4>Enquiry No.</h4>
+                           <h4 class="text-navy"><span th:text="${ENQUIRY.enquiryNumber}"></span></h4>
+                           <span>To:</span>
+                           <address>
+                               <strong><span th:text="${session.COMPANY.companyFullName}" th:unless="${session == null}"></span></strong><br>
+                               <span th:text="${session.COMPANY.companyAddressLineOne}" th:unless="${session == null}"></span><br>
+                               <span th:text="${session.COMPANY.companyAddressLineTwo + ' - ' + session.COMPANY.companyAddressPIN}" th:unless="${session == null}"></span><br>
+                               <abbr title="Phone">P:</abbr> <span th:text="${session.COMPANY.companyPhonePrimary}" th:unless="${session == null}"></span>
+                           </address>
+                           <p>
+                               <span><strong>Enquiry Date:</strong> <span th:text="${#dates.format(ENQUIRY.requestTimestamp, 'MMM dd, yyyy')}"></span></span><br/>
+                           </p>
+                       </div>
+                   </div>
+				   
+				   <hr class="hr">
+                   
+                   <div class="m-t">
+                   	<div class="row">
+                   		<div class="col-md-6">
+                   			<table class="table">
+	                           <thead>
+	                           <tr>
+	                               <th><h4 class="text-navy"> Product </h4></th>
+	                           </tr>
+	                           </thead>
+	                           <tbody>
+		                           <tr>
+		                               <td><strong> Product Type </strong></td>
+		                               <td> <span th:text="${ENQUIRY.productType.productTypeName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Model Type </strong></td>
+		                               <td> <span th:text="${ENQUIRY.productModelType.modelTypeName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Baffle (GSM) </strong></td>
+		                               <td> <span th:text="${ENQUIRY.baffle == 'true'}? ${ENQUIRY.baffle} : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Surface </strong></td>
+		                               <td> <span th:text="${ENQUIRY.productSurfaceType.surfaceTypeName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Length - Width - Height (cm) </strong></td>
+		                               <td> <span th:text="${ENQUIRY.surfaceLength}"></span> - <span th:text="${ENQUIRY.surfaceWidth}"></span> - <span th:text="${ENQUIRY.surfaceHeight}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Grade Type </strong></td>
+		                               <td> No Grade </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> SWL (Kg) </strong></td>
+		                               <td> <span th:text="${ENQUIRY.swl}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Safety Factor </strong></td>
+		                               <td> <span th:text="${ENQUIRY.productSFtype.sfTypeName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> UN </strong></td>
+		                               <td> <span th:text="${ENQUIRY.un == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> UV </strong></td>
+		                               <td> <span th:text="${ENQUIRY.uv == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Remarks </strong></td>
+		                               <td> <span th:text="${ENQUIRY.productRemarks}"></span> </td>
+		                           </tr>
+	                           </tbody>
+	                       </table>
+                   		</div>
+                   		<div class="col-md-6">
+                   			<table class="table">
+	                           <thead>
+	                           <tr>
+	                               <th><h4 class="text-navy"> Fabric </h4></th>
+	                           </tr>
+	                           </thead>
+	                           <tbody>
+		                           <tr>
+		                               <td><strong> Fabric Type </strong></td>
+		                               <td> <span th:text="${ENQUIRY.fabricType.fabricTypeName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Fabric Color </strong></td>
+		                               <td> <span th:text="${ENQUIRY.fabricColor.fabricColorName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Reinforcement </strong></td>
+		                               <td> <span th:text="${ENQUIRY.reinforcement == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Fabric GSM </strong></td>
+		                               <td> <span th:text="${ENQUIRY.fabricGSMValue}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Bag Seam </strong></td>
+		                               <td> <span th:text="${ENQUIRY.fabricBagSeamType.bagseamTypeName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Bag Seam Color </strong></td>
+		                               <td> <span th:text="${ENQUIRY.fabricBagSeamColor.bagSeamColorName}"></span> </td>
+		                           </tr>
+	                           </tbody>
+	                       </table>
+	                       <table class="table">
+	                           <thead>
+	                           <tr>
+	                               <th><h4 class="text-navy"> Loop </h4></th>
+	                           </tr>
+	                           </thead>
+	                           <tbody>
+		                           <tr>
+		                               <td><strong> Loop Type </strong></td>
+		                               <td> <span th:text="${ENQUIRY.loopType.loopTypeName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Loop Material </strong></td>
+		                               <td> <span th:text="${ENQUIRY.loopMaterial.loopMaterialName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Loop Free Height (cm) </strong></td>
+		                               <td> <span th:text="${ENQUIRY.loopHeight}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Loop Color </strong></td>
+		                               <td> <span th:text="${ENQUIRY.loopColor.loopColorName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Loop Sewing Type </strong></td>
+		                               <td> <span th:text="${ENQUIRY.loopSewingType.loopSewingTypeName}"></span> </td>
+		                           </tr>
+	                           </tbody>
+	                       </table>
+                   		</div>
+                   	</div>
+                   	
+                   	<hr class="hr">
+                   	
+                   	<div class="row">
+                   		<div class="col-md-6">
+                   			<table class="table">
+	                           <thead>
+	                           <tr>
+	                               <th><h4 class="text-navy"> Top Filling </h4></th>
+	                           </tr>
+	                           </thead>
+	                           <tbody>
+		                           <tr>
+		                               <td><strong> Top Filling	 </strong></td>
+		                               <td> <span th:text="${ENQUIRY.topFilling == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+	                           </tbody>
+	                       </table>
+                   		</div>
+                   		<div class="col-md-6">
+                   			<table class="table">
+	                           <thead>
+	                           <tr>
+	                               <th><h4 class="text-navy"> Bottom Discharge </h4></th>
+	                           </tr>
+	                           </thead>
+	                           <tbody>
+		                           <tr>
+		                               <td><strong> Bottom Discharge </strong></td>
+		                               <td> <span th:text="${ENQUIRY.bottomDischarge == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+	                           </tbody>
+	                       </table>
+                   		</div>
+                   	</div>
+                   	
+                   	<hr class="hr">
+                   	
+                   	<div class="row">
+                   		<div class="col-md-6">
+                   			<table class="table">
+	                           <thead>
+	                           <tr>
+	                               <th><h4 class="text-navy"> Other </h4></th>
+	                           </tr>
+	                           </thead>
+	                           <tbody>
+		                           <tr>
+		                               <td><strong> Doc Pouch </strong></td>
+		                               <td> <span th:text="${ENQUIRY.docPouch == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Printing </strong></td>
+		                               <td> <span th:text="${ENQUIRY.printing == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Packaging Type </strong></td>
+		                               <td> <span th:text="${ENQUIRY.packagingType.packagingTypeName}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Perimeter Band </strong></td>
+		                               <td> <span th:text="${ENQUIRY.perimeterBand == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Steevdoor Strap </strong></td>
+		                               <td> <span th:text="${ENQUIRY.steevdoorStrap == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Metal Detector </strong></td>
+		                               <td> <span th:text="${ENQUIRY.metalDetector == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+	                           </tbody>
+	                       </table>
+                   		</div>
+                   		<div class="col-md-6">
+                   			<table class="table">
+                   				<thead>
+	                           <tr>
+	                               <th><h4 style="text-align: right; font-size: xx-small;">. </h4></th>
+	                           </tr>
+	                           </thead>
+	                           <tbody>
+		                           <tr>
+		                               <td><strong> Safety Labels </strong></td>
+		                               <td> <span th:text="${ENQUIRY.otherLabelsValue}"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Liner </strong></td>
+		                               <td> <span th:text="${ENQUIRY.liner == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Pieces Per Pallet </strong></td>
+		                               <td> **** I Don't Know *** </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Belly Band </strong></td>
+		                               <td> <span th:text="${ENQUIRY.bellyBand == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Extra Cleaning </strong></td>
+		                               <td> <span th:text="${ENQUIRY.extraCleaning == 'true'}? Yes : No"></span> </td>
+		                           </tr>
+		                           <tr>
+		                               <td><strong> Shipment </strong></td>
+		                               <td> <span th:text="${ENQUIRY.shipmentType.shipmentTypeName}"></span> </td>
+		                           </tr>
+	                           </tbody>
+                   			</table>
+                   		</div>
+                   </div><!-- /table-responsive -->
+					
+                   <table class="table invoice-total">
+                       <tbody>
+                       <tr>
+                           <td><strong>Bag Weight (Kg) :</strong></td>
+                           <td> <span th:text="${ENQUIRY.totalBagWeight}"></span> </td>
+                       </tr>
+                       <tr>
+                           <td><strong>Bag Cost :</strong></td>
+                           <td> <span th:text="${ENQUIRY.totalBagCost}"></span> </td>
+                       </tr>
+                       <tr>
+                           <td><strong>Quantity of Bags :</strong></td>
+                           <td> <span th:text="${ENQUIRY.shipmentQuantity}"></span> </td>
+                       </tr>
+                       </tbody>
+                   </table>
+               </div>
+       </div>
+       </form>
+        <footer>
+       		<div th:replace="/footer :: footer"> </div>
+       </footer>
+       
+			<div th:replace="enquiry/quotation/sendEmailModal :: sendEnquiryQuotationEmailModal"> </div>
+			
+       </div>
+     </div>
+	    
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script th:src="@{/js/inspinia.js}"></script>
+    
+    <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+	
+	<!-- Data Table Plugin -->
+	<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+	
+	<!-- Data picker -->
+   <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+   
+   <!-- Chosen -->
+   <script th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>
+   
+   <!-- Validate -->
+   <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+   
+   <!-- Input Mask-->
+   <script th:src="@{/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+   
+   <!-- Toastr script -->
+   <script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+   
+   <!-- Sweet alert -->
+    <script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
+    
+    <!-- Steps -->
+    <script th:src="@{/js/plugins/steps/jquery.steps.min.js}"></script>
+
+    <!-- Jquery Validate -->
+    <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+    
+    <!-- iCheck -->
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+    
+    <!-- Tags Input -->
+    <script th:src="@{/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+   
+   	<script th:src="@{/js/custom.js}"></script>
+   		   	
+   	<!-- global-template-quotation.js -->
+	<script th:src="@{/js/template/enquiry/quotation/global-template-quotation.js}"></script>
+</body>
+</html>

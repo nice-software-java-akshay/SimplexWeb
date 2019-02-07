@@ -1,0 +1,39 @@
+<div th:fragment="newPaymentTermModal">
+<!-- New Payment Term Modal -->
+        <div class="modal inmodal fade reset-on-hide" id="newPaymentTermModal" tabindex="-1" role="dialog"  aria-hidden="true" data-modal-type="" data-reset-on-close="true">
+	        <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+		            <form class="m-t" id="newPaymentTermForm" role="form" th:action="@{/master/paymentTermsMaster/saveNewPaymentTerm}" autocomplete="off" th:object="${PAYMENT_TERMS}" method="POST">
+		                <input type="hidden" th:name="paymentTermId" th:id="paymentTermId">
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		                    <h4 class="modal-title">New Payment Term</h4>
+		                    <small class="font-bold modal-subtitle">Add payment terms details</small>
+		                </div>
+		                
+		                <div class="modal-body">
+		                	<div class="form-group">
+                            	<label class="required">Code</label> 
+                            	<input type="text" th:field="*{paymentTermCode}" data-fill="fullName" placeholder="Eg: NET30" class="form-control text-capitalize" required="required">
+                            </div>
+                            
+                            <div class="form-group">
+                            	<label class="required">Days for Net Payment</label> 
+                            	<input type="text" th:field="*{paymentTermDays}" data-fill="fullName" placeholder="Number of Days" class="form-control text-capitalize" required="required">
+                            </div>
+                            
+                            <div class="form-group">
+                            	<label class="required">Description</label> 
+                            	<textarea rows="" cols="" th:field="*{paymentTermDesc}" data-fill="fullName" placeholder="Paymnet Terms Description" class="form-control text-capitalize" required="required"></textarea>
+                            </div>
+		                </div>
+		
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+		                    <button type="submit" class="btn btn-primary btn-sm savePaymentTermBtn">Save</button>
+		                </div>
+		            </form>
+	            </div>
+	        </div>
+	    </div>
+</div>

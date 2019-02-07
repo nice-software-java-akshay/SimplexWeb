@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Simplex | 500 : Internal Server Error</title>
+
+	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+
+	<!-- Always keep as last stylesheet file -->
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body class="login-background-image">
+<div th:replace="/contextPage :: contextPage"> </div>
+
+    <div class="middle-box text-center animated fadeInDown">
+        <h1>500</h1>
+        <h3 class="font-bold">Internal Server Error</h3>
+
+        <div class="error-desc">
+            The server encountered something unexpected that didn't allow it to complete the request. We apologize.<br/>
+            You can go back to main page: <br/><a href="index.html" class="btn btn-primary m-t">Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+
+</body>
+
+</html>

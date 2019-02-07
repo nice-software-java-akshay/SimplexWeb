@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Simplex | Global Template </title>
+
+	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+	
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+	<link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+	
+    <link th:href="@{/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+    
+	<link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+	
+	<!-- Toastr style -->
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    
+    <!-- Sweet Alert -->
+    <link th:href="@{/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body id="body">
+<div th:replace="/contextPage :: contextPage"> </div>
+    <div id="wrapper">
+    <div th:replace="/sidebar :: sidebar"> </div>
+        <div id="page-wrapper" class="gray-bg">
+        <div th:replace="/topbar :: topbar"> </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row animated fadeInRight">
+                <div class="row">
+                <div class="col-lg-8">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Bag Specifications</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form role="form" id="globalTemplateForm" method="post" th:action="@{/enquiry/globalTemplateController/saveGlobalTemplateDetails}"  autocomplete="off" th:object="${ENQUIRY}" class="wizard-big form-horizontal">
+                                <h1>Product</h1>
+                                <fieldset>
+                                   <div class="form-group">
+                                   		<label class="col-lg-3 control-label required">Product Type :</label>
+	                              		<div class="col-lg-9">
+		                              		<select name="productType" id="productType" data-placeholder="Choose a product type" class="form-control" tabindex="1" required="">
+								                <option th:each="productType : ${ALL_PRESETS.PRODUCT_TYPE_LIST}" 
+								                		th:value="${productType.productTypeId}" 
+								                		th:text="${productType.productTypeName}"
+								                		th:attr="data-abbr=${productType.productTypeAbbr}"
+								                		th:selected="${productType.productTypeId == 1}">
+								                </option>
+							                </select>
+	                					</div>
+                          			</div>
+		                            <div class="form-group">
+		                               <label class="col-lg-3 control-label required">Model Type :</label>
+		                               <div class="col-lg-9">
+		                               		<select name="productModelType" id="productModelType" data-placeholder="Choose a product model type..." class="form-control" tabindex="1" required="">
+								                <option th:each="productModelType : ${ALL_PRESETS.PRODUCT_MODEL_TYPE_LIST}" 
+								                		th:value="${productModelType.modelTypeId}" 
+								                		th:text="${productModelType.modelTypeName}"
+								                		th:selected="${productModelType.modelTypeId == 1}">
+								                </option>
+							                </select>
+					                   </div>
+		                            </div>
+		                            <div class="form-group">
+                                   		<label class="col-lg-3 control-label required">Unit(L) :</label>
+	                              		<div class="col-lg-3">
+							                <select name="productUnitTypeLength" id="productUnitTypeLength" data-placeholder="Choose a product model type..." class="form-control" tabindex="1" required="">
+								                <option th:each="productUnitTypeLength : ${ALL_PRESETS.PRODUCT_UNIT_TYPE_LENGTH_LIST}" 
+								                		th:value="${productUnitTypeLength.unitTypeId}" 
+								                		th:text="${productUnitTypeLength.unitTypeName}"
+								                		th:selected="${productUnitTypeLength.unitTypeId == 1}">
+								                </option>
+							                </select>
+						               </div>
+						               <label class="col-lg-3 control-label required">Unit(W) :</label>
+						               <div class="col-lg-3">
+						                     <select name="productUnitTypeWeight" id="productUnitTypeWeight" data-placeholder="Choose a product model type..." class="form-control" tabindex="1" required="">
+								                <option th:each="productUnitTypeWeight : ${ALL_PRESETS.PRODUCT_UNIT_TYPE_WEIGHT_LIST}" 
+								                		th:value="${productUnitTypeWeight.unitTypeId}" 
+								                		th:text="${productUnitTypeWeight.unitTypeName}"
+								                		th:selected="${productUnitTypeWeight.unitTypeId == 1}">
+								                </option>
+							                </select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group baffelDiv">
+                          				<label class="col-lg-3 control-label">Baffle :</label>
+	                                    <div class="col-sm-3">
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="baffle" value="true"> <i></i> Yes </label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" checked="" name="baffle" value="false"> <i></i> No </label>
+	                                    </div>
+	                                    <div class="baffleValueDiv">
+	                                    	<label class="col-lg-3 control-label required">Value :</label>
+		                                    <div class="col-sm-3">
+		                                    	<input type="text" class="form-control baffleGSM"  name="baffleValue" id="baffleValue" onkeypress="return isNumberKey(event)" placeholder="60-270" min="60" max="270">
+		                                    </div>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+                          				<label class="col-lg-3 control-label required">Surface :</label>
+	                                    <div class="col-sm-9">
+	                                    	<label class="checkbox-inline i-checks" th:each="productSurfaceType: ${ALL_PRESETS.PRODUCT_SURFACE_TYPE_LIST}">
+	                                    		<input type="radio" th:name="productSurfaceType" th:value="${productSurfaceType.surfaceTypeId}" th:checked="${productSurfaceType.surfaceTypeId == 1}" th:text="${productSurfaceType.surfaceTypeName}"> 
+	                                    	</label>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+                          				<label class="col-lg-3 control-label required">Surface Size :</label>
+	                                    <div class="col-sm-3">
+	                                    	<input type="text" class="form-control" id="surfaceLength" name="surfaceLength" onkeypress="return isNumberKey(event)" placeholder="Length" required="">
+	                                    </div>
+	                                    <div class="col-sm-3">
+	                                    	<input type="text" class="form-control" id="surfaceWidth" name="surfaceWidth" onkeypress="return isNumberKey(event)" placeholder="Width" required="">
+	                                    </div>
+	                                    <div class="col-sm-3">
+	                                    	<input type="text" class="form-control" id="surfaceHeight" name="surfaceHeight" onkeypress="return isNumberKey(event)" placeholder="Height" required="">
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+                                   		<label class="col-lg-3 control-label required">SWL (Kg) :</label>
+	                              		<div class="col-lg-9">
+							                <input type="text" class="form-control" id="swl" name="swl" onkeypress="return isNumberKey(event)" placeholder="Enter SWL within range 100 - 2500 KGs" min="100" max="2500" required="">
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                          				<label class="col-lg-3 control-label">UN :</label>
+	                                    <div class="col-sm-3">
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="un" value='true'> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="un" value='false' checked> No</label>
+	                                    </div>
+	                                    <div>
+	                                    	<label class="col-lg-3 control-label required">SF :</label>
+		                                    <div class="col-sm-3">
+							                    <select name="productSFtype" id="productSFtype" data-placeholder="Choose a product SF type..." class="form-control" tabindex="1" required="">
+									                <option th:each="productSFtype : ${ALL_PRESETS.PRODUCT_SF_TYPE_LIST}" 
+									                		th:value="${productSFtype.sfTypeId}" 
+									                		th:text="${productSFtype.sfTypeName}"
+									                		th:attr="data-abbr=${productSFtype.sfTypeAbbr}"
+									                		th:selected="${productSFtype.sfTypeId == 1}">
+									                </option>
+							                	</select>
+		                                    </div>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+                          				<label class="col-lg-3 control-label">UV :</label>
+	                                    <div class="col-sm-3">
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="uv" value='true'> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="uv" value='false' checked> No</label>
+	                                    </div>
+	                                    <div class="productRemarksDiv">
+	                                    	<label class="col-lg-3 control-label">Remarks :</label>
+		                                    <div class="col-sm-3">
+		                                    	<textarea  class="form-control" id="productRemarks" name="productRemarks" placeholder="Enter remarks here"> </textarea>
+		                                    </div>
+	                                    </div>
+	                                </div>
+                                </fieldset>
+                                
+                                <h1>Fabric</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Fabric Type :</label>
+	                              		<div class="col-sm-9">
+							                <select name="fabricType" id="fabricType" data-placeholder="Choose a fabric type..." class="form-control" tabindex="1" required="">
+								                <option th:each="fabricType : ${ALL_PRESETS.FABRIC_TYPE_LIST}" 
+								                		th:value="${fabricType.fabricTypeId}" 
+								                		th:text="${fabricType.fabricTypeName}"
+								                		th:selected="${fabricType.fabricTypeId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Fabric Color :</label>
+	                              		<div class="col-sm-9">
+							                <select name="fabricColor" id="fabricColor" data-placeholder="Choose a fabric color..." class="form-control" tabindex="1" required="">
+								                <option th:each="fabricColor : ${ALL_PRESETS.FABRIC_COLOR_LIST}" 
+								                		th:value="${fabricColor.fabricColorId}" 
+								                		th:text="${fabricColor.fabricColorName}"
+								                		th:selected="${fabricColor.fabricColorId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Fabric GSM :</label>
+	                              		<div class="col-sm-9">
+		                                    <label class="checkbox-inline i-checks" th:each="fabricGSMType: ${ALL_PRESETS.FABRIC_GSM_TYPE_LIST}">
+	                                    		<input type="radio" th:name="fabricGSMType" th:value="${fabricGSMType.fabricGSMTypeId}" th:checked="${fabricGSMType.fabricGSMTypeId == 1}" th:text="${fabricGSMType.fabricGSMTypeName}"> 
+	                                    	</label>
+		                                </div>
+                          			</div>
+                          			<div class="form-group fabricGSMValueDiv">
+                                   		<label class="col-lg-3 control-label">Fabric GSM :</label>
+	                              		<div class="col-sm-9">
+                                    		<input type="text" class="form-control fabricGSMValue"  name="fabricGSMValue" id="fabricGSMValue" onkeypress="return isNumberKey(event)" placeholder="60-270" min="60" max="270" required="">
+	                                    </div>
+		                            </div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Reinforcement :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="reinforcement" value="true"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="reinforcement" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Bag Seam :</label>
+	                              		<div class="col-sm-9">
+	                              			<select name="fabricBagSeamType" id="fabricBagSeamType" data-placeholder="Choose a fabric seam..." class="form-control" tabindex="1" required="">
+								                <option th:each="fabricBagSeamType : ${ALL_PRESETS.FABRIC_BAG_SEAM_TYPE_LIST}" 
+								                		th:value="${fabricBagSeamType.bagseamTypeId}" 
+								                		th:text="${fabricBagSeamType.bagseamTypeName}"
+								                		th:selected="${fabricBagSeamType.bagseamTypeId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+	                				</div>
+	                				<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Bag Seam Color :</label>
+	                              		<div class="col-sm-9">
+							                <select name="fabricBagSeamColor" id="fabricBagSeamColor" data-placeholder="Choose a fabric color..." class="form-control" tabindex="1" required="">
+								                <option th:each="fabricBagSeamColor : ${ALL_PRESETS.FABRIC_BAG_SEAM_COLOR_LIST}" 
+								                		th:value="${fabricBagSeamColor.bagSeamColorId}" 
+								                		th:text="${fabricBagSeamColor.bagSeamColorName}"
+								                		th:selected="${fabricBagSeamColor.bagSeamColorId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+	                				</div>
+                                </fieldset>
+
+                                <h1>Top Filling</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Top Filling :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="topFilling" value="true"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="topFilling" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group topFillingDetailsDiv">
+                          				<div class="form-group">
+	                          				<label class="col-lg-3 control-label">Top Filling Type :</label>
+		                              		<div class="col-sm-9">
+		                                    	<label class="checkbox-inline i-checks" th:each="topFillingType: ${ALL_PRESETS.TOP_FILLING_TYPE_LIST}">
+		                                    		<input type="radio" th:name="topFillingType" th:value="${topFillingType.topFillingTypeId}" th:checked="${topFillingType.topFillingTypeId == 1}" th:text="${topFillingType.topFillingTypeName}"> 
+		                                    	</label>
+		                					</div>
+		                				</div>
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Top Type :</label>
+		                              		<div class="col-sm-9">
+								                <select name="topType" id="topType" data-placeholder="Choose top type..." class="form-control" tabindex="1" required="">
+									                <option th:each="topType : ${ALL_PRESETS.TOP_TYPE_LIST}" 
+									                		th:value="${topType.topTypeId}" 
+									                		th:text="${topType.topTypeName}"
+									                		th:selected="${topType.topTypeId == 1}">
+									                </option>
+							                	</select>
+		                					</div>
+	                          			</div>
+	                          			<!-- Top Type Sub-details -->
+		                          			<div class="form-group topSkirtDetailsDiv">
+		                                   		<label class="col-lg-3 control-label">Top Skirt :</label>
+			                              		<div class="col-sm-9">
+			                              			<div class="row">
+			                              				<div class="col-sm-6">
+				                              				<input type="text" class="form-control" id="topSkirtLength" name="topSkirtLength" onkeypress="return isNumberKey(event)" placeholder="Skirt Length">
+				                              			</div>
+				                              			<div class="col-sm-6">
+				                              				<input type="text" class="form-control" id="topSkirtGSM" name="topSkirtGSM" onkeypress="return isNumberKey(event)" placeholder="Skirt GSM" min="60" max="270">
+				                              			</div>
+			                              			</div>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group topSpoutDetailsDiv">
+		                                   		<label class="col-lg-3 control-label">Top Spout :</label>
+			                              		<div class="col-sm-9">
+			                              			<div class="row">
+			                              				<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="topSpoutDiameter" name="topSpoutDiameter" onkeypress="return isNumberKey(event)" placeholder="Diameter">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="topSpoutLength" name="topSpoutLength" onkeypress="return isNumberKey(event)" placeholder="Length">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="topSpoutGSM" name="topSpoutGSM"  onkeypress="return isNumberKey(event)" placeholder="Spout GSM" min="60" max="270">
+				                              			</div>
+			                              			</div>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group topFlapDetailsDiv">
+		                                   		<label class="col-lg-3 control-label">Top Flap :</label>
+			                              		<div class="col-sm-9">
+			                              			<div class="row">
+			                              				<div class="col-sm-12">
+				                              				<input type="text" class="form-control" id="topFlapGSM" name="topFlapGSM" onkeypress="return isNumberKey(event)" placeholder="Flap GSM" min="60" max="270">
+				                              			</div>
+			                              			</div>
+			                					</div>
+		                          			</div>
+	                          			<!-- Top Type Sub-details -->
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Stanadard Tie :</label>
+		                              		<div class="col-sm-9">
+		                              			<div class="row">
+		                              				<div class="col-sm-4">
+		                              					<label class="checkbox-inline i-checks"> <input type="radio" name="topStandardTie" class="flat-red" value="true"> Yes</label> 
+		                                    			<label class="checkbox-inline i-checks"> <input type="radio" name="topStandardTie" class="flat-red" value="false" checked> No</label>
+		                              				</div>
+		                              				<div class="col-sm-8 topStandardTieNumberDiv">
+		                              					<select id="topStandardTieNumber" name="topStandardTieNumber" class="form-control">
+									                      <option value="1" selected="selected">1</option>
+									                      <option value="2">2</option>
+									                      <option value="3">3</option>
+									                      <option value="4">4</option>
+									                    </select>
+		                              				</div>
+		                              			</div>
+		                					</div>
+	                          			</div>
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Rope Tie :</label>
+		                              		<div class="col-sm-9">
+		                              			<div class="row">
+		                              				<div class="col-sm-4">
+		                              					<label class="checkbox-inline i-checks"> <input type="radio" name="topRopeTie" class="flat-red" value="true"> Yes</label> 
+		                                    			<label class="checkbox-inline i-checks"> <input type="radio" name="topRopeTie" class="flat-red" value="false" checked> No</label>
+		                              				</div>
+		                              				<div class="col-sm-8 topRopeTieNumberDiv">
+		                              					<select id="topRopeTieNumber" name="topRopeTieNumber" class="form-control">
+									                      <option value="1" selected="selected">1</option>
+									                      <option value="2">2</option>
+									                      <option value="3">3</option>
+									                      <option value="4">4</option>
+									                    </select>
+		                              				</div>
+		                              			</div>
+		                					</div>
+	                          			</div>
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Velcro Tie :</label>
+		                              		<div class="col-sm-9">
+		                              			<div class="row">
+		                              				<div class="col-sm-4">
+		                              					<label class="checkbox-inline i-checks"> <input type="radio" name="topVelcroTie"  class="flat-red" value="true"> Yes</label> 
+		                                    			<label class="checkbox-inline i-checks"> <input type="radio" name="topVelcroTie"  class="flat-red" value="false" checked> No</label>
+		                              				</div>
+		                              				<div class="col-sm-8 topVelcroTieNumberDiv">
+		                              					<select class="form-control" id="topVelcroTieNumber" name="topVelcroTieNumber">
+									                      <option value="1" selected="selected">1</option>
+									                      <option value="2">2</option>
+									                      <option value="3">3</option>
+									                      <option value="4">4</option>
+									                    </select>
+		                              				</div>
+		                              			</div>
+		                					</div>
+	                          			</div>
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">B-Lock :</label>
+		                              		<div class="col-sm-9">
+		                              			<div class="row">
+		                              				<div class="col-sm-4">
+		                              					<label class="checkbox-inline i-checks"> <input type="radio" name="topBlock" class="flat-red" value="true" > Yes</label> 
+		                                    			<label class="checkbox-inline i-checks"> <input type="radio" name="topBlock" class="flat-red" value="false" checked> No</label>
+		                              				</div>
+		                              				<div class="col-sm-8 topBlockNumberDiv">
+		                              					<select name="topBlockNumber" id="topBlockNumber" class="form-control">
+									                      <option value="1" selected="selected">1</option>
+									                      <option value="2">2</option>
+									                      <option value="3">3</option>
+									                      <option value="4">4</option>
+									                    </select>
+		                              				</div>
+		                              			</div>
+		                					</div>
+	                          			</div>
+	                          		</div>
+                                </fieldset>
+
+                                <h1>Bottom Discharge</h1>
+                                <fieldset>
+                                   <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Bottom Discharge :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomDischarge" class="flat-red" value="true"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomDischarge" class="flat-red" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="bottomDischargeDetailsDiv">
+                          				<div class="form-group">
+	                          				<label class="col-lg-3 control-label">Discharge Type :</label>
+		                              		<div class="col-sm-9">
+		                              			<label class="checkbox-inline i-checks" th:each="bottomDischargeType: ${ALL_PRESETS.BOTTOM_DISCHARGE_TYPE_LIST}">
+		                                    		<input type="radio" th:name="bottomDischargeType" th:value="${bottomDischargeType.bottomDischargeTypeId}" th:checked="${bottomDischargeType.bottomDischargeTypeId == 1}" th:text="${bottomDischargeType.bottomDischargeTypeName}"> 
+		                                    	</label>
+		                					</div>
+		                				</div>
+		                				<div class="form-group">
+		                					<label class="col-lg-3 control-label">Bottom Type :</label>
+		                              		<div class="col-sm-9">
+								                <select th:field="*{bottomType}" data-placeholder="Choose bottom type..." class="form-control" tabindex="1" required="">
+									                <option th:each="bottomType : ${ALL_PRESETS.BOTTOM_TYPE_LIST}" 
+									                		th:value="${bottomType.bottomTypeId}" 
+									                		th:text="${bottomType.bottomTypeName}"
+									                		th:selected="${bottomType.bottomTypeId == 1}">
+									                </option>
+							                	</select>
+		                					</div>
+	                					</div>
+	                					<!-- Top Type Sub-details -->
+		                          			<div class="form-group bottomSpoutDetailsDiv">
+		                                   		<label class="col-lg-3 control-label">Bottom Spout :</label>
+			                              		<div class="col-sm-9">
+			                              			<div class="row">
+			                              				<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="bottomSpoutDiameter" name="bottomSpoutDiameter" onkeypress="return isNumberKey(event)"  placeholder="Spout Diameter">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="bottomSpoutLength" name="bottomSpoutLength"  onkeypress="return isNumberKey(event)" placeholder="Spout Length">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="bottomSpoutGSM" name="bottomSpoutGSM"  onkeypress="return isNumberKey(event)" placeholder="Spout GSM" min="60" max="270">
+				                              			</div>
+			                              			</div>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group">
+		                          				<label class="col-lg-3 control-label">Stanadard Tie :</label>
+		                          				<div class="col-sm-9">
+		                          					<div class="row">
+		                          						<div class="col-sm-4">
+											                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomStandardTie" class="flat-red" value="true"> Yes</label> 
+					                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomStandardTie" class="flat-red" value="false" checked> No</label>
+					                					</div>
+					                					<div class="col-sm-8 bottomStandardTieNumberDiv">
+			                              					<select id="bottomStandardTieNumber" name="bottomStandardTieNumber" class="form-control">
+										                      <option value="1" selected="selected">1</option>
+										                      <option value="2">2</option>
+										                      <option value="3">3</option>
+										                      <option value="4">4</option>
+										                    </select>
+			                              				</div>
+		                          					</div>
+		                          				</div>
+			                				</div>
+	                						<div class="form-group">
+		                          				<label class="col-lg-3 control-label">Rope Tie :</label>
+		                          				<div class="col-sm-9">
+		                          					<div class="row">
+		                          						<div class="col-sm-4">
+											                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomRopeTie" class="flat-red" value="true" > Yes</label> 
+					                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomRopeTie" class="flat-red" value="false" checked> No</label>
+					                					</div>
+					                					<div class="col-sm-8 bottomRopeTieNumberDiv">
+			                              					<select name="bottomRopeTieNumber" id="bottomRopeTieNumber" class="form-control">
+										                      <option value="1" selected="selected">1</option>
+										                      <option value="2">2</option>
+										                      <option value="3">3</option>
+										                      <option value="4">4</option>
+										                    </select>
+			                              				</div>
+		                          					</div>
+		                          				</div>
+			                				</div>
+			                				<div class="form-group">
+		                          				<label class="col-lg-3 control-label">Velcro Tie :</label>
+		                          				<div class="col-sm-9">
+		                          					<div class="row">
+		                          						<div class="col-sm-4">
+											                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomVelcroTie" class="flat-red" value="true" > Yes</label>
+					                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomVelcroTie" class="flat-red" value="false" checked> No</label>
+					                					</div>
+					                					<div class="col-sm-8 bottomVelcroTieNumberDiv">
+			                              					<select name="bottomVelcroTieNumber" id="bottomVelcroTieNumber" class="form-control">
+										                      <option value="1" selected="selected">1</option>
+										                      <option value="2">2</option>
+										                      <option value="3">3</option>
+										                      <option value="4">4</option>
+										                    </select>
+			                              				</div>
+		                          					</div>
+		                          				</div>
+			                				</div>
+			                				<div class="form-group">
+		                          				<label class="col-lg-3 control-label">B-Lock :</label>
+		                          				<div class="col-sm-9">
+		                          					<div class="row">
+		                          						<div class="col-sm-4">
+											                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomBlock" class="flat-red" value="true" > Yes</label>
+					                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomBlock" class="flat-red" value="false" checked> No</label>
+					                					</div>
+					                					<div class="col-sm-8 bottomBlockNumberDiv">
+			                              					<select name="bottomBlockNumber" id="bottomBlockNumber" class="form-control">
+										                      <option value="1" selected="selected">1</option>
+										                      <option value="2">2</option>
+										                      <option value="3">3</option>
+										                      <option value="4">4</option>
+										                    </select>
+			                              				</div>
+		                          					</div>
+		                          				</div>
+			                				</div>
+	                				</div>
+                                </fieldset>
+                                
+                                <h1>Loop</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Type :</label>
+	                              		<div class="col-sm-9">
+							                <select name="loopType" id="loopType" data-placeholder="Choose loop type..." class="form-control" tabindex="1" required="">
+								                <option th:each="loopType : ${ALL_PRESETS.LOOP_TYPE_LIST}" 
+								                		th:value="${loopType.loopTypeId}" 
+								                		th:text="${loopType.loopTypeName}"
+								                		th:selected="${loopType.loopTypeId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Material :</label>
+	                              		<div class="col-sm-9">
+							                <select name="loopMaterial" id="loopMaterial" data-placeholder="Choose loop material..." class="form-control" tabindex="1" required="">
+								                <option th:each="loopMaterial : ${ALL_PRESETS.LOOP_MATERIAL_LIST}" 
+								                		th:value="${loopMaterial.loopMaterialId}" 
+								                		th:text="${loopMaterial.loopMaterialName}"
+								                		th:selected="${loopMaterial.loopMaterialId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Free Loop Height :</label>
+	                              		<div class="col-sm-9">
+							                <input type="text" class="form-control" id="loopHeight"  name="loopHeight" onkeypress="return isNumberKey(event)" placeholder="Enter Loop Height">
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Color :</label>
+	                              		<div class="col-sm-9">
+							                <select name="loopColor" id="loopColor" data-placeholder="Choose loop material..." class="form-control" tabindex="1" required="">
+								                <option th:each="loopColor : ${ALL_PRESETS.LOOP_COLOR_LIST}" 
+								                		th:value="${loopColor.loopColorId}" 
+								                		th:text="${loopColor.loopColorName}"
+								                		th:selected="${loopColor.loopColorId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Protector :</label>
+	                              		<div class="col-sm-3">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="loopProtector" value='true' > Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="loopProtector" value='false' checked> No</label>
+	                					</div>
+	                					<div class="loopProtectorValueDiv">
+		                					<label class="col-lg-3 control-label">Value :</label>
+		                              		<div class="col-sm-3">
+								                <input type="text" class="form-control loopProtectorValue"  name="loopProtectorValue" id="loopProtectorValue" onkeypress="return isNumberKey(event)" placeholder="60-270" min="60" max="270">
+		                					</div>
+		                				</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Sewing Type :</label>
+	                              		<div class="col-sm-9">
+							                <select name="loopSewingType" id="loopSewingType" data-placeholder="Choose loop sewing..." class="form-control" tabindex="1" required="">
+								                <option th:each="loopSewingType : ${ALL_PRESETS.LOOP_SEWING_TYPE_LIST}" 
+								                		th:value="${loopSewingType.loopSewingTypeId}" 
+								                		th:text="${loopSewingType.loopSewingTypeName}"
+								                		th:selected="${loopSewingType.loopSewingTypeId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+                          			</div>
+                                </fieldset>
+                                
+                                <h1>Other A</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Perimeter Band :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="perimeterBand" value="true"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="perimeterBand" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Belly Band :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="bellyBand" value="true"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bellyBand" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Steevedoor strap :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="steevdoorStrap" value="true"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="steevdoorStrap" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Doc Pouch :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="docPouch" value="true" > Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="docPouch" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<!-- Doc Pouch Type Details -->
+                          				<div class="docPouchTypeDetailsDiv">
+                          					<div class="form-group">
+		                                   		<label class="col-lg-3 control-label">Doc Pouch Type :</label>
+			                              		<div class="col-sm-9">
+									                <select name="docPouchType" id="docPouchType" data-placeholder="Choose loop doc pouch..." class="form-control" tabindex="1" required="">
+										                <option th:each="docPouchType : ${ALL_PRESETS.DOC_POUCH_TYPE_LIST}" 
+										                		th:value="${docPouchType.docPouchTypeId}" 
+										                		th:text="${docPouchType.docPouchTypeName}"
+										                		th:selected="${docPouchType.docPouchTypeId == 1}">
+										                </option>
+								                	</select>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group">
+		                                   		<label class="col-lg-3 control-label">Doc Pouch Detail :</label>
+			                              		<div class="col-sm-9">
+									                <select name="docPoucDetailType" id="docPoucDetailType" data-placeholder="Choose loop doc pouch detail..." class="form-control" tabindex="1" required="">
+										                <option th:each="docPoucDetailType : ${ALL_PRESETS.DOC_POUCH_DETAIL_TYPE_LIST}" 
+										                		th:value="${docPoucDetailType.docPouchDetailTypeId}" 
+										                		th:text="${docPoucDetailType.docPouchDetailTypeName}"
+										                		th:selected="${docPoucDetailType.docPouchDetailTypeId == 1}">
+										                </option>
+								                	</select>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group">
+		                                   		<label class="col-lg-3 control-label">Number of Pouch :</label>
+			                              		<div class="col-sm-9">
+									                <input type="text" class="form-control" id="docPouchValue" name="docPouchValue" onkeypress="return isNumberKey(event)" placeholder="Enter Number of pouches">
+			                					</div>
+		                          			</div>
+                          				</div>
+                          			<!-- Doc Pouch Type Details -->
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Other Labels :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="otherLabels" class="flat-red" value='true' > Yes</label>
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="otherLabels" class="flat-red" value='false' checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group otherLabelsValueDiv">
+                                   		<label class="col-lg-3 control-label">Remarks/Safety Label Title :</label>
+	                              		<div class="col-sm-9">
+							                <input type="text" class="form-control" id="otherLabelsValue" name="otherLabelsValue" placeholder="Remarks safety label title here">
+	                					</div>
+                          			</div>
+                                </fieldset>
+                                
+                                <h1>Other B</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Printing :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="printing" class="flat-red" value='true'> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="printing" class="flat-red" value='false' checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="printingDetailssDiv">
+                          				<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Sides :</label>
+		                              		<div class="col-sm-9">
+								                <select name="sides" id="sides" data-placeholder="Choose sides..." class="form-control" tabindex="1" required="">
+									                <option th:each="sides : ${ALL_PRESETS.SIDES_LIST}" 
+									                		th:value="${sides.sidesId}" 
+									                		th:text="${sides.sidesName}"
+									                		th:selected="${sides.sidesId == 1}">
+									                </option>
+							                	</select>
+		                					</div>
+	                          			</div>
+                          				<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Printing Colors :</label>
+		                              		<div class="col-sm-9">
+								                <select name="printingColor" id="printingColor" data-placeholder="Choose sides..." class="form-control" tabindex="1" required="">
+									                <option th:each="printingColor : ${ALL_PRESETS.PRINTING_COLOR_LIST}" 
+									                		th:value="${printingColor.printingColorId}" 
+									                		th:text="${printingColor.printingColorName}"
+									                		th:selected="${printingColor.printingColorId == 1}">
+									                </option>
+							                	</select>
+		                					</div>
+	                          			</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Extra Cleaning :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="extraCleaning" value="true"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="extraCleaning" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Metal Detector :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="metalDetector" value="true"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="metalDetector" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Packaging Type :</label>
+	                              		<div class="col-sm-9">
+							                <select name="packagingType" id="packagingType" data-placeholder="Choose packaging type..." class="form-control" tabindex="1" required="">
+								                <option th:each="packagingType : ${ALL_PRESETS.PACKAGING_TYPE_LIST}" 
+								                		th:value="${packagingType.packagingTypeId}" 
+								                		th:text="${packagingType.packagingTypeName}"
+								                		th:selected="${packagingType.packagingTypeId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Liner :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="liner" value="true" > Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="liner" value="false" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="linerDetailsDiv">
+                          				<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Liner Type :</label>
+		                              		<div class="col-sm-9">
+								                <select name="linerType" id="linerType" data-placeholder="Choose Liner type..." class="form-control" tabindex="1" required="">
+									                <option th:each="linerType : ${ALL_PRESETS.LINER_TYPE_LIST}" 
+									                		th:value="${linerType.linerTypeId}" 
+									                		th:text="${linerType.linerTypeName}"
+									                		th:selected="${linerType.linerTypeId == 1}">
+									                </option>
+							                	</select>
+		                					</div>
+	                          			</div>
+	                          			<div class="linerCalculationDiv">
+	                          				<div class="form-group">
+		                                   		<label class="col-lg-3 control-label">Liner Calculation :</label>
+			                              		<div class="col-sm-9">
+									                <div class="row">
+			                              				<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="linerTubeValue" name="linerTubeValue" onkeypress="return isNumberKey(event)"  placeholder="Liner Tube">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="linerHeightValue" name="linerHeightValue"  onkeypress="return isNumberKey(event)" placeholder="Liner Height">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="linerMicronValue" name="linerMicronValue"  onkeypress="return isNumberKey(event)" placeholder="Liner Micron Value">
+				                              			</div>
+			                              			</div>
+			                					</div>
+		                          			</div>
+	                          			</div>
+	                          			<div class="form-group">
+	                          				<label class="col-lg-3 control-label">Liner Tabbing :</label>
+	                          				<div class="col-sm-9">
+	                          					<div class="row">
+	                          						<div class="col-sm-4">
+										                <label class="checkbox-inline i-checks"> <input type="radio" name="linerTabbing" class="flat-red" value="true" > Yes</label>
+				                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="linerTabbing" class="flat-red" value="false" checked> No</label>
+				                					</div>
+				                					<div class="col-sm-8 linerTabbingNumberDiv">
+		                              					<select name="linerTabbingNumber" id="linerTabbingNumber" class="form-control">
+									                      <option value="1" selected="selected">1</option>
+									                      <option value="2">2</option>
+									                      <option value="3">3</option>
+									                      <option value="4">4</option>
+									                      <option value="5">5</option>
+									                      <option value="6">6</option>
+									                      <option value="7">7</option>
+									                      <option value="8">8</option>
+									                    </select>
+		                              				</div>
+	                          					</div>
+	                          				</div>
+		                				</div>
+		                				<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Liner Glued :</label>
+		                              		<div class="col-sm-9">
+								                <label class="checkbox-inline i-checks"> <input type="radio" name="linerGlued" value="true" > Yes</label> 
+		                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="linerGlued" value="false" checked> No</label>
+		                					</div>
+	                          			</div>
+                          			</div>
+                                </fieldset>
+                                
+                                <h1>Shipment</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Shipment :</label>
+	                              		<div class="col-sm-9">
+							                <select name="shipmentType" id="shipmentType" data-placeholder="Choose shipment type..." class="form-control" tabindex="1" required="">
+								                <option th:each="shipmentType : ${ALL_PRESETS.SHIPMENT_TYPE_LIST}" 
+								                		th:value="${shipmentType.shipmentTypeId}" 
+								                		th:text="${shipmentType.shipmentTypeName}"
+								                		th:selected="${shipmentType.shipmentTypeId == 1}">
+								                </option>
+						                	</select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Quantity :</label>
+	                              		<div class="col-sm-9">
+							                <input type="text" class="form-control" id="shipmentQuantity" name="shipmentQuantity" placeholder="Enter Quantity">
+	                					</div>
+                          			</div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+
+					<div class="col-md-4">
+	                    <div class="ibox float-e-margins">
+	                        <div class="ibox-title">
+	                            <h5>Bag View</h5>
+	                        </div>
+	                        <div>
+	                            <div class="ibox-content no-padding border-left-right">
+	                                <img alt="image" id="previewProfileImage" class="img-responsive" th:src="@{/img/bag1.jpg}">
+	                            </div>
+	                    	</div>
+	                	</div>
+	                	<!-- <div class="ibox float-e-margins">
+	                        <div class="ibox-title">
+	                            <h5>Bag View</h5>
+	                        </div>
+	                        <div>
+	                            <div class="ibox-content no-padding border-left-right">
+	                                <img alt="image" id="previewProfileImage" class="img-responsive" th:src="@{/img/bag1.jpg}">
+	                            </div>
+	                    	</div>
+	                	</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+       		<div th:replace="/footer :: footer"> </div>
+       </footer>
+			
+       </div>
+     </div>
+	    
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script th:src="@{/js/inspinia.js}"></script>
+    
+    <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+	
+	<!-- Data Table Plugin -->
+	<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+	
+	<!-- Data picker -->
+   <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+   
+   <!-- Chosen -->
+   <script th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>
+   
+   <!-- Validate -->
+   <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+   
+   <!-- Input Mask-->
+   <script th:src="@{/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+   
+   <!-- Toastr script -->
+   <script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+   
+   <!-- Sweet alert -->
+    <script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
+    
+    <!-- Steps -->
+    <script th:src="@{/js/plugins/steps/jquery.steps.min.js}"></script>
+
+    <!-- Jquery Validate -->
+    <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+    
+    <!-- iCheck -->
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+   
+   	<script th:src="@{/js/custom.js}"></script>
+   	
+   	<!-- Order of following JS file is important -->
+	   	<script th:src="@{/js/template/global/global-variables-declaration.js}"></script>
+	   	<script th:src="@{/js/template/global/global-variables-initialization.js}"></script>
+	   	<script th:src="@{/js/template/global/dom-initial-state.js}"></script>
+	   	<script th:src="@{/js/template/global/change-event-bindings.js}"></script>
+	   	<!-- <script th:src="@{/js/template/global/calculations.js}"></script> -->
+	   	
+	   	<script th:src="@{/js/template/global/globaltemplate.js}"></script>
+</body>
+</html>

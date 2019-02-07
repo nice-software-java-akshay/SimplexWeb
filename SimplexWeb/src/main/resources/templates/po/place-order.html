@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Simplex | Enquiry : History </title>
+
+	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+	
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+	<link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+	
+	<link th:href="@{/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet">
+	
+    <link th:href="@{/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/basic.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/dropzone.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/jasny/jasny-bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+    
+	<link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+	
+	
+	
+	<!-- Toastr style -->
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    
+    <!-- Sweet Alert -->
+    <link th:href="@{/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet">
+    
+    <!-- Chosen select -->
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+    
+    <!-- Tags Input -->
+    <link th:href="@{/css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <style type="text/css">
+    	.hr{
+    	 	display: block;
+		    height: 1px;
+		    border: 0;
+		    border-top: 1px solid #ff8d3f;
+		    margin: 1em 0;
+		    padding: 0; 
+    	}
+    	
+    	.bootstrap-tagsinput {
+		  width: 100% !important;
+		}
+		
+		.dataTables_wrapper{
+			padding-bottom: 0px;
+		}
+    </style>
+</head>
+<body id="body">
+<div th:replace="/contextPage :: contextPage"> </div>
+    <div id="wrapper">
+    <div th:replace="/sidebar :: sidebar"> </div>
+        <div id="page-wrapper" class="gray-bg">
+        <div th:replace="/topbar :: topbar"> </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+           <div class="row">
+           	<div class="col-lg-12">
+              <div class="ibox">
+		        <div class="ibox-title">
+		          	<h5>Place Order</h5>
+		         </div>
+				<form id="enquiryQuotationForm" role="form" method="post" th:action="@{/po/newPOController/saveNewOrder}" autocomplete="off" th:object="${PO_DETAIL}">
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-12 text-center">
+								<h3 class="text-navy">Purchase Order</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-8">
+								<h5>Vendor:</h5>
+								<address>
+									<strong>
+										<span
+											th:text="${COMPANY.companyFullName}"
+											th:unless="${session == null}"></span></strong><br> 
+										<span
+											th:text="${COMPANY.companyAddressLineOne}"
+											th:unless="${session == null}"></span><br> 
+										<span
+											th:text="${COMPANY.companyAddressLineTwo + ' - ' + COMPANY.companyAddressPIN}"
+											th:unless="${session == null}"></span><br> 
+										<abbr
+											title="Phone">Ph:</abbr> 
+										<span
+											th:text="${COMPANY.companyPhonePrimary}"
+											th:unless="${session == null}"></span>
+								</address>
+								<p>
+									<span>
+										<strong class="text-navy">P.O. Number:</strong> 
+										<input type="text" title="Click to edit" class="invisible-text-input-grey" th:field="*{poNumber}">
+									</span>
+									<br/>
+								</p>
+							</div>
+	
+							<div class="col-sm-4">
+								<h5>Ship To:</h5>
+								<address>
+									<strong><span class="ENQUIRY-requester-companyName">Nice Software Solutions Pvt. Ltd.</span></strong><br>
+									
+									<strong>Contact Person:</strong> 
+									<input type="text" th:id="shiptoContactPerson" th:name="shiptoContactPerson" title="Click to edit" class="invisible-text-input-grey" value="Akshay Gawande"><br>
+					
+									<strong>Email:</strong> 
+									<input type="text" th:id="shiptoEmail" th:name="shiptoEmail" title="Click to edit" class="invisible-text-input-grey" value="agawande@nicesoftwaresolutions.com"><br>
+									
+									<abbr title="Phone">Ph:</abbr> 
+									<input type="text" th:id="shiptoContactNumber" th:name="shiptoContactNumber" title="Click to edit" class="invisible-text-input-grey" value="(992) 3504296"><br>
+								</address>
+								<p>
+									<span><strong class="text-navy">P.O. Date:</strong> 
+									<span th:text="${#dates.format(#dates.createNow(), 'MMM dd, yyyy')}"></span></span><br/>
+								</p>
+							</div>
+						</div>
+	
+						<hr class="hr">
+	
+						<div class="m-t">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="checkbox checkbox-warning">
+	                                    <input id="checkbox-skip-po-info" type="checkbox">
+	                                    <label for="checkbox-skip-po-info">
+	                                        Skip following information
+	                                    </label>
+	                                </div>
+								</div>
+								<div class="col-md-6">
+									<div class="fileinput fileinput-new input-group" data-provides="fileinput">
+									    <div class="form-control" data-trigger="fileinput">
+									        <i class="glyphicon glyphicon-file fileinput-exists"></i>
+									    <span class="fileinput-filename"></span>
+									    </div>
+									    <span class="input-group-addon btn btn-default btn-file">
+									        <span class="fileinput-new">Select PO file</span>
+									        <span class="fileinput-exists">Change</span>
+									        <input type="file" name="..." accept="application/pdf"/>
+									    </span>
+									    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+									</div> 
+								</div>
+							</div>
+							
+							<div class="table-responsive">
+				     	 		<table class="table table-bordered table-hover" style="margin-bottom: 0px;">
+				     	 			<thead>
+				               		<tr>
+					                   <th>Vendor #</th>
+					                   <th>Account #</th>
+					                   <th>Payment Terms</th>
+					                   <th>Expected Date</th>
+					                   <th>Delivery Method</th>
+					               </tr>
+					               </thead>
+					               <tbody>
+					                <tr>
+					                	<td><input type="text" th:field="*{vendorNumber}" class="form-control invisible-text-input po-table-fields" style="width:100%"></td>
+					                	<td><input type="text" th:field="*{vendorAccountNumber}" class="form-control invisible-text-input po-table-fields" style="width:100%"></td>
+					                	<td><input type="text" th:field="*{paymentTerms}" class="form-control invisible-text-input po-table-fields" style="width:100%"></td>
+					                	<td><input type="text" th:field="*{etd}" class="form-control invisible-text-input po-table-fields" style="width:100%"></td>
+					                	<td><input type="text" th:field="*{deliveryMethod}" class="form-control invisible-text-input po-table-fields" style="width:100%"></td>
+					                </tr>
+					               </tbody>
+				     	 		</table>
+				     	 	</div>
+				     	 	
+				     	 	<div class="table-responsive">
+				     	 		<table class="table table-bordered table-hover" >
+				     	 			<thead>
+				               		<tr>
+					                   <th>Shipping Terms</th>
+					                   <th>SO #</th>
+					                   <th>Purchasing Contact</th>
+					                   <th>Warehouse</th>
+					               </tr>
+					               </thead>
+					               <tbody>
+					                <tr>
+					                	<td><input type="text" th:field="*{shippingTerms}" class="form-control invisible-text-input po-table-fields" style="width:100%"></td>
+					                	<td><input type="text" th:field="*{soNumber}" class="form-control invisible-text-input po-table-fields" style="width:100%"></td>
+					                	<td><input type="text" th:field="*{purchasingContact}" class="form-control invisible-text-input po-table-fields" style="width:100%"></td>
+					                	<td><input type="text" th:field="*{warehouse}" class="form-control invisible-text-input po-table-fields" style="width:100%"></td>
+					                </tr>
+					               </tbody>
+				     	 		</table>
+				     	 	</div>
+						
+							<hr class="hr">
+						
+							<div class="table-responsive">
+				               <table id="new-po-dyna-tbl" class="table table-striped table-bordered table-hover dataTables-example" style="padding-bottom: 0px">
+				               	<thead>
+				               		<tr>
+					                   <th>Item No.</th>
+					                   <th>Description</th>
+					                   <th>Qty (Unit)</th>
+					                   <th>Rate ($)</th>
+					                   <th>Amount ($)</th>
+					                   <th class="tbl-action-btn-td">Action</th>
+					               </tr>
+				               </thead>
+				               <tbody>
+				                <tr th:each="poItem, rowStat : *{poItmesList}"	th:class="${rowStat.even ? 'even' : 'odd'}">
+				                	<td>
+				                		<input type="text" th:field="*{poItmesList[__${rowStat.index}__].poItemNumber}" class="form-control invisible-text-input po-table-fields" style="width:100%">
+									</td>
+				                	<td>
+				                		<input type="text" th:field="*{poItmesList[__${rowStat.index}__].poItemDesc}" class="form-control invisible-text-input po-table-fields" style="width:100%">
+									</td>
+				                	<td>
+				                		<input type="text" th:field="*{poItmesList[__${rowStat.index}__].poItmeQty}" class="form-control invisible-text-input po-table-fields" style="width:100%">
+									</td>
+				                	<td>
+				                		<input type="text" th:field="*{poItmesList[__${rowStat.index}__].poItemRate}" class="form-control invisible-text-input po-table-fields" style="width:100%">
+									</td>
+				                	<td>
+				                		<input type="text" th:field="*{poItmesList[__${rowStat.index}__].poItemAmount}" class="form-control invisible-text-input po-table-fields" style="width:100%">
+									</td>
+				                	<td>
+				                		<button type="button" class="btn btn-warning btn-xs addPORowBtn">
+				                       		<i class="fa fa-plus"></i>
+				                       	</button>
+				                       	<button type="button" class="btn btn-warning btn-xs removePORowBtn">
+				                       		<i class="fa fa-minus"></i>
+				                       	</button>
+				                	</td>
+				                </tr>
+				                </tbody>
+				                </table>
+				     	 	</div>
+				     	 	
+				     	 	<hr class="hr">
+				     	 	
+				     	 	<div class="table-responsive" style="overflow: hidden;">
+				     	 		<table class="table table-hover" >
+				     	 			<tr>
+				     	 				<td style="border-top: 0px;">
+				     	 					<div class="row">
+				     	 						<div class="col-md-7">
+				     	 							<div class="form-group">
+				     	 								<label>Remark</label> 
+				     	 								<textarea th:field="*{poRemark}" class="form-control" rows="" cols=""></textarea>
+				     	 							</div>
+				     	 						</div>
+				     	 						<div class="col-md-2 text-right">
+				     	 							<h4>Total ($) :</h4>
+				     	 						</div>
+				     	 						<div class="col-md-3">
+				     	 							<input type="text" th:field="*{poTotalAmount}" class="form-control invisible-text-input po-table-fields" style="width:100%" readonly="readonly">
+				     	 						</div>
+				     	 					</div>
+				     	 				</td>
+				     	 			</tr>
+				     	 		</table>
+				     	 	</div>
+						</div>	
+						
+						<div class="hr-line-dashed"></div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+			                       <div class="col-sm-2 col-sm-offset-10">
+			                           <button class="btn btn-primary" type="submit">Place Order</button>
+			                       </div>
+			                   </div>
+			                </div>
+						</div>
+										
+					</div>
+				</form>
+			  </div>
+		   </div>
+		  </div>
+		</div>
+        <footer>
+       		<div th:replace="/footer :: footer"> </div>
+       </footer>	
+     </div>
+	</div>
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script th:src="@{/js/inspinia.js}"></script>
+    
+    <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+	
+	<!-- Data Table Plugin -->
+	<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+	
+	<!-- Data picker -->
+   <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+   
+   <!-- Chosen -->
+   <script th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>
+   
+   <!-- Validate -->
+   <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+   
+   <!-- Input Mask-->
+   <script th:src="@{/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+   
+   <!-- Toastr script -->
+   <script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+   
+   <!-- Sweet alert -->
+    <script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
+    
+    <!-- Steps -->
+    <script th:src="@{/js/plugins/steps/jquery.steps.min.js}"></script>
+
+    <!-- Jquery Validate -->
+    <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+    
+    <!-- iCheck -->
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+    
+    <!-- Tags Input -->
+    <script th:src="@{/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+    
+      <!-- DROPZONE -->
+    <script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
+   
+   	<script th:src="@{/js/custom.js}"></script>
+   		   	
+   	<!-- new-po.js -->
+	<script th:src="@{/js/po/place-order.js}"></script>
+</body>
+</html>

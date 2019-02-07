@@ -1,0 +1,7 @@
+<!-- Add this to every page !Important -->
+<div th:fragment="contextPage">
+<script th:inline="javascript"> 
+	var contextRoot = /*[[@{/}]]*/ ''; 
+	//alert('contextPage > contextRoot : ' + contextRoot); 
+</script>
+</div>
