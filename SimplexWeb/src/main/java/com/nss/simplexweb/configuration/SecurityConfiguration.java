@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/noAuth/**").permitAll()	//For Country List in Registration Page
+                .antMatchers("/rest/**").permitAll()	//For REST Service API
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/forgotPassword").permitAll()
