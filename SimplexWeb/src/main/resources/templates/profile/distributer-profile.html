@@ -38,22 +38,6 @@
     	<div th:replace="/sidebar :: sidebar"> </div>
         <div id="page-wrapper" class="gray-bg">
         	<div th:replace="/topbar :: topbar"> </div>
-            <div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-lg-10">
-                    <h2>Profile</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li class="active">
-                            <strong>Profile</strong>
-                        </li>
-                    </ol>
-                </div>
-                <div class="col-lg-2">
-
-                </div>
-            </div>
         <div class="wrapper wrapper-content">
 	            <div class="row animated fadeInRight">
 	                <div class="col-md-4">
@@ -94,7 +78,7 @@
 	                        <div class="ibox-title">
 	                            <h5>Profile Details</h5>
 	                        </div>
-	                        <form class="m-t" id="personalInfoForm" role="form" autocomplete="off" th:object="${USER}">
+	                        <form id="personalInfoForm" role="form" autocomplete="off" th:object="${USER}" th:method="post" th:action="@{/profile/updateMyProfileDistributer}">
 	                        	<input type="hidden" data-fill="userId" th:field="*{userId}">
 	                        <div class="ibox-content">
 								<div class="tabs-container">
@@ -119,13 +103,13 @@
 			                                    			<div class="col-sm-6">
 				                                    			<div class="form-group">
 							                                    	<label class="required">First Name</label> 
-							                                    	<input type="text" th:field="*{firstName}" data-fill="firstName" placeholder="First Name" class="form-control text-capitalize" required="required" >
+							                                    	<input type="text" th:field="*{firstName}" data-fill="firstName" placeholder="First Name" class="form-control text-capitalize text-no-space" required="required" >
 							                                    </div>
 							                                 </div>
 							                                 <div class="col-sm-6">
 				                                    			<div class="form-group">
 							                                    	<label class="required">Last Name</label> 
-							                                    	<input type="text" th:field="*{lastName}" data-fill="lastName" placeholder="Last Name" class="form-control text-capitalize" required="required" >
+							                                    	<input type="text" th:field="*{lastName}" data-fill="lastName" placeholder="Last Name" class="form-control text-capitalize text-no-space" required="required" >
 							                                    </div>
 							                                 </div>
 			                                    		</div>
@@ -247,73 +231,8 @@
     <script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
    
    	<script th:src="@{/js/custom.js}"></script>	
+   	
+   	<!-- distributer-profile.js -->
+   	<script th:src="@{/js/profile/distributer-profile.js}"></script>	
 </body>
-
-<script th:inline="javascript">
-$(document).ready(function(){
-	//Set Country in Chosen Select
-	var countryId = [[${USER.Country.CountryId}]];
-	$('.chosen-select').val(countryId).trigger('chosen:updated');
-	
-	$.validator.setDefaults({ ignore: ":hidden:not(.chosen-select)" });
-    $("#personalInfoForm").validate({
-    	errorPlacement: function(label, element) {
-            label.addClass('validator_error_syle');
-            label.insertAfter(element);
-            if(element.attr("id") == "countrySelect"){
-            	label.insertAfter("#countrySelect_chosen");
-            }
-        },
-        rules: {
-            password: {
-                required: true,
-            },
-            confirmPassword: {
-            	required: true,
-                equalTo: "#password"
-             }
-        }
-    });
-    
-    var $inputImage = $("#inputImage");
-    var $image = $("#profileImage");
-    var $previewImage = $('#previewProfileImage');
-    if (window.FileReader) {
-        $inputImage.change(function() {
-            var fileReader = new FileReader(),
-                    files = this.files,
-                    file;
-
-            if (!files.length) {
-                return;
-            }
-
-            file = files[0];
-
-            if (/^image\/\w+$/.test(file.type)) {
-                fileReader.readAsDataURL(file);
-                fileReader.onload = function () {
-                    $inputImage.val("");
-                    $previewImage.attr('src', this.result);
-                    doPreviewProfileImageVisible();
-                };
-            } else {
-                showMessage("Please choose an image file.");
-            }
-        });
-    } else {
-        $inputImage.addClass("hide");
-    }
-    
-    function doPreviewProfileImageVisible () {
-        var $image = $("#profileImage");
-        var $previewImage = $('#previewProfileImage');
-        var $previewModeSpan = $('.image-preview-mode-div');
-        
-        $image.addClass('hidden');
-        $previewModeSpan.removeClass('hidden');
-	}
-});
-</script>
-
 </html>

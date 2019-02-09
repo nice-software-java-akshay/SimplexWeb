@@ -14,12 +14,14 @@ public class MyErrorController implements ErrorController {
 	//Ref:https://www.baeldung.com/spring-boot-custom-error-page
 	@RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
+		//System.out.println("MyErrorController request : " + request);
+		
         //do something like logging
 		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 	     
 	    if (status != null) {
 	        Integer statusCode = Integer.valueOf(status.toString());
-	        System.out.println("MyErrorController > statusCode : " + statusCode);
+	        //System.out.println("MyErrorController > statusCode : " + statusCode);
 	     
 	        if(statusCode == HttpStatus.NOT_FOUND.value()) {
 	            return "404";

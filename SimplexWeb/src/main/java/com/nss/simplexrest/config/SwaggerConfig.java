@@ -26,14 +26,14 @@ public class SwaggerConfig {
 	}
 
 	private ApiInfo metaInfo() {
-		ApiInfo apiInfo = new ApiInfo("Sapience Intelligence StoryLine API",
-                "API built for storyline integration development",
+		ApiInfo apiInfo = new ApiInfo("Simplex Chemopack Pvt Ltd - REST API",
+                "API built for simplex mobile app integration development",
                 "1.0",
                 "Terms of Service",
-                new Contact("Sapience Intelligence", "http://www.sapienceintelligence.com",
+                new Contact("NICE Software Solutions Pvt Ltd", "http://www.nicesoftwaresolutions.com",
                         "agawande@nicesoftwaresolutions.com"),
                 "Apache License Version 2.0",
-                "https://www.apache.org/licesen.html"
+                "https://www.apache.org/license.html"
         );
 		
 		return apiInfo;

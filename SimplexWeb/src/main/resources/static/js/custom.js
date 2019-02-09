@@ -18,6 +18,29 @@ $(document).ready(function(){
         railColor: '#ffffff',
       });*/
 	
+	// Actual capitalize first letter
+	$('.text-capitalize').on('blur', function() {
+		try{
+			var text = $(this).val();
+			var textarray = text.split(' ');
+			var finalText = '';
+			for(var i=0; i<textarray.length; i++){
+				finalText += textarray[i].substr(0,1).toUpperCase() + textarray[i].substr(1) + ' ';
+			}
+			$(this).val(finalText.trim());
+		}catch (e) {
+			console.log(e);
+		}
+	});
+	
+	$('.text-no-space').on('keyup', function() {
+		try{
+			$(this).val($(this).val().trim());
+		}catch (e) {
+			console.log(e);
+		}
+	});
+	
 	//Date Picker
 	$('.date-group .input-group.date').datepicker({
         todayBtn: "linked",
@@ -180,6 +203,8 @@ function buildViewForm($viewForm, DATA_MAP, $modalElement){
 				}else{
 					$el.val(DATA_MAP[key]);
 				}
+			}else if(elTag == 'textarea'){
+				$el.val(DATA_MAP[key]);
 			}
 		}catch (e) {
 			console.log(e);

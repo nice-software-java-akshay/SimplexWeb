@@ -174,6 +174,8 @@ public class UserService {
 	public User updateDistributer(User user) {
 		User oldUserData = userRepository.findByUserId(user.getUserId());
 		user.setIsActive(1);
+		user.setRole(roleService.getRoleByRoleAbbr(ROLE.DIST.name()));
+		
 		if (user.getPassword() == null) {
 		    user.setPassword(oldUserData.getPassword());
 		}else if(bCryptPasswordEncoder.matches(oldUserData.getPassword(), user.getPassword())){
