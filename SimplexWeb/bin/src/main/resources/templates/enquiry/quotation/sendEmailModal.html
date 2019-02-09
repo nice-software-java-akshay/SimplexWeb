@@ -1,0 +1,37 @@
+<div th:fragment="sendEnquiryQuotationEmailModal">
+<!-- Send Enquiry Quotation Email Modal -->
+        <div class="modal inmodal fade reset-on-hide" id="sendEnquiryQuotationEmailModal" tabindex="-1" role="dialog"  aria-hidden="true">
+	        <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		                    <h4 class="modal-title">Email Quotation</h4>
+		                    <small class="font-bold">Email this quotation to below people.</small>
+		                </div>
+		                
+		                <div class="modal-body">
+		                	<div class="ibox-content">
+			                	<form class="m-t" role="form" method="post" th:object="${MAIL}" autocomplete="off" id="sendEnquiryQuotationEmailModalForm" th:action="@{/enquiry/globalTemplateController/emailGlobalTemplateQuotation} + '?' + 'enquiryId=' + ${ENQUIRY.enquiryId} + '&enquiryNumber=' + ${ENQUIRY.enquiryNumber}">
+			                		<div class="form-group"><label class="required">To :</label> 
+			                			<input type="email" th:name="recipients" th:value="${ENQUIRY.requester.email}" class="form-control" readonly="readonly" required="">
+			                		</div>
+			                		
+			                		<div class="form-group"><label class="required">Cc :</label> 
+			                			<input type="text" th:field="${MAIL.cc}" class="tagsinput form-control">
+			                		</div>
+			                		
+			                		<div class="form-group"><label>Subject :</label> 
+			                			<input type="email" th:name="subject" class="form-control" required="" th:value="'Quotation for enquiry number : ' +  ${ENQUIRY.enquiryNumber}">
+			                		</div>
+                          		</form>
+			                </div>
+		                </div>
+		
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+		                    <button type="submit" class="btn btn-primary btn-sm sendEnquiryQuotationEmailBtn"><i class="fa fa-send-o"></i> Send</button>
+		                </div>
+	            </div>
+	        </div>
+	    </div>
+</div>

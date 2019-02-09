@@ -1,0 +1,197 @@
+<div th:fragment="addEmployeeModal">
+<!-- Add Employee Modal -->
+        <div class="modal inmodal fade" id="AddEmployeeModal" tabindex="-1" role="dialog"  aria-hidden="true">
+	        <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+	            	<form class="m-t" id="newEmployeeForm" role="form" autocomplete="off" th:object="${USER}">
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		                    <h4 class="modal-title">Add Employee</h4>
+		                    <small class="font-bold">Please fill the required fields to add new employee.</small>
+		                </div>
+		                
+		                <div class="modal-body">
+		                	<div class="tabs-container">
+		                        <ul class="nav nav-tabs">
+		                            <li class="active"><a data-toggle="tab" href="#employeeadd-tab-1"> Primary Info</a></li>
+		                            <li class=""><a data-toggle="tab" href="#employeeadd-tab-2">Additional Info</a></li>
+		                        </ul>
+		                        <div class="tab-content">
+		                            <div id="employeeadd-tab-1" class="tab-pane active">
+		                                <div class="panel-body">
+		                                    <div class="row">
+		                                    	<div class="col-sm-4">
+		                                    		<div class="ibox-content no-padding border-left-right">
+						                                <img alt="image" id="profileImageAdd" class="img-responsive" th:src="@{/img/profile_big.jpg}">
+						                                <div class="image-preview-mode-div hidden">
+						                                	<span class="preview-mode-label">
+						                            			Preview Mode
+						                            		</span>
+						                                	<img alt="image" id="previewProfileImageAdd" class="img-responsive" th:src="@{/img/profile_big.jpg}">
+						                                </div>
+						                            </div>
+		                                    	</div>	
+		                                    	<div class="col-sm-8">
+		                                    		<div class="row">
+		                                    			<div class="col-sm-6">
+			                                    			<div class="form-group">
+						                                    	<label class="required">Employee ID</label> 
+						                                    	<input type="text" th:name="*{empId}" placeholder="Employee ID" class="form-control" required="required">
+						                                    	<input type="text" th:name="*{firstName}" placeholder="First Name" class="form-control" required="required">
+						                                    </div>
+						                                 </div>
+						                                 <div class="col-sm-6">
+			                                    			<div class="form-group date-group">
+							                                <label>Date of Joining</label>
+							                                <div class="input-group date">
+							                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							                                    <input type="text" th:name="*{doj}" class="form-control" placeholder="Date of Joining" readonly="readonly">
+							                                </div>
+							                            	</div>
+						                                 </div>
+		                                    		</div>
+		                                    		<div class="row">
+		                                    			<div class="col-sm-12">
+		                                    				<div class="form-group">
+						                                    	<label>Full Name</label> 
+						                                    	<input type="text" th:name="*{fullName}" id="fullName" placeholder="Your Full Name" class="form-control text-capitalize" readonly="readonly">
+						                                    </div>
+		                                    			</div>
+		                                    		</div>
+		                                    		<div class="row">
+		                                    			<div class="col-sm-6">
+			                                    			<div class="form-group">
+						                                    	<label class="required">First Name</label> 
+						                                    	<!-- <input type="text" th:name="*{firstName}" placeholder="First Name" class="form-control text-capitalize" required="required"> -->
+						                                    </div>
+						                                 </div>
+						                                 <div class="col-sm-6">
+			                                    			<div class="form-group">
+						                                    	<label class="required">Last Name</label> 
+						                                    	<input type="text" th:name="*{lastName}" placeholder="Last Name" class="form-control text-capitalize" required="required">
+						                                    </div>
+						                                 </div>
+		                                    		</div>
+		                                    		<div class="row">
+		                                    			<div class="col-sm-6">
+			                                    			<div class="form-group">
+						                                    	<label class="required">Primary Contact</label> 
+						                                    	<input type="text" th:name="*{primaryContactNumber}" data-mask="(999) 999-9999" placeholder="Primary Contact Number" class="form-control" required="required">
+						                                    </div>
+						                                 </div>
+						                                 <div class="col-sm-6">
+			                                    			<div class="form-group">
+						                                    	<label>Secondary Contact</label> 
+						                                    	<input type="text" th:name="*{secondaryContactNumber}" data-mask="(999) 999-9999" placeholder="Secondary Contact Number" class="form-control">
+						                                    </div>
+						                                 </div>
+		                                    		</div>
+		                                    		<div class="row">
+		                                    			<div class="col-sm-6">
+			                                    			<div class="form-group">
+						                                    	<label class="required">Designation</label> 
+						                                    	<select id="designationSelectAdd" data-placeholder="Choose a Designation..."
+																	class="chosen-select form-control" th:name="*{role}"
+																	tabindex="0" required="">
+																	<option value="">Select</option>
+																	<option th:each="role : ${ROLE_LIST}"
+																		th:value="${role.roleId}"
+																		th:text="${role.roleName}"
+																		 data-th-attr="data-deptname=${role.dept.deptName}">
+																	</option>
+																</select>
+						                                    </div>
+						                                 </div>
+						                                 <div class="col-sm-6">
+			                                    			<div class="form-group">
+						                                    	<label>Department</label>
+																<input type="text" id="deptSelectAdd" placeholder="Department" class="form-control" readonly="readonly">
+						                                    </div>
+						                                 </div>
+		                                    		</div>
+		                                    		<div class="row">
+		                                    			<div class="col-sm-12">
+		                                    				<div class="form-group">
+						                                    	<label class="required">Email</label> 
+						                                    	<input type="text" th:name="*{email}" placeholder="Email ID" class="form-control text-lowercase" required="required">
+						                                    </div>
+		                                    			</div>
+		                                    		</div>
+		                                    		<div class="row">
+		                                    			<div class="col-sm-12">
+		                                    				<div class="form-group">
+						                                    	<label class="required">Password</label> 
+						                                    	<input type="password" th:name="*{password}" placeholder="Password" class="form-control" required="required">
+						                                    </div>
+		                                    			</div>
+		                                    		</div>
+		                                    	</div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            <div id="employeeadd-tab-2" class="tab-pane">
+		                                <div class="panel-body">
+		                                	<div class="row">
+		                                		<div class="col-sm-12">
+		                                			<label>Address</label>
+		                                			<textarea th:name="*{address}" rows="2" cols="4" class="form-control text-capitalize" placeholder="Employee Address"></textarea>
+		                                		</div>
+		                                	</div>
+		                                	<div class="row">
+		                                		<div class="col-sm-6">
+		                                			<div class="form-group date-group">
+						                                <label>Date of Birth</label>
+						                                <div class="input-group date">
+						                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						                                    <input type="text" th:name="*{dob}" class="form-control" placeholder="Date of Birth" readonly="readonly">
+						                                </div>
+		                                			</div>
+		                                		</div>
+		                                		<div class="col-sm-6">
+		                                			<label class="required">Country</label>
+									                <div>
+										                <select th:name="*{country}" id="countrySelectAdd" data-placeholder="Choose a Country..." class="chosen-select form-control" tabindex="1" required="">
+											                <option value="">Select</option>
+											                <option th:each="country : ${COUNTRY_LIST}" 
+											                		th:value="${country.countryId}" 
+											                		th:text="${country.countryName}">
+											                </option>
+										                </select>
+									                </div>
+		                                		</div>
+		                                	</div>
+		                                	<div class="row">
+		                                		<div class="col-sm-6">
+		                                			<label>ESIC Number</label>
+		                                			<input type="text" th:name="*{esicNum}" class="form-control" placeholder="ESIC Number">
+		                                		</div>
+		                                		<div class="col-sm-6">
+		                                			<label>PF Number</label>
+		                                			<input type="text" th:name="*{pfNum}" class="form-control" placeholder="PF Number">
+		                                		</div>
+		                                	</div>
+		                                	<div class="row">
+		                                		<div class="col-sm-6">
+		                                			<label>Aadhaar Number</label>
+		                                			<input type="text" th:name="*{aadhaarNum}" class="form-control" placeholder="Aadhaar Number">
+		                                		</div>
+		                                		<div class="col-sm-6">
+		                                			<label>PAN</label>
+		                                			<input type="text" th:name="*{panNum}" class="form-control" placeholder="PAN">
+		                                		</div>
+		                                	</div>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+		                    <button type="submit" class="btn btn-primary btn-sm saveEmpBtn">Save</button>
+		                </div>
+		            </form>
+	            </div>
+	        </div>
+	    </div>
+</div>

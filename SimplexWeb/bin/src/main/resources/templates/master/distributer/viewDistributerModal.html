@@ -1,0 +1,127 @@
+<div th:fragment="viewDistributerModal">
+<!-- View Distributer Modal -->
+        <div class="modal inmodal fade reset-on-hide" id="viewDistributerModal" tabindex="-1" role="dialog"  aria-hidden="true">
+	        <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		                    <h4 class="modal-title">Distributer Information</h4>
+		                    <small class="font-bold">Shows the available details of selected distributer.</small>
+		                </div>
+		                
+		                <div class="modal-body">
+		                	<form id="viewDistributerForm">
+			                	<div class="tabs-container">
+			                        <ul class="nav nav-tabs">
+			                            <li class="active"><a data-toggle="tab" href="#empview-tab-1"> Primary Info</a></li>
+			                            <li class=""><a data-toggle="tab" href="#empview-tab-2">Additional Info</a></li>
+			                        </ul>
+			                        <div class="tab-content">
+			                            <div id="empview-tab-1" class="tab-pane active">
+			                                <div class="panel-body">
+			                                    <div class="row">
+			                                    	<div class="col-sm-4">
+			                                    		<div class="ibox-content no-padding border-left-right">
+							                                <img alt="image" id="profileImageView" class="img-responsive" th:src="@{/img/profile_big.jpg}">
+							                                <div class="image-preview-mode-div hidden">
+							                                	<span class="preview-mode-label">
+							                            			Preview Mode
+							                            		</span>
+							                                	<img alt="image" id="previewProfileImageView" class="img-responsive" th:src="@{/img/profile_big.jpg}">
+							                                </div>
+							                            </div>
+			                                    	</div>	
+			                                    	<div class="col-sm-8">
+			                                    		<div class="row">
+			                                    			<div class="col-sm-12">
+			                                    				<div class="form-group">
+							                                    	<label>Full Name</label> 
+							                                    	<input type="text" placeholder="Not Available" class="form-control text-capitalize" data-fill="fullName" readonly="readonly">
+							                                    </div>
+			                                    			</div>
+			                                    		</div>
+			                                    		<div class="row">
+			                                    			<div class="col-sm-6">
+				                                    			<div class="form-group">
+							                                    	<label>First Name</label> 
+							                                    	<input type="text" placeholder="Not Available" class="form-control text-capitalize" data-fill="firstName" readonly="readonly">
+							                                    </div>
+							                                 </div>
+							                                 <div class="col-sm-6">
+				                                    			<div class="form-group">
+							                                    	<label>Last Name</label> 
+							                                    	<input type="text" placeholder="Not Available" class="form-control text-capitalize" data-fill="lastName" readonly="readonly">
+							                                    </div>
+							                                 </div>
+			                                    		</div>
+			                                    		<div class="row">
+			                                    			<div class="col-sm-6">
+				                                    			<div class="form-group">
+							                                    	<label>Primary Contact</label> 
+							                                    	<input type="text" placeholder="Not Available" class="form-control" data-fill="primaryContactNumber" readonly="readonly">
+							                                    </div>
+							                                 </div>
+							                                 <div class="col-sm-6">
+				                                    			<div class="form-group">
+							                                    	<label>Secondary Contact</label> 
+							                                    	<input type="text" placeholder="Not Available" class="form-control" data-fill="secondaryContactNumber" readonly="readonly">
+							                                    </div>
+							                                 </div>
+			                                    		</div>
+			                                    		<div class="row">
+			                                    			<div class="col-sm-12">
+			                                    				<div class="form-group">
+							                                    	<label>Email</label> 
+							                                    	<input type="text" placeholder="Not Available" class="form-control" data-fill="email" readonly="readonly">
+							                                    </div>
+			                                    			</div>
+			                                    		</div>
+			                                    		<div class="row">
+		                                    			<div class="col-sm-12">
+		                                    				<div class="form-group">
+						                                    	<label>Company</label> 
+						                                    	<input type="text" placeholder="Not Available" data-fill="companyName" class="form-control" readonly="readonly">
+						                                    </div>
+		                                    			</div>
+		                                    		</div>
+			                                    	</div>
+			                                    </div>
+			                                </div>
+			                            </div>
+			                            <div id="empview-tab-2" class="tab-pane">
+			                                <div class="panel-body">
+			                                	<div class="row">
+			                                		<div class="col-sm-12">
+			                                			<label>Address</label>
+			                                			<textarea rows="2" cols="4" class="form-control text-capitalize" data-fill="address" placeholder="Not Available" readonly="readonly"></textarea>
+			                                		</div>
+			                                	</div>
+			                                	<div class="row">
+			                                		<div class="col-sm-6">
+			                                			<div class="form-group">
+							                                <label>Date of Birth</label>
+							                                <div class="input-group">
+							                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							                                    <input type="text" class="form-control" placeholder="Not Available" data-fill="dob" readonly="readonly">
+							                                </div>
+			                                			</div>
+			                                		</div>
+			                                		<div class="col-sm-6">
+			                                			<label>Country</label>
+										                <input type="text" class="form-control" placeholder="Not Available" data-fill="country.countryName" readonly="readonly">
+			                                		</div>
+			                                	</div>
+			                                </div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                 </form>
+		                </div>
+		
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+		                </div>
+	            </div>
+	        </div>
+	    </div>
+</div>

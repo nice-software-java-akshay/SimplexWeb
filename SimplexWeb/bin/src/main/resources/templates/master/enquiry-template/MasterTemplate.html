@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Simplex | Global Template </title>
+
+	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+	
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+	<link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+	
+    <link th:href="@{/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+    
+	<link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+	
+	<!-- Toastr style -->
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    
+    <!-- Sweet Alert -->
+    <link th:href="@{/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <style type="text/css">
+    	.wizard > .content {
+    		background: #eee;
+    	}
+    </style>
+</head>
+<body>
+<div th:replace="/contextPage :: contextPage"> </div>
+    <div id="wrapper">
+    <div th:replace="/sidebar :: sidebar"> </div>
+        <div id="page-wrapper" class="gray-bg">
+        <div th:replace="/topbar :: topbar"> </div>
+        
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row animated fadeInRight">
+                <div class="row">
+                <div class="col-lg-8">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>Bag Specifications</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <form id="form" action="#" class="wizard-big form-horizontal">
+                                <h1>Product</h1>
+                                <fieldset>
+                                   <div class="form-group">
+	                              		<div class="col-lg-9">
+					                        <div class="ibox-title">
+					                            <h5>Product Type</h5>
+					                            <div class="ibox-tools">
+					                                <a title="Setup"  data-toggle="modal" href="#modal-form-product-type">
+					                                    <i class="fa fa-wrench"></i>
+					                                </a>
+					                            </div>
+					                        </div>
+					                        <div class="modal fade" id="modal-form-product-type" tabindex="-1" role="dialog"  aria-hidden="true">
+				                                <div class="modal-dialog modal-md">
+				                                    <div class="modal-content">
+				                                        <div class="modal-header">
+				                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				                                            <h3 class="modal-title">Product Type</h3>
+				                                        </div>
+				                                        <div class="modal-body">
+				                                            <div class="row">
+				                                            	<div class="col-md-3">
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Default </label></div>
+				                                            	</div>
+				                                            	<div class="col-md-9">
+				                                            		<select name="productType" id="productType" data-placeholder="Choose product type..." class="form-control" tabindex="1">
+													                     <option value="FIBC">FIBC</option>
+													                </select>
+				                                            	</div>
+				                                            </div>
+				                                            
+				                                            <div class="row">
+				                                            	<div class="col-md-3">
+				                                            		<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Editable </label></div>
+				                                            	</div>
+				                                            </div>
+				                                            
+				                                            <div class="row">
+				                                            	<div class="col-md-12">
+				                                            		<div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options :</label></div>
+				                                            	</div>
+				                                            </div>
+				                                            
+				                                            <div class="row">
+				                                            	<div class="col-md-1"></div>
+				                                            	<div class="col-md-11">
+				                                            		<div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+							                                        <div class="i-checks"><label> <input type="checkbox" value=""> <i></i>Show all options</label></div>
+				                                            	</div>
+				                                            </div>
+				                                        </div>
+				                                        
+				                                        <div class="modal-footer">
+				                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				                                            <button type="button" class="btn btn-primary product-product-type-btn">Save</button>
+				                                        </div>
+				                                    </div>
+				                                </div>
+				                            </div>
+	                          			</div>
+                          			</div>
+		                            <div class="form-group">
+		                               <div class="col-lg-9">
+				                        <div class="ibox-title">
+				                            <h5>Model Type</h5>
+				                            <div class="ibox-tools">
+				                                <a title="Set As Profile Picture">
+				                                    <i class="fa fa-wrench"></i>
+				                                </a>
+				                            </div>
+				                        </div>
+					                   </div>
+		                            </div>
+		                            <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Unit :</label>
+	                              		<div class="col-lg-3">
+							                <select class="form-control" name="unitTypeLength" id="unitTypeLength">
+					                      	    <option value="cms" checked>cms</option>
+						                        <option  value="inches">inches</option>
+						                        <option  value="milimeter">millimeter</option>
+						                     </select>
+						               </div>
+						               <label class="col-lg-3 control-label">Unit :</label>
+						               <div class="col-lg-3">
+						                     <select class="form-control" name="unitTypeWeight" id="unitTypeWeight">
+						                      	<option value="gsm" checked>GSM</option>
+						                    	<option value="oz">Ounces</option>
+						                      </select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group baffelDiv">
+                          				<label class="col-lg-3 control-label">Baffle :</label>
+	                                    <div class="col-sm-3">
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" value="1" name="baffleStatus"> <i></i> Yes </label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" checked="" value="0" name="baffleStatus"> <i></i> No </label>
+	                                    </div>
+	                                    <div class="baffleGSMDiv">
+	                                    	<label class="col-lg-3 control-label">Value :</label>
+		                                    <div class="col-sm-3">
+		                                    	<input type="text" class="form-control baffleGSM"  name="baffleGSM" id="baffleGSM" onkeypress="return isNumberKey(event)" placeholder="60-270" min="60" max="270">
+		                                    </div>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+                          				<label class="col-lg-3 control-label">Surface :</label>
+	                                    <div class="col-sm-9">
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bagSurfaceType" value="internal" checked> Internal</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bagSurfaceType" value="external"> External</label>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+                          				<label class="col-lg-3 control-label">Surface Size :</label>
+	                                    <div class="col-sm-3">
+	                                    	<input type="text" class="form-control" id="bagLength" name="bagLength" onkeypress="return isNumberKey(event)" placeholder="Length">
+	                                    </div>
+	                                    <div class="col-sm-3">
+	                                    	<input type="text" class="form-control" id="bagWidth" name="bagWidth" onkeypress="return isNumberKey(event)" placeholder="Width">
+	                                    </div>
+	                                    <div class="col-sm-3">
+	                                    	<input type="text" class="form-control" id="bagHeight" name="bagHeight" onkeypress="return isNumberKey(event)" placeholder="Height">
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+                                   		<label class="col-lg-3 control-label">SWL (Kg) :</label>
+	                              		<div class="col-lg-9">
+							                <input type="text" class="form-control" id="bagSWL" name="SWL" onkeypress="return isNumberKey(event)" placeholder="Enter SWL within range 100 - 2500 KGs" min="100" max="2500">
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                          				<label class="col-lg-3 control-label">UN :</label>
+	                                    <div class="col-sm-3">
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="unStatus" value='1'> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="unStatus" value='0' checked> No</label>
+	                                    </div>
+	                                    <div>
+	                                    	<label class="col-lg-3 control-label">SF :</label>
+		                                    <div class="col-sm-3">
+		                                    	<select class="form-control" id="bagfSF" name="bagSF">
+							                      <option selected="selected" value="6 : 1">6:1</option>
+							                      <option value="5 : 1">5:1</option>
+							                    </select>
+		                                    </div>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+                          				<label class="col-lg-3 control-label">UV :</label>
+	                                    <div class="col-sm-3">
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="remarksOption" value='1'> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="remarksOption" value='0' checked> No</label>
+	                                    </div>
+	                                    <div class="productRemarksDiv">
+	                                    	<label class="col-lg-3 control-label">Remarks :</label>
+		                                    <div class="col-sm-3">
+		                                    	<textarea  class="form-control" id="remarks" name="remarks" placeholder="Enter remarks here"> </textarea>
+		                                    </div>
+	                                    </div>
+	                                </div>
+                                </fieldset>
+                                
+                                <h1>Fabric</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Fabric Type :</label>
+	                              		<div class="col-sm-9">
+							                <select id="fabricType" name="fabricType" class="form-control">
+						                      <option value="flat" selected="selected">Flat Fabric</option>
+						                      <option value="tubular">Tubular Fabric</option>
+						                      <option value="ventilated">Ventilated Fabric</option>
+						                      <option value="sulzer">Sulzer Fabric</option>
+						                      <option value="russel">Raschel Fabric</option> 
+						                      <option value="leno">Leno Fabric</option>
+						                      <option value="conductive">Conductive Fabric</option>
+						                      <option value="btype">B-Type Fabric</option>
+						                    </select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Fabric Color :</label>
+	                              		<div class="col-sm-9">
+							                <select id="fabricColor" name="fabricColor" class="form-control">
+						                      <option selected="selected" value="">No</option>
+						                      <option value="White">White</option>
+						                      <option value="Red">Red</option>
+						                      <option value="Orange">Orange</option>
+						                      <option value="Green">Green</option>
+						                      <option value="Yellow">Yellow</option>
+						                      <option value="Blue">Blue</option>
+						                      <option value="Grey">Grey</option>
+						                      <option value="Other">Other</option>
+						                    </select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Fabric GSM :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="fabricCoated" value="0" checked> Uncoated</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="fabricCoated" value="1"> Coated</label>
+		                                    <!-- <div class="col-sm-5"> -->
+		                                    	<input type="text" class="form-control" id="fabricGSM" name="fabricGSM" onkeypress="return isNumberKey(event)" placeholder="60 - 270 GSM" min="60" max="270">
+		                                    <!-- </div> -->
+		                                </div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Reinforcement :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="rainforcement" value="1"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="rainforcement" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Bag Seam :</label>
+	                              		<div class="col-sm-9">
+							                <select class="form-control" name="bagBeam" id="bagBeam">
+						                      <option value="overLockChain" selected="selected">Overlock + Chain</option>
+						                      <option value="singleFiller">Single Filler Cord</option>
+						                      <option value="doubleFiller">Double Filler Cord</option>
+						                      <option value="tripleFiller">Triple Filler Cord (Felt)</option>
+						                      <option value="doubleNeedle">Double Needle</option>
+						                    </select>
+	                					</div>
+	                				</div>
+	                				<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Bag Seam Color :</label>
+	                              		<div class="col-sm-9">
+							                <select id="bagSeamColor" name="bagSeamColor" class="form-control">
+						                      <option selected="selected" value="">No</option>
+						                      <option value="White">White</option>
+						                      <option value="Red">Red</option>
+						                      <option value="Orange">Orange</option>
+						                      <option value="Green">Green</option>
+						                      <option value="Yellow">Yellow</option>
+						                      <option value="Blue">Blue</option>
+						                      <option value="Grey">Grey</option>
+						                      <option value="Other">Other</option>
+						                    </select>
+	                					</div>
+	                				</div>
+                                </fieldset>
+
+                                <h1>Top Filling</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Top Filling :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="topFillingStatus" value="1"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="topFillingStatus" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="topFillingDetails">
+                          				<label class="col-lg-3 control-label">Top Filling Type :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="topFillingTypeStatus" class="flat-red" value="0" checked> Uncoated</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="topFillingTypeStatus" class="flat-red" value="1" > Coated</label>
+	                					</div>
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Top Type :</label>
+		                              		<div class="col-sm-9">
+								                <select class="form-control" name="bagTopType" id="bagTopType" style="width: 100%;">
+							                      <option value="topSkirt" selected="selected">Top Skirt</option>
+							                      <option value="topSpout">Top Spout</option>
+							                      <option value="topFlap">Top Flap</option>
+							                      <option value="topSkirtFlap">Top Skirt With Flap</option>
+							                      <option value="topSpoutFlap">Top Spout With Flap</option>
+							                      <option value="conicalTop">Conical Top</option>
+							                      <option value="plattedTop">Pleated Top</option>
+							                      <option value="conicalTopFlap">Conical Top With Flap</option>
+							                      <option value="plattedTopFlap">Pleated Top With Flap</option>
+							                    </select>
+		                					</div>
+	                          			</div>
+	                          			<!-- Top Type Sub-details -->
+		                          			<div class="form-group topSkirtDetails">
+		                                   		<label class="col-lg-3 control-label">Top Skirt :</label>
+			                              		<div class="col-sm-9">
+			                              			<div class="row">
+			                              				<div class="col-sm-6">
+				                              				<input type="text" class="form-control" id="topSkirtLength" name="topSkirtlength" onkeypress="return isNumberKey(event)" placeholder="Skirt Length">
+				                              			</div>
+				                              			<div class="col-sm-6">
+				                              				<input type="text" class="form-control" id="topSkirtGSM" name="topSkirtGSM" onkeypress="return isNumberKey(event)" placeholder="Skirt GSM" min="60" max="270">
+				                              			</div>
+			                              			</div>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group topSpoutDetails">
+		                                   		<label class="col-lg-3 control-label">Top Spout :</label>
+			                              		<div class="col-sm-9">
+			                              			<div class="row">
+			                              				<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="topSpoutDaimeter" onkeypress="return isNumberKey(event)" name="topSpoutDaimeter" placeholder="Diameter">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="topSpoutLength" onkeypress="return isNumberKey(event)" name="topSpoutLength" placeholder="Length">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="topSpoutGSM" name="topSpoutGSM"  onkeypress="return isNumberKey(event)" placeholder="Spout GSM" min="60" max="270">
+				                              			</div>
+			                              			</div>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group topFlapDetails">
+		                                   		<label class="col-lg-3 control-label">Top Flap :</label>
+			                              		<div class="col-sm-9">
+			                              			<div class="row">
+			                              				<div class="col-sm-12">
+				                              				<input type="text" class="form-control" id="topFlapGSM" name="topFlapGSM" onkeypress="return isNumberKey(event)" placeholder="Flap GSM" min="60" max="270">
+				                              			</div>
+			                              			</div>
+			                					</div>
+		                          			</div>
+	                          			<!-- Top Type Sub-details -->
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Stanadard Tie :</label>
+		                              		<div class="col-sm-9">
+		                              			<div class="row">
+		                              				<div class="col-sm-4">
+		                              					<label class="checkbox-inline i-checks"> <input type="radio" name="topStandardTie" class="flat-red" value="1"> Yes</label> 
+		                                    			<label class="checkbox-inline i-checks"> <input type="radio" name="topStandardTie" class="flat-red" value="0" checked> No</label>
+		                              				</div>
+		                              				<div class="col-sm-8">
+		                              					<select id="topStandardTieValue" name="topStandardTieValue" class="form-control" style="width: 100%;">
+									                      <option value="1" selected="selected">1</option>
+									                      <option value="2">2</option>
+									                      <option value="3">3</option>
+									                      <option value="4">4</option>
+									                    </select>
+		                              				</div>
+		                              			</div>
+		                					</div>
+	                          			</div>
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Rope Tie :</label>
+		                              		<div class="col-sm-9">
+		                              			<div class="row">
+		                              				<div class="col-sm-4">
+		                              					<label class="checkbox-inline i-checks"> <input type="radio" name="topRopeTie" class="flat-red" value="1"> Yes</label> 
+		                                    			<label class="checkbox-inline i-checks"> <input type="radio" name="topRopeTie" class="flat-red" value="0" checked> No</label>
+		                              				</div>
+		                              				<div class="col-sm-8">
+		                              					<select id="topRopeTieValue" name="topRopeTieValue" class="form-control">
+		                              						<option value="1" selected="selected">1</option>
+									                      	<option value="2">2</option>
+									                      	<option value="3">3</option>
+									                      	<option value="4">4</option>
+									                    </select>
+		                              				</div>
+		                              			</div>
+		                					</div>
+	                          			</div>
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Velcro Tie :</label>
+		                              		<div class="col-sm-9">
+		                              			<div class="row">
+		                              				<div class="col-sm-4">
+		                              					<label class="checkbox-inline i-checks"> <input type="radio" name="topVelcroType"  class="flat-red" value="1"> Yes</label> 
+		                                    			<label class="checkbox-inline i-checks"> <input type="radio" name="topVelcroType"  class="flat-red" value="0" checked> No</label>
+		                              				</div>
+		                              				<div class="col-sm-8">
+		                              					<select class="form-control" id="topVelcroTypeValue" name="topVelcroTypeValue" style="width: 100%;">
+									                      <option value="1" selected="selected">1</option>
+									                      <option value="2">2</option>
+									                      <option value="3">3</option>
+									                      <option value="4">4</option>
+									                    </select>
+		                              				</div>
+		                              			</div>
+		                					</div>
+	                          			</div>
+	                          			<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">B-Lock :</label>
+		                              		<div class="col-sm-9">
+		                              			<div class="row">
+		                              				<div class="col-sm-4">
+		                              					<label class="checkbox-inline i-checks"> <input type="radio" name="topBLock" class="flat-red" value="1" > Yes</label> 
+		                                    			<label class="checkbox-inline i-checks"> <input type="radio" name="topBLock" class="flat-red" value="0" checked> No</label>
+		                              				</div>
+		                              				<div class="col-sm-8">
+		                              					<select name="topBLockValue" id="topBLockValue" class="form-control" style="width: 100%;">
+									                      <option value="1" selected="selected">1</option>
+									                      <option value="2">2</option>
+									                      <option value="3">3</option>
+									                      <option value="4">4</option>
+									                    </select>
+		                              				</div>
+		                              			</div>
+		                					</div>
+	                          			</div>
+	                          		</div>
+                                </fieldset>
+
+                                <h1>Bottom Discharge</h1>
+                                <fieldset>
+                                   <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Bottom Discharge :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomDischarge" class="flat-red" value="1"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomDischarge" class="flat-red" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="bottomDischargeDetails">
+                          				<div class="form-group">
+	                          				<label class="col-lg-3 control-label">Discharge Type :</label>
+		                              		<div class="col-sm-9">
+								                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomDischargeType" class="flat-red" value="0" checked> UnCoated</label> 
+		                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomDischargeType" class="flat-red" value="1"> Coated</label>
+		                					</div>
+		                				</div>
+		                				<div class="form-group">
+		                					<label class="col-lg-3 control-label">Bottom Type :</label>
+		                              		<div class="col-sm-9">
+								                <select name="bottomDischargeTypeValue" id="bottomDischargeTypeValue" class="form-control" style="width: 100%;">
+							                      <option value="bottomSpoutStandard" selected="selected">Bottom Spout Standard</option>
+							                      <option value="bottomSpoutPetal">Bottom Spout Petal</option>
+							                      <option value="dischargeSpout">Discharge Spout</option>
+							                      <option value="emptyIris">Emptying Spout with Iris</option>
+							                      <option value="pyjama">Pyjama</option>
+							                      <option value="bonetClosure">Bonnet Closure </option>
+							                      <option value="conicalBottom">Conical Bottom </option>
+							                      <option value="fullDischarge">Full Discharge Bottom </option>
+							                    </select>
+		                					</div>
+	                					</div>
+	                					<!-- Top Type Sub-details -->
+		                          			<div class="form-group bottomSpoutDetails">
+		                                   		<label class="col-lg-3 control-label">Bottom Spout :</label>
+			                              		<div class="col-sm-9">
+			                              			<div class="row">
+			                              				<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="bottomDiameter" name="bottomDiameter" onkeypress="return isNumberKey(event)"  placeholder="Spout Diameter">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="bottomLength" name="bottomLength"  onkeypress="return isNumberKey(event)" placeholder="Spout Length">
+				                              			</div>
+				                              			<div class="col-sm-4">
+				                              				<input type="text" class="form-control" id="bottomSpoutGSM" name="bottomSpoutGSM"  onkeypress="return isNumberKey(event)" placeholder="Spout GSM" min="60" max="270">
+				                              			</div>
+			                              			</div>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group">
+		                          				<label class="col-lg-3 control-label">Stanadard Tie :</label>
+		                          				<div class="col-sm-9">
+		                          					<div class="row">
+		                          						<div class="col-sm-4">
+											                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomStandardTie" class="flat-red" value="1"> Yes</label> 
+					                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomStandardTie" class="flat-red" value="0" checked> No</label>
+					                					</div>
+					                					<div class="col-sm-8">
+			                              					<select id="bottomStandardTieValue" name="bottomStandardTieValue" class="form-control" style="width: 100%;">
+										                      <option value="1" selected="selected">1</option>
+										                      <option value="2">2</option>
+										                      <option value="3">3</option>
+										                      <option value="4">4</option>
+										                    </select>
+			                              				</div>
+		                          					</div>
+		                          				</div>
+			                				</div>
+	                						<div class="form-group">
+		                          				<label class="col-lg-3 control-label">Rope Tie :</label>
+		                          				<div class="col-sm-9">
+		                          					<div class="row">
+		                          						<div class="col-sm-4">
+											                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomRopeTie" class="flat-red" value="1" > Yes</label> 
+					                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomRopeTie" class="flat-red" value="0" checked> No</label>
+					                					</div>
+					                					<div class="col-sm-8">
+			                              					<select name="bottomRopeTieValue" id="bottomRopeTieValue" class="form-control" style="width: 100%;">
+										                      <option value="1" selected="selected">1</option>
+										                      <option value="2">2</option>
+										                      <option value="3">3</option>
+										                      <option value="4">4</option>
+										                    </select>
+			                              				</div>
+		                          					</div>
+		                          				</div>
+			                				</div>
+			                				<div class="form-group">
+		                          				<label class="col-lg-3 control-label">Velcro Tie :</label>
+		                          				<div class="col-sm-9">
+		                          					<div class="row">
+		                          						<div class="col-sm-4">
+											                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomVelcroTie" class="flat-red" value="1" > Yes</label>
+					                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomVelcroTie" class="flat-red" value="0" checked> No</label>
+					                					</div>
+					                					<div class="col-sm-8">
+			                              					<select name="bottomVelcroTieValue" id="bottomVelcroTieValue" class="form-control" style="width: 100%;">
+										                      <option value="1" selected="selected">1</option>
+										                      <option value="2">2</option>
+										                      <option value="3">3</option>
+										                      <option value="4">4</option>
+										                    </select>
+			                              				</div>
+		                          					</div>
+		                          				</div>
+			                				</div>
+			                				<div class="form-group">
+		                          				<label class="col-lg-3 control-label">B-Lock :</label>
+		                          				<div class="col-sm-9">
+		                          					<div class="row">
+		                          						<div class="col-sm-4">
+											                <label class="checkbox-inline i-checks"> <input type="radio" name="bottomBLock" class="flat-red" value="1" > Yes</label>
+					                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bottomBLock" class="flat-red" value="0" checked> No</label>
+					                					</div>
+					                					<div class="col-sm-8">
+			                              					<select name="bottomBLockValue" id="bottomBLockValue" class="form-control" style="width: 100%;">
+										                      <option value="1" selected="selected">1</option>
+										                      <option value="2">2</option>
+										                      <option value="3">3</option>
+										                      <option value="4">4</option>
+										                    </select>
+			                              				</div>
+		                          					</div>
+		                          				</div>
+			                				</div>
+	                				</div>
+                                </fieldset>
+                                
+                                <h1>Loop</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Type :</label>
+	                              		<div class="col-sm-9">
+							                <select name="bagLoopType" id="bagLoopType" class="form-control" style="width: 100%;">
+						                      <option value="cornerLoop" selected="selected">Corner Loop</option>
+						                      <option value="crossCornerLoop">Cross Corner Loop</option>
+						                    </select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Material :</label>
+	                              		<div class="col-sm-9">
+							                <select name="bagLoopMaterial" id="bagLoopMaterial" class="form-control" style="width: 100%;">
+						                      <option value="" selected="selected">--click to choose--</option>
+						                      <option value="multifilament" >Multifilament Loop</option>
+						                      <option value="fabirilated">Fabrilated</option>
+						                      <option value="pp">PP Loop</option>
+						                      <option value="polyster">Polyster</option>
+						                    </select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Free Loop Height :</label>
+	                              		<div class="col-sm-9">
+							                <input type="text" class="form-control" id="bagFreeLoopHeight" onkeypress="return isNumberKey(event)"  name="bagFreeLoopHeight" placeholder="Enter Loop Height">
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Color :</label>
+	                              		<div class="col-sm-9">
+							                <select id="bagLoopColor" name="bagLoopColor" class="form-control">
+						                      <option selected="selected" value="">No</option>
+						                      <option value="White">White</option>
+						                      <option value="Red">Red</option>
+						                      <option value="Orange">Orange</option>
+						                      <option value="Green">Green</option>
+						                      <option value="Yellow">Yellow</option>
+						                      <option value="Blue">Blue</option>
+						                      <option value="Grey">Grey</option>
+						                      <option value="Other">Other</option>
+						                    </select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Protector :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="bagLoopProtector" value='1' > Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bagLoopProtector" value='0' checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Loop Sewing Type :</label>
+	                              		<div class="col-sm-9">
+							                <select name="bagloopSewingType" id="bagloopSewingType" class="form-control">
+						                      <option value="sewTop" selected="selected">Sewn up to the top</option>
+						                      <option value="unsew5top">Un-Sewing 5 CM from Top</option>
+						                      <option value="unsew10top">Un-Sewing 10 CM From Top</option>
+						                    </select>
+	                					</div>
+                          			</div>
+                                </fieldset>
+                                
+                                <h1>Other A</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Perimeter Band :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="perimeterBend" value="1"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="perimeterBend" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Belly Band :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="bellyBend" value="1"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="bellyBend" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Steevedoor strap :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="steevdoorStrap" value="1"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="steevdoorStrap" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Doc Pouch :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="docPouch" value="1" > Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="docPouch" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<!-- Doc Pouch Type Details -->
+                          				<div class="docPouchTypeDetails">
+                          					<div class="form-group">
+		                                   		<label class="col-lg-3 control-label">Doc Pouch Type :</label>
+			                              		<div class="col-sm-9">
+									                <select name="docPouchType" id="docPouchType" class="form-control" style="width: 100%;">
+								                      <option value="a4portrait" selected="selected">A 4 portrait</option>
+								                      <option value="zipLock">Zip Lock</option>
+								                      <option value="a7portrait">A 7 portrait</option>
+								                      <option value="a8portrait">A 8 portrait</option>
+								                      <option value="a10portrait">A 10 portrait</option>
+								                    </select>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group">
+		                                   		<label class="col-lg-3 control-label">Doc Pouch Detail :</label>
+			                              		<div class="col-sm-9">
+									                <select name="docPouchDetail" id="docPouchDetail" class="form-control" style="width: 100%;">
+								                      <option value="topSeam" selected="selected">Top seam</option>
+								                      <option value="bottomSeam">Bottom Seam</option>
+								                      <option value="centerSeam">Center Seam</option>
+								                    </select>
+			                					</div>
+		                          			</div>
+		                          			<div class="form-group">
+		                                   		<label class="col-lg-3 control-label">Number of Pouch :</label>
+			                              		<div class="col-sm-9">
+									                <input type="text" class="form-control" id="docNumber" onkeypress="return isNumberKey(event)" name="docNumber" placeholder="Enter Number of pouches">
+			                					</div>
+		                          			</div>
+                          				</div>
+                          			<!-- Doc Pouch Type Details -->
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Other Labels :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="otherLabels" class="flat-red" value='1' > Yes</label>
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="otherLabels" class="flat-red" value='0' checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group safetyTitle1">
+                                   		<label class="col-lg-3 control-label">Remarks/Safety Label Title :</label>
+	                              		<div class="col-sm-9">
+							                <input type="text" class="form-control" id="safetyLabelTitle1" name="safetyLabelTitle1" placeholder="Remarks safety label title here">
+	                					</div>
+                          			</div>
+                                </fieldset>
+                                
+                                <h1>Other B</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Printing :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="printing" class="flat-red" value='1'> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="printing" class="flat-red" value='0' checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="printingDetials">
+                          				<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Sides :</label>
+		                              		<div class="col-sm-9">
+								                <select name="prinitngSideValue" id="printingSideValue" class="form-control" style="width: 100%;">
+							                      <option value="1" selected="selected">1 side</option>
+							                      <option value="2">2 side </option>
+							                      <option value="3">3 side</option>
+							                      <option value="4">4 side</option>
+							                    </select>
+		                					</div>
+	                          			</div>
+                          				<div class="form-group">
+	                                   		<label class="col-lg-3 control-label">Printing Colors :</label>
+		                              		<div class="col-sm-9">
+								                <select name="printingColorsCount" id="printingColorsCount" class="form-control" style="width: 100%;">
+							                      <option value="1 Color" selected="selected">1 Color</option>
+							                      <option value="2 Colors">2 Colors</option>
+							                      <option value="3 Colors">3 Colors</option>
+							                      <option value="4 Colors">4 Colors</option>
+							                    </select>
+		                					</div>
+	                          			</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Extra Cleaning :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="extraCleaning" value="1"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="extraCleaning" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Metal Detector :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="metalDetector" value="1"> Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="metalDetector" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Packaging Type :</label>
+	                              		<div class="col-sm-9">
+							                <select name="package" id="package" class="form-control">
+						                      <option value="Pallet" selected="selected">Pallet</option>
+						                      <option value="Bale">Bale</option>
+						                    </select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Liner :</label>
+	                              		<div class="col-sm-9">
+							                <label class="checkbox-inline i-checks"> <input type="radio" name="liner" value="1" > Yes</label> 
+	                                    	<label class="checkbox-inline i-checks"> <input type="radio" name="liner" value="0" checked> No</label>
+	                					</div>
+                          			</div>
+                                </fieldset>
+                                
+                                <h1>Shipment</h1>
+                                <fieldset>
+                                    <div class="form-group">
+                                   		<label class="col-lg-3 control-label">Shipment :</label>
+	                              		<div class="col-sm-9">
+							                <select name="shipmentType" id="shipmentType" class="form-control" style="width: 100%;">
+						                      <option value="fob" selected="selected">Free on Board - FOB</option>
+						                      <option value="cif">Cost Insurance and Freight - CIF</option>
+						                    </select>
+	                					</div>
+                          			</div>
+                          			<div class="form-group">
+                                   		<label class="col-lg-3 control-label">Quantity :</label>
+	                              		<div class="col-sm-9">
+							                <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Enter Quantity">
+	                					</div>
+                          			</div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+
+					<div class="col-md-4">
+	                    <div class="ibox float-e-margins">
+	                        <div class="ibox-title">
+	                            <h5>Bag View</h5>
+	                        </div>
+	                        <div>
+	                            <div class="ibox-content no-padding border-left-right">
+	                                <img alt="image" id="previewProfileImage" class="img-responsive" th:src="@{/img/bag1.jpg}">
+	                            </div>
+	                    	</div>
+	                	</div>
+	                	<!-- <div class="ibox float-e-margins">
+	                        <div class="ibox-title">
+	                            <h5>Bag View</h5>
+	                        </div>
+	                        <div>
+	                            <div class="ibox-content no-padding border-left-right">
+	                                <img alt="image" id="previewProfileImage" class="img-responsive" th:src="@{/img/bag1.jpg}">
+	                            </div>
+	                    	</div>
+	                	</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+       		<div th:replace="/footer :: footer"> </div>
+       </footer>
+			
+       </div>
+     </div>
+	    
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script th:src="@{/js/inspinia.js}"></script>
+    
+    <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+	
+	<!-- Data Table Plugin -->
+	<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+	
+	<!-- Data picker -->
+   <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+   
+   <!-- Chosen -->
+   <script th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>
+   
+   <!-- Validate -->
+   <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+   
+   <!-- Input Mask-->
+   <script th:src="@{/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+   
+   <!-- Toastr script -->
+   <script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+   
+   <!-- Sweet alert -->
+    <script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
+    
+    <!-- Steps -->
+    <script th:src="@{/js/plugins/steps/jquery.steps.min.js}"></script>
+
+    <!-- Jquery Validate -->
+    <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+    
+    <!-- iCheck -->
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+   
+   	<script th:src="@{/js/custom.js}"></script>
+   	
+   	<script th:src="@{/js/template/global/globaltemplate.js}"></script>
+   	
+   	<script th:src="@{/js/master/enquiry-template/enquiry-master-template.js}"></script>
+</body>
+
+<script type="text/javascript">
+
+</script>
+</html>

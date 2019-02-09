@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Simplex | Register</title>
+
+	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <link th:href="@{/css/jquery-ui.min.css}" rel="stylesheet">
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+	
+	<!-- Always keep as last stylesheet file -->
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+
+</head>
+<body class="login-background-image">
+
+    <div class="loginColumns animated fadeInDown">
+        <div class="row">
+
+            <div class="col-md-6 login-article-section">
+                <div>
+                	<div style="margin-left: 25%;">
+                		<img alt="Simplex" class="register-simplex-logo" th:src="@{/img/simplex_logo.png}">
+                	</div>
+                	<p>
+		                Simplex is the most trusted and reliable partner of its Global Customer over the years. 
+		                Our philosophy is not to develop customers to sell our Fibc,s but to build long term partnership to understand each other needs which will enable both organizations to grow together. 
+	                </p>
+	                <p>
+		                We believe what ever we are today in such a short span is because of our customers. 
+		                A youthful company that provides packaging solutions through creative innovations, process effectiveness, customer support and prompt deliveries.
+					</p>
+					<p>
+						The company is recognized as market leader and a preferred partner by all major & global Customers. 
+						This is reflected in the fact that more than 90% of FIBC our production is exported to USA, Europe,Latin America & Africa.
+					</p>
+                </div>
+            </div>
+       		<div class="col-md-6">
+                <div class="ibox-content">    
+		            <h3>Register to Simplex Chemopack</h3>
+		            <p>Create account to use Simplex services.</p>
+		            <form class="m-t" id="registrationForm" role="form" th:action="@{/registration}" method="post" autocomplete="off" th:object="${USER}">
+		                <div class="form-group">
+		                    <input type="text" th:field="*{fullName}" title="Please enter your first name and last name (Eg. John Doe)" class="form-control" placeholder="Name" required="">
+		                </div>
+		                <div class="form-group">
+		                    <input type="text" th:field="*{companyName}" class="form-control" placeholder="Company Name">
+		                </div>
+		                <div class="form-group">
+		                    <input type="text" th:field="*{primaryContactNumber}" class="form-control" data-mask="(999) 999-9999" placeholder="Contact" required="">
+		                </div>
+		                <div class="form-group">
+							<select id="countrySelect" data-placeholder="Choose a Country..."
+								class="chosen-select form-control" th:field="*{country}"
+								tabindex="0" required="">
+								<option value="">Select</option>
+								<option th:each="country : ${COUNTRY_LIST}"
+									th:value="${country.countryId}"
+									th:text="${country.countryName}">
+								</option>
+							</select>
+						</div>
+		                <div class="form-group">
+		                    <input type="email" th:field="*{email}" class="form-control text-lowercase" placeholder="Email" required="">
+		                    <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
+		                </div>
+		                <div class="form-group">
+		                    <input type="password" name="password" th:field="*{password}" class="form-control" placeholder="Password" required="">
+		                </div>
+		                <div class="form-group">
+		                    <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" required="">
+		                </div>
+		                <div class="form-group">
+		                    <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
+		                </div>
+		                <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
+		
+		                <p class="text-muted text-center"><small>Already have an account?</small></p>
+		                <a class="btn btn-sm btn-white btn-block" href="login">Login</a>
+		            </form>
+		          </div>
+		         </div>
+            <p class="m-t"> <small>Design and developed by Nice Software Solutions Pvt. Ltd. &copy; 2019</small> </p>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- iCheck -->
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+    <!-- Input Mask-->
+    <script th:src="@{/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+    <!-- Chosen -->
+   <script th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>
+   <!-- Validate -->
+   <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+   	<!-- Custom JS File -->
+   	<script th:src="@{/js/custom.js}"></script>
+    
+    <script>
+        $(document).ready(function(){
+        	//Chosen Select Autocomplete
+        	$('.chosen-select').chosen({
+        		width: "100%",
+        		max_selected_options: 3
+        	});
+        	
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            
+            //$.validator
+            $.validator.setDefaults({ ignore: ":hidden:not(.chosen-select)" })
+            $.validator.addMethod(
+				        "regex",
+				        function(value, element, regexp) {
+				            var re = new RegExp(regexp);
+				            return this.optional(element) || re.test(value);
+				        },
+				        "Please check your input."
+				);
+            $("#registrationForm").validate({
+            	errorPlacement: function(label, element) {
+                    label.addClass('validator_error_syle');
+                    label.insertAfter(element);
+                    if(element.attr("id") == "countrySelect"){
+                    	label.insertAfter("#countrySelect_chosen");
+                    }
+                },
+                rules: {
+                	fullName: {
+                		required: true,
+                		regex : /^[a-zA-Z]{1,30}[\s,][a-zA-Z]{1,30}$/
+                	},
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 10
+                    },
+                    confirmPassword: {
+                    	required: true,
+                        equalTo: "#password"
+                     }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
