@@ -61,4 +61,19 @@ public class RoleService {
 	public ArrayList<Role> getRoleListExcludingAdminRole() {
 		return roleRepository.findByRoleAbbrNotIn(ROLE.DIR.name());
 	}
+	
+	public ArrayList<Role> getAllEmployeeRoleList() {
+		return (ArrayList<Role>) roleRepository.findByRoleAbbrNotIn(ROLE.DIST.name());
+	}
+	
+	public ArrayList<Role> getAllRoleListExcludingAdminRole() {
+		return roleRepository.findByRoleAbbrNotIn(ROLE.DIR.name());
+	}
+	
+	public ArrayList<Role> getAllEmployeeRoleListExcludingAdminRole() {
+		ArrayList<String> roleExclude = new ArrayList<>();
+		roleExclude.add(ROLE.DIR.name());
+		roleExclude.add(ROLE.DIST.name());
+		return roleRepository.findByRoleAbbrNotIn(roleExclude);
+	}
 }

@@ -50,8 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/noAuth/**").permitAll()	//For Country List in Registration Page
-                .antMatchers("/rest/**").permitAll()	//For REST Service API
                 .antMatchers("/login").permitAll()
+                .antMatchers("/rest/**").permitAll()	//For REST API
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/forgotPassword").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
@@ -73,6 +73,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 	.and()
                 .sessionManagement()
                 	.invalidSessionUrl("/login");
+    	
+    	/*http
+        .csrf().disable()
+        .authorizeRequests()
+        	.anyRequest()
+        		.permitAll()
+        	.and()
+        	.httpBasic()
+        		.disable()
+        .sessionManagement().disable();*/
     }
 
     @Override
@@ -82,6 +92,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**",
                 			"/img/**", "/email_templates/**", "/font-awesome/**", "/fonts/**",
                 			"/LESS/**", "/locales/**", "/pdf/**", "/favicon.ico");
+        
+        //For REST API
+        web
+        	.ignoring()
+        		.antMatchers("/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**",
+        				"/configuration/security/**", "/swagger-ui.html/**", "/webjars/**");
     }
     
     @Bean

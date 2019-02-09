@@ -19,5 +19,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 	ArrayList<Role> findByDept(Department dept);
 	
 	ArrayList<Role> findByRoleAbbrNotIn(String roleAbbr);
+	
+	ArrayList<Role> findByRoleAbbrNotIn(ArrayList<String> roleAbbrList);
 	//AndRoleAbbrNotIn(String roleAbbr);
 }

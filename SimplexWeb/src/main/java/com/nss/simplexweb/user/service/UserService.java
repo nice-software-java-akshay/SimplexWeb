@@ -183,4 +183,55 @@ public class UserService {
 		}
 		return userRepository.save(user);
 	}
+
+	public User findUserByEmailAndPassword(String email, String password) {
+		User user = userRepository.findByEmail(email);
+		if(user != null) {
+			if(bCryptPasswordEncoder.matches(password, user.getPassword())) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+	public boolean checkIfUserExists(User userDetails) {
+		try {
+			if(userRepository.findById(userDetails.getUserId()) != null) {
+				return true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean doesPasswordExist(User existingUser, String password) {
+		if(bCryptPasswordEncoder.matches(password, existingUser.getPassword())) {
+			return true;
+		}
+		return false;
+	}
+
+	public User updatePassword(User existingUser, String password) {
+		User originalUserBean = (User)Utility.deepClone(existingUser);
+		originalUserBean.setPassword(password);
+		
+		existingUser.setIsActive(1);
+		existingUser.setPassword(bCryptPasswordEncoder.encode(password));
+        User savedUser = userRepository.save(existingUser);
+        if(savedUser != null) {
+        	emailController.sendRegistrationEmail(originalUserBean);
+        }
+        return savedUser;
+	}
+
+	public User saveNewEmployee(User user) {
+		if(user.getPassword() == null) {
+			user.setPassword(Utility.generateRandomPassword(8));
+		}
+		user.setIsActive(1);
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setRole(roleRepository.findByRoleId(user.getRole().getRoleId()));		
+        return userRepository.save(user);
+	}
 }
