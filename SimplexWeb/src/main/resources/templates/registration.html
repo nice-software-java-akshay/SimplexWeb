@@ -45,7 +45,8 @@
                 </div>
             </div>
        		<div class="col-md-6">
-                <div class="ibox-content">    
+                <div class="ibox-content">
+                	<h2><span class="text-success" th:utext="${ERROR_MSG}"></span></h2>    
 		            <h3>Register to Simplex Chemopack</h3>
 		            <p>Create account to use Simplex services.</p>
 		            <form class="m-t" id="registrationForm" role="form" th:action="@{/registration}" method="post" autocomplete="off" th:object="${USER}">

@@ -105,6 +105,63 @@ $(document).ready(function(){
 			});
 		}
    	});
+	
+	//Change my Password
+	$('.changemyPasswordBtn').on('click', function(e){
+		e.preventDefault();
+		var $change_my_password_form = $('#sidebarChangeMyPasswordForm');
+		var currentPwd = $change_my_password_form.find("[name='currentPassword']").val();
+		var newPwd = $change_my_password_form.find("[name='newPassword']").val();
+		var confirmPwd = $change_my_password_form.find("[name='confirmPassword']").val();
+		
+		if($change_my_password_form.valid()){
+			$change_my_password_form.submit();
+		}
+	});
+	
+	$.validator.addMethod("notEqual", function(value, element, param) {
+		  return this.optional(element) || value != param;
+	}, "New password can not be equal to current password");
+	
+	$("#sidebarChangeMyPasswordForm").validate({
+    	errorPlacement: function(label, element) {
+            label.addClass('validator_error_syle');
+            label.insertAfter(element);
+        },
+        rules: {
+        	currentPassword:{
+        		required: true,
+        		remote: {
+                    url: contextRoot + "checkIfPasswordExists",
+                    /*success: function(data) {
+                    	debugger
+                        if (data != true)
+                        {
+                            message: {
+                            	currentPassword: 'The password is invalid'
+                            }
+                        }
+                    }*/
+                 }
+        	},        	
+        	newPassword: {
+                required: true,
+                minlength: 6,
+                maxlength: 10,
+                notEqual: function(){return $("#sidebarChangeMyPasswordForm_currentPassword").val()}
+            },
+            confirmPassword: {
+            	required: true,
+                equalTo: "#sidebarChangeMyPasswordForm_newPassword",
+                notEqual: function(){return $("#sidebarChangeMyPasswordForm_currentPassword").val()}
+             }
+        },
+        messages:{
+        	currentPassword: {
+                remote: "The password is invalid"
+            }
+        }
+    });
 
 });
 
@@ -119,19 +176,23 @@ function hideloader() {
 
 /*Set sidebar menu selected*/
 function setNavigation() {
-    var path = window.location.pathname;
-    path = path.replace(/\/$/, "");
-    path = decodeURIComponent(path);
-    
-    $(".nav a").each(function () {
-        var href = $(this).attr('href');
-        if (path.substring(0, href.length) === href) {
-            $(this).closest('li').addClass('active');
-            var $ulEle =  $(this).closest('ul');
-            $ulEle.addClass('in');
-            $ulEle.closest('li').addClass('active');
-        }
-    });
+	try{
+	    var path = window.location.pathname;
+	    path = path.replace(/\/$/, "");
+	    path = decodeURIComponent(path);
+	    
+	    $(".nav a").each(function () {
+	        var href = $(this).attr('href');
+	        if (path.substring(0, href.length) === href) {
+	            $(this).closest('li').addClass('active');
+	            var $ulEle =  $(this).closest('ul');
+	            $ulEle.addClass('in');
+	            $ulEle.closest('li').addClass('active');
+	        }
+	    });
+	}catch (e) {
+		console.log(e);
+	}
 }
 	
 	
@@ -205,6 +266,8 @@ function buildViewForm($viewForm, DATA_MAP, $modalElement){
 				}
 			}else if(elTag == 'textarea'){
 				$el.val(DATA_MAP[key]);
+			}else if(elTag == 'img'){
+				$el.attr('src',DATA_MAP[key]);
 			}
 		}catch (e) {
 			console.log(e);

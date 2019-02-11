@@ -22,13 +22,7 @@
 			                                    <div class="row">
 			                                    	<div class="col-sm-4">
 			                                    		<div class="ibox-content no-padding border-left-right">
-							                                <img alt="image" id="profileImageView" class="img-responsive" th:src="@{/img/profile_big.jpg}">
-							                                <div class="image-preview-mode-div hidden">
-							                                	<span class="preview-mode-label">
-							                            			Preview Mode
-							                            		</span>
-							                                	<img alt="image" id="previewProfileImageView" class="img-responsive" th:src="@{/img/profile_big.jpg}">
-							                                </div>
+							                                <img alt="Profile Picture" id="profileImageView" class="img-responsive" data-fill="image">
 							                            </div>
 			                                    	</div>	
 			                                    	<div class="col-sm-8">
@@ -36,7 +30,7 @@
 			                                    			<div class="col-sm-12">
 			                                    				<div class="form-group">
 							                                    	<label>Full Name</label> 
-							                                    	<input type="text" placeholder="Not Available" class="form-control text-capitalize" data-fill="fullName" readonly="readonly">
+							                                    	<input type="text" placeholder="Not Available" class="form-control text-capitalize " data-fill="fullName" readonly="readonly">
 							                                    </div>
 			                                    			</div>
 			                                    		</div>
@@ -44,13 +38,13 @@
 			                                    			<div class="col-sm-6">
 				                                    			<div class="form-group">
 							                                    	<label>First Name</label> 
-							                                    	<input type="text" placeholder="Not Available" class="form-control text-capitalize" data-fill="firstName" readonly="readonly">
+							                                    	<input type="text" placeholder="Not Available" class="form-control text-capitalize text-no-space" data-fill="firstName" readonly="readonly">
 							                                    </div>
 							                                 </div>
 							                                 <div class="col-sm-6">
 				                                    			<div class="form-group">
 							                                    	<label>Last Name</label> 
-							                                    	<input type="text" placeholder="Not Available" class="form-control text-capitalize" data-fill="lastName" readonly="readonly">
+							                                    	<input type="text" placeholder="Not Available" class="form-control text-capitalize text-no-space" data-fill="lastName" readonly="readonly">
 							                                    </div>
 							                                 </div>
 			                                    		</div>
@@ -92,8 +86,10 @@
 			                                <div class="panel-body">
 			                                	<div class="row">
 			                                		<div class="col-sm-12">
-			                                			<label>Address</label>
-			                                			<textarea rows="2" cols="4" class="form-control text-capitalize" data-fill="address" placeholder="Not Available" readonly="readonly"></textarea>
+			                                			<div class="form-group">
+			                                				<label>Address</label>
+			                                				<textarea rows="2" cols="4" class="form-control text-capitalize" data-fill="address" placeholder="Not Available" readonly="readonly"></textarea>
+			                                			</div>
 			                                		</div>
 			                                	</div>
 			                                	<div class="row">
@@ -107,8 +103,10 @@
 			                                			</div>
 			                                		</div>
 			                                		<div class="col-sm-6">
-			                                			<label>Country</label>
-										                <input type="text" class="form-control" placeholder="Not Available" data-fill="country.countryName" readonly="readonly">
+			                                			<div class="form-group">
+				                                			<label>Country</label>
+											                <input type="text" class="form-control" placeholder="Not Available" data-fill="country.countryName" readonly="readonly">
+											            </div>
 			                                		</div>
 			                                	</div>
 			                                </div>

@@ -30,7 +30,7 @@ public class MasterController {
 	public ModelAndView accessMaster() {
 		ModelAndView mav = new ModelAndView();
     	mav
-    		.addObject(USER.USER_LIST.name(), userService.getAllUsers())
+    		.addObject(USER.USER_LIST.name(), userService.findAllActiveUsersList())
     		.addObject(USER_ACCESS.ACCESS_LIST.name(), userAccessService.getAllAccessList())
     		.addObject(USER_ACCESS.URL_LIST.name(), utility.getEndPoints())
     		.setViewName("SPECIALAccessMaster");
@@ -41,7 +41,7 @@ public class MasterController {
 	public ModelAndView userMaster(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav
-			.addObject(USER.USER_LIST.name(), userService.getAllUsers())
+			.addObject(USER.USER_LIST.name(), userService.findAllActiveUsersList())
 			.setViewName("SPECIALUserMaster");
 		return mav;
 	}

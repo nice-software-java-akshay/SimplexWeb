@@ -2,7 +2,16 @@
  * http://usejsdoc.org/
  */
 $(document).ready(function(){
+	//Compulsory first line should be buildNavPath **
+	buildNavPath({'Home':'user/home', 'Master':'#', 'Distributer Master':'#'});
+	
 	toastr.options = TOASTER_OPTIONS;
+	
+	/*chosen-select*/
+	$('.chosen-select').chosen({
+		width: "100%",
+		max_selected_options: 3
+	});
 	
 	$('.dataTables-example').DataTable({
         pageLength: 25,
@@ -189,7 +198,8 @@ $(document).ready(function(){
 		            		'companyName':data.companyName,
 		            		'address':data.address,
 		            		'dob':data.dob,
-		            		'country.countryName':data.country.countryName
+		            		'country.countryName':data.country.countryName,
+		            		'image':contextRoot + 'profile/getMyProfilePictureByUserId?userId=' + data.userId
 		               };
 		               var $viewDistributerForm = $('#viewDistributerForm');
 		               var $viewDistributerModal = $('#viewDistributerModal');

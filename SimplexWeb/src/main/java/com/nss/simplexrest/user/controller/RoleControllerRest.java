@@ -39,7 +39,7 @@ public class RoleControllerRest {
 	}
 	
 	//Get Roles List Under Employee
-	@GetMapping("/getRoleListForEmployee/{userId}")
+	/*@GetMapping("/getRoleListForEmployee/{userId}")
 	@ApiOperation(value = "User Id is required"
 	, notes = "Returns the role list for the given user Id")
 	public List<Role> getRoleList(@NonNull @PathVariable long userId){
@@ -53,5 +53,5 @@ public class RoleControllerRest {
 		}else {
 			return roleService.getAllEmployeeRoleListExcludingAdminRole();
 		}
-	}
+	}*/
 }

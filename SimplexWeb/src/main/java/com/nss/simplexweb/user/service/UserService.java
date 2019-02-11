@@ -4,23 +4,30 @@ import java.util.ArrayList;
 
 import javax.validation.Valid;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nss.simplexweb.enums.ROLE;
 import com.nss.simplexweb.user.model.Role;
 import com.nss.simplexweb.user.model.User;
 import com.nss.simplexweb.user.repository.RoleRepository;
 import com.nss.simplexweb.user.repository.UserRepository;
+import com.nss.simplexweb.user.service.intf.UserServiceInterface;
 import com.nss.simplexweb.utility.Utility;
 import com.nss.simplexweb.utility.mail.EmailController;
 
 @Service("userService")
-public class UserService {
+public class UserService implements UserServiceInterface {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private DistributerService distributerService;
 	
 	@Autowired
 	private RoleRepository roleRepository;
@@ -34,6 +41,9 @@ public class UserService {
 	@Autowired
 	private EmailController emailController;
 	
+	@Value("${file.user.profile.image}")
+	private String UPLOADED_FOLDER_PATH;
+	
 	@Autowired
 	public UserService(UserRepository userRepository,
 			RoleRepository roleRepository,
@@ -41,43 +51,6 @@ public class UserService {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-	}
-	
-	public User findUserByEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
-	
-	public User saveDistributer(User user) {
-		User originalUserBean = (User)Utility.deepClone(user);
-		
-		if(user.getPassword() == null) {
-			user.setPassword(Utility.generateRandomPassword(8));
-			originalUserBean.setPassword(user.getPassword());
-		}
-		user.setIsActive(1);
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setRole(predictRoleAbbrByCompanyName(user.getCompanyName()));		
-        User savedUser =  userRepository.save(user);
-        
-        //Send registration mail
-        if(savedUser != null) {
-        	emailController.sendRegistrationEmail(originalUserBean);
-        }
-        
-        return savedUser;
-    }
-	
-	public User saveEmployee(User user) {
-		User originalUserBean = (User)Utility.deepClone(user);
-		
-		if(user.getPassword() == null) {
-			user.setPassword(Utility.generateRandomPassword(8));
-			originalUserBean.setPassword(user.getPassword());
-		}
-		user.setIsActive(1);
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setRole(roleRepository.findByRoleId(user.getRole().getRoleId()));		
-        return userRepository.save(user);
 	}
 	
 	private Role predictRoleAbbrByCompanyName(String companyName) {
@@ -94,6 +67,117 @@ public class UserService {
 		return roleRepository.findByRoleAbbr(roleAbbr);
 	}
 
+	public void uploadMyProfilePictureDistributer(MultipartFile file, User currentUser) {
+		//Set values to file attr
+		//String UPLOADED_FOLDER_PATH = currentUser.getProfilePicFolderpath();
+		String UPLOAD_FILE_NAME = currentUser.getFullName()
+									.replaceAll("\\s", "_").concat("_")
+									.concat(Utility.generateRandomPassword(10))
+									.concat('.' + FilenameUtils.getExtension(file.getOriginalFilename()));
+		
+		//Set value to user bean
+		currentUser.setProfilePicFolderpath(UPLOADED_FOLDER_PATH);
+		currentUser.setProfilePicFilename(UPLOAD_FILE_NAME);
+		
+		//Save
+		Utility.singleFileUpload(file, UPLOADED_FOLDER_PATH, UPLOAD_FILE_NAME);
+		distributerService.updateMyProfilePictureDistributer(currentUser);
+	}
+
+	@Override
+	public User findUserByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUserId(userId);
+	}
+
+	@Override
+	public User findUserByEmailId(String emailId) {
+		// TODO Auto-generated method stub
+		return userRepository.findByEmail(emailId);
+	}
+	
+	@Override
+	public User findUserByEmailIdAndIsActive(String emailId) {
+		// TODO Auto-generated method stub
+		return userRepository.findByEmailAndIsActive(emailId, 1);
+	}
+	
+	@Override
+	public boolean checkIfUserExistsByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		if(userRepository.findByUserId(userId) != null) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean checkIfUserExistsByEmailId(String emailId) {
+		// TODO Auto-generated method stub
+		if(userRepository.findByEmail(emailId) != null) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public User findUserByEmailIdAndNonEncrPassword(String emailId, String password) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findByEmailAndIsActive(emailId, 1);
+		if (user != null) {
+			if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public User findUserByEmailIdAndEncrPassword(String emailId, String password) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findByEmailAndPasswordAndIsActive(emailId, password, 1);
+		if (user != null) {
+			return user;
+		}
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> findAllActiveUsersList() {
+		// TODO Auto-generated method stub
+		return userRepository.findByIsActive(1);
+	}
+
+	@Override
+	public ArrayList<User> findAllInActiveUsersList() {
+		// TODO Auto-generated method stub
+		return userRepository.findByIsActive(0);
+	}
+
+	@Override
+	public User deleteUserById(Long userId) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findByUserId(userId);
+		if (user != null) {
+			userRepository.deleteById(userId);
+		}
+		return user;
+	}
+
+	@Override
+	public User inactivateUserById(Long userId) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findByUserId(userId);
+		if (user != null) {
+			user.setIsActive(0);
+			return userRepository.save(user);
+		}
+		return null;
+	}
+
+	
+	//Utility
+	@Override
 	public @Valid User processUseNameBeforeSaving(@Valid User user) {
 		String userFullName  = user.getFullName();
 		String[] names = userFullName.split("\\s+");
@@ -109,131 +193,42 @@ public class UserService {
 		return user;
 	}
 
-	public ArrayList<User> getAllUsers() {
-		ArrayList<User> userList = (ArrayList<User>) userRepository.findAll();
-		return userList;
-	}
-
-	//Role Level Hierarchy
-	public ArrayList<User> getAllEmployeesUnderMe(long roleId) {
-		ArrayList<User> userList = null;
-		ArrayList<Role> childRoles = roleService.getAllLevelChildRolesById(roleId);
-		System.out.println("childRoles : " + childRoles);
-		if(childRoles != null) {
-			for(Role role : childRoles) {
-				if(userList == null)
-					userList = new ArrayList<>();
-				userList.addAll(userRepository.findByRoleAndEmpIdIsNotNull(role));
-			}
-		}
-		return userList;
-	}
-	
-	//User Level Hierarchy
-	public ArrayList<User> getAllUsersImmediatelyUnderMe(long currentUserId) {
-		return null;
-	}
-
-	public User findUserByUserId(long userId) {
-		return userRepository.findByUserId(userId);
-	}
-
-	public User updateEmployee(User user) {
-		User oldUserData = userRepository.findByUserId(user.getUserId());
+	public User resetUserPassword(User user) {
 		user.setIsActive(1);
-		if (user.getPassword() == null) {
-		    user.setPassword(oldUserData.getPassword());
-		}else if(bCryptPasswordEncoder.matches(oldUserData.getPassword(), user.getPassword())){
-			user.setPassword(oldUserData.getPassword());
-		}else {
-			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		}
+		
+		User clonedUser = (User) Utility.deepClone(user);
+		clonedUser.setPassword(Utility.generateRandomPassword(8));
+		user.setPassword(bCryptPasswordEncoder.encode(clonedUser.getPassword()));
+
+		emailController.sendRegistrationEmail(clonedUser);
 		return userRepository.save(user);
 	}
 
-	public Object getAllDistributersList() {
-		return userRepository.findByRoleAndEmpIdIsNull(roleRepository.findByRoleAbbr(ROLE.DIST.name()));
+	@Override
+	public ArrayList<User> findAllActiveInactiveUsersList() {
+		// TODO Auto-generated method stub
+		return (ArrayList<User>) userRepository.findAll();
 	}
 
-	public User getUserById(Long userId) {
-		return userRepository.findByUserId(userId);
-	}
-
-	public void emailNewPassword(User userExists) {
-		
-	}
-	
-	public User deleteUser(Long userid) {
-		User user = userRepository.findByUserId(userid);
-		if(user != null) {
-			userRepository.deleteById(userid);
-		}
-		return user;
-	}
-
-	public User updateDistributer(User user) {
-		User oldUserData = userRepository.findByUserId(user.getUserId());
-		user.setIsActive(1);
-		user.setRole(roleService.getRoleByRoleAbbr(ROLE.DIST.name()));
-		
-		if (user.getPassword() == null) {
-		    user.setPassword(oldUserData.getPassword());
-		}else if(bCryptPasswordEncoder.matches(oldUserData.getPassword(), user.getPassword())){
-			user.setPassword(oldUserData.getPassword());
-		}else {
-			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		}
-		return userRepository.save(user);
-	}
-
-	public User findUserByEmailAndPassword(String email, String password) {
-		User user = userRepository.findByEmail(email);
-		if(user != null) {
-			if(bCryptPasswordEncoder.matches(password, user.getPassword())) {
-				return user;
-			}
-		}
-		return null;
-	}
-
-	public boolean checkIfUserExists(User userDetails) {
-		try {
-			if(userRepository.findById(userDetails.getUserId()) != null) {
-				return true;
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	public boolean doesPasswordExist(User existingUser, String password) {
-		if(bCryptPasswordEncoder.matches(password, existingUser.getPassword())) {
+	@Override
+	public boolean checkIfPasswordExists(User user, String password) {
+		if(bCryptPasswordEncoder.matches(password, user.getPassword())) {
 			return true;
+		}else {
+			return false;
 		}
-		return false;
 	}
 
-	public User updatePassword(User existingUser, String password) {
-		User originalUserBean = (User)Utility.deepClone(existingUser);
-		originalUserBean.setPassword(password);
-		
-		existingUser.setIsActive(1);
-		existingUser.setPassword(bCryptPasswordEncoder.encode(password));
-        User savedUser = userRepository.save(existingUser);
-        if(savedUser != null) {
-        	emailController.sendRegistrationEmail(originalUserBean);
-        }
-        return savedUser;
-	}
-
-	public User saveNewEmployee(User user) {
-		if(user.getPassword() == null) {
-			user.setPassword(Utility.generateRandomPassword(8));
-		}
+	@Override
+	public User changeUserPassword(User user, String newPassword) {
 		user.setIsActive(1);
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setRole(roleRepository.findByRoleId(user.getRole().getRoleId()));		
-        return userRepository.save(user);
+		
+		User clonedUser = (User) Utility.deepClone(user);
+		clonedUser.setPassword(newPassword);
+		user.setPassword(bCryptPasswordEncoder.encode(clonedUser.getPassword()));
+
+		emailController.sendRegistrationEmail(clonedUser);
+		return userRepository.save(user);
 	}
+	
 }

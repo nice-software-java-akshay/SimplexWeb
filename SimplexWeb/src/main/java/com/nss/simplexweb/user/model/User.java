@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,10 +41,10 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id")
-	private long userId;
+	private Long userId;
 	
 	@Column(name="emp_id", unique=true)
-	private String empId;
+	private Long empId;
 	
 	@Column(name="doj")
 	private String doj;
@@ -80,7 +82,7 @@ public class User implements Serializable{
 	private String dob;
 	
 	@Column(name="managerId")
-	private long managerId;
+	private Long managerId;
 	
 	@Column(name="esic_no")
 	private String esicNum;
@@ -108,6 +110,12 @@ public class User implements Serializable{
 	@JoinColumn(name="country_id")
 	private Country country;
 	
-	@OneToMany(mappedBy = "partner")
+	@OneToMany(mappedBy = "partner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<PaymentTermPartnerRel> paymentTermPartnerRel;
+	
+	@Column(name="profile_pic_folderpath")
+	private String profilePicFolderpath;
+	
+	@Column(name="profile_pic_filename", unique=true)
+	private String profilePicFilename;
 }

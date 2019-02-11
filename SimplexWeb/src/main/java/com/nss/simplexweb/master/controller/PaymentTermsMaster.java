@@ -19,6 +19,7 @@ import com.nss.simplexweb.enums.USER;
 import com.nss.simplexweb.paymentterm.service.PaymentTermsService;
 import com.nss.simplexweb.po.model.PaymentTerms;
 import com.nss.simplexweb.user.model.User;
+import com.nss.simplexweb.user.service.DistributerService;
 import com.nss.simplexweb.user.service.UserService;
 
 @Controller
@@ -27,6 +28,9 @@ public class PaymentTermsMaster {
 	
 	@Autowired
 	private PaymentTermsService paymentTermsService;
+	
+	@Autowired
+	private DistributerService distributerService;
 	
 	@Autowired
 	private UserService userService;
@@ -66,7 +70,7 @@ public class PaymentTermsMaster {
 		mav
 			.addObject(USER.USER.name(), new User())
 			.addObject(PAYMENT_TERMS.PYAMENT_TERMS_LIST.name(), paymentTermsService.getActivePaymentTermsList())
-			.addObject(USER.USER_LIST.name(), userService.getAllDistributersList())
+			.addObject(USER.USER_LIST.name(), distributerService.findAllActiveDistributersList())
 			.setViewName("master/payment-terms/assign_payment_terms_to_partners");
 		
 		return mav;

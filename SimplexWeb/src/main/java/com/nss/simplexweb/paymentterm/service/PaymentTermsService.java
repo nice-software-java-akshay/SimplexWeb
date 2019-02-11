@@ -54,7 +54,7 @@ public class PaymentTermsService {
 	}
 
 	public ArrayList<PaymentTermPartnerRel> getPaymentTermsListByPartnerId(Long partnerId) {
-		return paymentTermPartnerRelRepository.findByPartner(userService.getUserById(partnerId));
+		return paymentTermPartnerRelRepository.findByPartner(userService.findUserByUserId(partnerId));
 	}
 	
 }

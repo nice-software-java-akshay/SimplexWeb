@@ -26,6 +26,7 @@ import com.nss.simplexweb.enums.USER;
 import com.nss.simplexweb.user.model.Role;
 import com.nss.simplexweb.user.model.User;
 import com.nss.simplexweb.user.service.CountryService;
+import com.nss.simplexweb.user.service.EmployeeService;
 import com.nss.simplexweb.user.service.RoleService;
 import com.nss.simplexweb.user.service.UserService;
 
@@ -35,6 +36,9 @@ public class EmployeeMasterController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private EmployeeService employeeService;
 	
 	@Autowired
 	private RoleService roleService;
@@ -54,7 +58,7 @@ public class EmployeeMasterController {
 			roleList = roleService.getRoleListExcludingAdminRole();
 		}
 		mav
-			.addObject(USER.EMP_LIST.name(), userService.getAllEmployeesUnderMe(user.getRole().getRoleId()))
+			.addObject(USER.EMP_LIST.name(), employeeService.findAllllEmployeesUnderRoleId(user.getRole().getRoleId()))
 			.addObject(USER.USER.name(), new User())
 			.addObject(ROLE.ROLE_LIST.name(), roleList)
 			.addObject(COUNTRY.COUNTRY_LIST.name(), countryService.getAllCountryList())
@@ -73,7 +77,7 @@ public class EmployeeMasterController {
 		}else {
 			roleList = roleService.getRoleListExcludingAdminRole();
 		}
-		User userExists = userService.findUserByEmail(user.getEmail());
+		User userExists = userService.findUserByEmailId(user.getEmail());
         if (userExists != null) {
         	System.out.println("user exists");
             bindingResult
@@ -83,18 +87,18 @@ public class EmployeeMasterController {
         if (bindingResult.hasErrors()) {
         	mav
         		.addObject(USER.USER.name(), new User())
-        		.addObject(USER.EMP_LIST.name(), userService.getAllEmployeesUnderMe(currentUser.getRole().getRoleId()))
+        		.addObject(USER.EMP_LIST.name(), employeeService.findAllllEmployeesUnderRoleId(user.getRole().getRoleId()))
     			.addObject(USER.USER.name(), new User())
     			.addObject(ROLE.ROLE_LIST.name(), roleService.getAllRoleList())
     			.addObject(COUNTRY.COUNTRY_LIST.name(), countryService.getAllCountryList())
     			.setViewName("master/employeeMaster");
         } else {
         	user = userService.processUseNameBeforeSaving(user);
-            userService.saveEmployee(user);
+            employeeService.saveNewEmployeeAutoGeneratePassword(user);
             mav
             	.addObject(PROJECT.SUCCESS_MSG.name(), "User has been saved successfully")
             	.addObject(USER.USER.name(), new User())
-        		.addObject(USER.EMP_LIST.name(), userService.getAllEmployeesUnderMe(currentUser.getRole().getRoleId()))
+        		.addObject(USER.EMP_LIST.name(), employeeService.findAllllEmployeesUnderRoleId(user.getRole().getRoleId()))
     			.addObject(USER.USER.name(), new User())
     			.addObject(ROLE.ROLE_LIST.name(), roleList)
     			.addObject(COUNTRY.COUNTRY_LIST.name(), countryService.getAllCountryList())
@@ -108,7 +112,7 @@ public class EmployeeMasterController {
 	@RequestMapping(value = "/getEmployeeDetailsById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Map<String, Object> getEmployeeDetailsModal(@RequestParam("userid") Long userId) {
 		HashMap<String, Object> map = new HashMap<>();
-		map.put(EMPLOYEE.EMPLOYEE.name(), userService.getUserById(userId)); 
+		map.put(EMPLOYEE.EMPLOYEE.name(), userService.findUserByUserId(userId)); 
 		return map;
 	}
  	
@@ -133,7 +137,7 @@ public class EmployeeMasterController {
 	
 	@RequestMapping(value = "/updateEmployee", method = RequestMethod.POST)
 	public @ResponseBody String saveEditedEmployee(User user, ModelMap map) {
-        User updatedUser = userService.updateEmployee(user);
+        User updatedUser = employeeService.updateEmlpoyeeWithoutPassword(user);
         map
         	.addAttribute(PROJECT.SUCCESS_MSG.name(), "User has been updated successfully")
         	.addAttribute(USER.USER.name(), updatedUser);
@@ -143,7 +147,7 @@ public class EmployeeMasterController {
 	
 	@RequestMapping(value = "/deleteEmployee", method = RequestMethod.GET)
 	public @ResponseBody String deleteEmployee(Long userid, ModelMap map) {
-        User deletedUser = userService.deleteUser(userid);
+        User deletedUser = employeeService.inActivateEmployeeById(userid);
         map
         	.addAttribute(PROJECT.SUCCESS_MSG.name(), "User has been updated successfully")
         	.addAttribute(USER.USER.name(), deletedUser);

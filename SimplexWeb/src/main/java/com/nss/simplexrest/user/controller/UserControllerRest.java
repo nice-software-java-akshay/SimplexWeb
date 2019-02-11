@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nss.simplexrest.custom.exception.AlreadyExistsException;
 import com.nss.simplexrest.custom.exception.NotFoundException;
 import com.nss.simplexweb.user.model.User;
+import com.nss.simplexweb.user.service.DistributerService;
 import com.nss.simplexweb.user.service.UserService;
 import com.nss.simplexweb.utility.Utility;
 
@@ -32,14 +33,17 @@ public class UserControllerRest {
 
 	@Autowired
     private UserService userService;
+	
+	@Autowired
+    private DistributerService distributerService;
 
     @PostMapping(value="/login")
     @ApiOperation(value = "Returns user details to be persist in application scope"
     			, notes = "User model needs be sent for authentication")
     public User login(@RequestBody User user){
     	System.out.println("user : " + user);
-        User userDetails = userService.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
-    		if(!userService.checkIfUserExists(userDetails)) {
+        User userDetails = userService.findUserByEmailIdAndNonEncrPassword(user.getEmail(), user.getPassword());
+    		if(!userService.checkIfUserExistsByUserId(userDetails.getUserId())) {
     			throw new NotFoundException("User", "email : " + user.getEmail(), null);
     		}
     		
@@ -49,7 +53,7 @@ public class UserControllerRest {
     
     @PostMapping(value = "/registration")
     public User registerDistributer(@RequestBody @Valid User user, BindingResult bindingResult) {
-        User userExists = userService.findUserByEmail(user.getEmail());
+        User userExists = userService.findUserByEmailId(user.getEmail());
         if (userExists != null) {
             bindingResult
                     .rejectValue("email", "error.user",
@@ -59,7 +63,7 @@ public class UserControllerRest {
         	throw new AlreadyExistsException("User", "email : " + user.getEmail(), null);
         } else {
         	user = userService.processUseNameBeforeSaving(user);
-            user = userService.saveDistributer(user);
+            user = distributerService.saveNewDistributerWithoutAutoGeneratePassword(user);
         }
         return user;
     }
@@ -67,7 +71,7 @@ public class UserControllerRest {
     
     @GetMapping(value="/getAllUsersList")
     public ArrayList<User> getAllUsersList() {
-    	return userService.getAllUsers();
+    	return userService.findAllActiveUsersList();
     }
     
     @GetMapping(value="/getUserProfileDetails/{userId}")
@@ -79,7 +83,7 @@ public class UserControllerRest {
         return user;
     }
     
-    @GetMapping(value="/getEmployeesUnderUser/{userId}")
+    /*@GetMapping(value="/getEmployeesUnderUser/{userId}")
     public ArrayList<User> getEmployeesUnderUser(@NonNull @PathVariable("userId") Long userId) {
     	return userService.getAllUsersImmediatelyUnderMe(userId);
     }
@@ -145,5 +149,5 @@ public class UserControllerRest {
     	if (!userService.checkIfUserExists(existingUser))
     		throw new NotFoundException("User", "Email : " + email, null);
     	return userService.updatePassword(existingUser, Utility.generateRandomPassword(8));
-    }
+    }*/
 }

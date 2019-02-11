@@ -43,22 +43,24 @@
 	                <div class="col-md-4">
 	                    <div class="ibox float-e-margins">
 	                        <div class="ibox-title">
-	                            <h5>Profile</h5>
+	                            <h5>Profile Picture</h5>
 	                            <div class="ibox-tools">
-	                            	<a>
-		                                <label title="Upload image file" for="inputImage" style="cursor: pointer;">
-		                                    <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
-		                                    <i class="fa fa-pencil"></i>
-		                                </label>
-		                            </a>
-	                                <a title="Set As Profile Picture">
-	                                    <i class="fa fa-check "></i>
-	                                </a>
+	                            	<form id="submitNewProfilePicForm" method="POST" th:action="@{/profile/uploadMyProfilePicture}" enctype="multipart/form-data">
+		                            	<a>
+			                                <label title="Upload image file" for="inputImage" style="cursor: pointer;">
+			                                   <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
+			                                   <i class="fa fa-pencil"></i>
+			                                </label>
+			                            </a>
+		                                <a title="Set As Profile Picture" class="set-as-profile-pic-check-btn" style="display: none;">
+		                                    <i class="fa fa-check  text-navy"></i>
+		                                </a>
+		                             </form>
 	                            </div>
 	                        </div>
 	                        <div>
 	                            <div class="ibox-content no-padding border-left-right">
-	                                <img alt="image" id="profileImage" class="img-responsive" th:src="@{/img/profile_big.jpg}">
+	                                <img alt="image" id="profileImage" class="img-responsive" th:src="@{'/profile/getMyProfilePictureByUserId?userId=' + ${session.USER.userId}}">
 	                                <div class="image-preview-mode-div hidden">
 	                                	<span class="preview-mode-label">
 	                            			Preview Mode
@@ -103,13 +105,13 @@
 			                                    			<div class="col-sm-6">
 				                                    			<div class="form-group">
 							                                    	<label class="required">First Name</label> 
-							                                    	<input type="text" th:field="*{firstName}" data-fill="firstName" placeholder="First Name" class="form-control text-capitalize text-no-space" required="required" >
+							                                    	<input type="text" th:field="*{firstName}" data-fill="firstName" placeholder="First Name" class="form-control text-capitalize text-no-space" required="required">
 							                                    </div>
 							                                 </div>
 							                                 <div class="col-sm-6">
 				                                    			<div class="form-group">
 							                                    	<label class="required">Last Name</label> 
-							                                    	<input type="text" th:field="*{lastName}" data-fill="lastName" placeholder="Last Name" class="form-control text-capitalize text-no-space" required="required" >
+							                                    	<input type="text" th:field="*{lastName}" data-fill="lastName" placeholder="Last Name" class="form-control text-capitalize text-no-space" required="required">
 							                                    </div>
 							                                 </div>
 			                                    		</div>
@@ -131,7 +133,7 @@
 			                                    			<div class="col-sm-12">
 			                                    				<div class="form-group">
 							                                    	<label class="required">Email</label> 
-							                                    	<input type="text" th:field="*{email}"  data-fill="email" placeholder="Email ID" class="form-control" required="required">
+							                                    	<input type="text" th:field="*{email}"  data-fill="email" placeholder="Email ID" class="form-control" required="required" readonly="readonly">
 							                                    </div>
 			                                    			</div>
 			                                    		</div>
@@ -151,8 +153,10 @@
 			                                <div class="panel-body">
 			                                	<div class="row">
 			                                		<div class="col-sm-12">
-			                                			<label>Address</label>
-			                                			<textarea th:field="*{address}" data-fill="address" rows="2" cols="4" class="form-control text-capitalize"  placeholder="Address"></textarea>
+			                                			<div class="form-group">
+			                                				<label>Address</label>
+			                                				<textarea th:field="*{address}" data-fill="address" rows="2" cols="4" class="form-control text-capitalize"  placeholder="Address"></textarea>
+			                                			</div>
 			                                		</div>
 			                                	</div>
 			                                	<div class="row">
@@ -166,15 +170,17 @@
 			                                			</div>
 			                                		</div>
 			                                		<div class="col-sm-6">
-			                                			<label class="required">Country</label>
-										                <select id="countrySelectEdit" th:field="*{country}" data-placeholder="Choose a Country..." 
-										                data-fill="country.countryId" tabindex="1" required="" class="chosen-select form-control"  >
-											                <option value="">Select</option>
-											                <option th:each="country : ${COUNTRY_LIST}"
-											                		th:value="${country.countryId}"
-											                		th:text="${country.countryName}">
-											                </option>
-										                </select>
+		                                				<div class="form-group">
+				                                			<label class="required">Country</label>
+											                <select id="countrySelectEdit" th:field="*{country}" data-placeholder="Choose a Country..." 
+											                data-fill="country.countryId" tabindex="1" required="" class="chosen-select form-control"  >
+												                <option value="">Select</option>
+												                <option th:each="country : ${COUNTRY_LIST}"
+												                		th:value="${country.countryId}"
+												                		th:text="${country.countryName}">
+												                </option>
+											                </select>
+											            </div>
 				                                	</div>
 				                                </div>
 				                            </div>

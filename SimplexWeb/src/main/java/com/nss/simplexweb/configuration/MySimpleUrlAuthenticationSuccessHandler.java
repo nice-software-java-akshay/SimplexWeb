@@ -33,7 +33,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		System.out.println("onAuthenticationSuccess");
-		User user = userService.findUserByEmail(authentication.getName());
+		User user = userService.findUserByEmailIdAndIsActive(authentication.getName());
 		MainCompany company = mainComapnyService.getMainComapnyInfo();
 		
 		System.out.println("company : " + company);
