@@ -1,0 +1,33 @@
+<div th:fragment="newShipmentTermModal">
+<!-- New Shipment Term Modal -->
+        <div class="modal inmodal fade reset-on-hide" id="newShipmentTermModal" tabindex="-1" role="dialog"  aria-hidden="true" data-modal-type="" data-reset-on-close="true">
+	        <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+		            <form class="m-t" id="newShipmentTermForm" role="form" th:action="@{/master/shipmentTermsMaster/saveNewShipmentTerm}" autocomplete="off" th:object="${SHIPMENT_TERMS}" method="POST">
+		                <input type="hidden" th:name="shipmentTermId" th:id="shipmentTermId">
+		                <div class="modal-header">
+		                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		                    <h4 class="modal-title">New Shipment Term</h4>
+		                    <small class="font-bold modal-subtitle">Add shipment terms details</small>
+		                </div>
+		                
+		                <div class="modal-body">
+		                	<div class="form-group">
+                            	<label class="required">Name</label> 
+                            	<input type="text" th:field="*{shipmentTermName}" data-fill="fullName" placeholder="Eg: Container" class="form-control text-capitalize" required="required">
+                            </div>
+                            <div class="form-group">
+                            	<label class="required">Description</label> 
+                            	<textarea rows="" cols="" th:field="*{shipmentTermDesc}" data-fill="fullName" placeholder="Shipment Terms Description" class="form-control text-capitalize" required="required"></textarea>
+                            </div>
+		                </div>
+		
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-white btn-sm" data-dismiss="modal">Close</button>
+		                    <button type="submit" class="btn btn-primary btn-sm saveShipmentTermBtn">Save</button>
+		                </div>
+		            </form>
+	            </div>
+	        </div>
+	    </div>
+</div>
