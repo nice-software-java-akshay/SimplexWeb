@@ -13,5 +13,4 @@ public interface PaymentTermsRepository extends JpaRepository<PaymentTerms, Long
 	ArrayList<PaymentTerms> findByIsActive(int isActive);
 	
 	PaymentTerms findByPaymentTermId(Long paymentTermId);
-	
 }

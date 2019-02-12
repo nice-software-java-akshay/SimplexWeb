@@ -1,6 +1,7 @@
 package com.nss.simplexweb.paymentterm.service;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.nss.simplexweb.paymentterm.model.PaymentTermPartnerRel;
 import com.nss.simplexweb.paymentterm.repository.PaymentTermPartnerRelRepository;
 import com.nss.simplexweb.paymentterm.repository.PaymentTermsRepository;
 import com.nss.simplexweb.po.model.PaymentTerms;
+import com.nss.simplexweb.user.model.User;
 import com.nss.simplexweb.user.service.UserService;
 
 @Service("paymentTermsService")
@@ -55,6 +57,24 @@ public class PaymentTermsService {
 
 	public ArrayList<PaymentTermPartnerRel> getPaymentTermsListByPartnerId(Long partnerId) {
 		return paymentTermPartnerRelRepository.findByPartner(userService.findUserByUserId(partnerId));
+	}
+
+	public String savePaymentTermsForDistributer(User user, ArrayList<PaymentTerms> paymentTermsList) {
+		String retMsg = PROJECT.ERROR_MSG.name();
+		try {
+			paymentTermPartnerRelRepository.deleteByPartner(user);
+			if(paymentTermsList != null) {
+				for(PaymentTerms paymentTerms : paymentTermsList) {
+					PaymentTermPartnerRel paymentTermPartnerRel = new PaymentTermPartnerRel();
+					paymentTermPartnerRel.setPartner(user);
+					paymentTermPartnerRel.setPaymentTerms(paymentTerms);
+					paymentTermPartnerRelRepository.save(paymentTermPartnerRel);
+				}
+			}
+		}catch (Exception e) {
+			retMsg = PROJECT.ERROR_MSG.name();
+		}
+		return retMsg;
 	}
 	
 }

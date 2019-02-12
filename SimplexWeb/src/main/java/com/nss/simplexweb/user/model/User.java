@@ -110,8 +110,8 @@ public class User implements Serializable{
 	@JoinColumn(name="country_id")
 	private Country country;
 	
-	@OneToMany(mappedBy = "partner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    Set<PaymentTermPartnerRel> paymentTermPartnerRel;
+	/*@OneToMany(mappedBy = "partner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<PaymentTermPartnerRel> paymentTermPartnerRel;*/
 	
 	@Column(name="profile_pic_folderpath")
 	private String profilePicFolderpath;

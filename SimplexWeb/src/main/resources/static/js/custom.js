@@ -183,11 +183,13 @@ function setNavigation() {
 	    
 	    $(".nav a").each(function () {
 	        var href = $(this).attr('href');
-	        if (path.substring(0, href.length) === href) {
-	            $(this).closest('li').addClass('active');
-	            var $ulEle =  $(this).closest('ul');
-	            $ulEle.addClass('in');
-	            $ulEle.closest('li').addClass('active');
+	        if(href != undefined && href != 'undefined'){
+		        if (path.substring(0, href.length) === href) {
+		            $(this).closest('li').addClass('active');
+		            var $ulEle =  $(this).closest('ul');
+		            $ulEle.addClass('in');
+		            $ulEle.closest('li').addClass('active');
+		        }
 	        }
 	    });
 	}catch (e) {

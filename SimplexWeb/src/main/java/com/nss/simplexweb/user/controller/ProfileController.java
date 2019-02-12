@@ -115,15 +115,29 @@ public class ProfileController {
     @RequestMapping(value = "/getMyProfilePictureByUserId")
     @ResponseBody
     public byte[] getImage(@RequestParam("userId") Long userId) throws IOException {
-    	User user = userService.findUserByUserId(userId);
-    	String filepath = user.getProfilePicFolderpath()+ File.separator + user.getProfilePicFilename();
-    	
-    	File file = new File(filepath);
-    	if(file.exists() && file.isFile()) {
-    		return Files.readAllBytes(file.toPath());
-    	}else {
-    		Resource fileResource = resourceLoader.getResource("classpath:static/img/default_profile_img.jpg");
-    		return Files.readAllBytes(fileResource.getFile().toPath());
-    	}        
+    	try {
+	    	User user = userService.findUserByUserId(userId);
+	    	String filepath = null;
+	    	if(user.getProfilePicFolderpath()!=null && user.getProfilePicFilename()!=null) {
+	    		filepath = user.getProfilePicFolderpath()+ File.separator + user.getProfilePicFilename();
+	    	}
+	    	
+	    	if(filepath != null) {
+	    		File file = new File(filepath);
+		    	if(file.exists() && file.isFile()) {
+		    		return Files.readAllBytes(file.toPath());
+		    	}else {
+		    		Resource fileResource = resourceLoader.getResource("classpath:static/img/default_profile_img.jpg");
+		    		return Files.readAllBytes(fileResource.getFile().toPath());
+		    	}
+	    	}else {
+	    		Resource fileResource = resourceLoader.getResource("classpath:static/img/default_profile_img.jpg");
+	    		return Files.readAllBytes(fileResource.getFile().toPath());
+	    	}
+	    	  
+    	}catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return null;
     }
 }

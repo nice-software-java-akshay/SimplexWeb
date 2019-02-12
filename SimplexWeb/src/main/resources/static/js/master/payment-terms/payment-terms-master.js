@@ -4,7 +4,7 @@ $(function(){
 	
 	toastr.options = TOASTER_OPTIONS;
 	
-	$('.dataTables-example').DataTable({
+	var paymnet_terms_datatable = $('.dataTables-example').DataTable({
         pageLength: 25,
         responsive: true,
         dom: '<"html5buttons"B>lTfgitp',
@@ -46,12 +46,18 @@ $(function(){
         ]
     });
 	
+	
 	//Save Payment Term
 	$('.savePaymentTermBtn').on('click', function(e) {
 		e.preventDefault();
 		var $modalElement = $('#newPaymentTermModal');
 		var $viewForm = $('#newPaymentTermForm');
-		var URL_STR = $viewForm.attr('action');;
+		var URL_STR = $viewForm.attr('action');
+		
+		if(!$viewForm.valid()){
+			return false;
+		}
+		
     	$.ajax({
             url:URL_STR,
             type:'POST',

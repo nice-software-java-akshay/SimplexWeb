@@ -154,7 +154,7 @@ $(document).ready(function(){
 	                	$modalElement.modal('hide');
 	                	toastr['success']("Distributer saved successfully", "Success");
 	                	setTimeout(function(){// wait for 2 secs
-	                        location.reload(); // then reload the page.
+	                        location.reload(false); // then reload the page.
 	                   }, 2000);
                 	}catch (e) {
                 		hideloader();

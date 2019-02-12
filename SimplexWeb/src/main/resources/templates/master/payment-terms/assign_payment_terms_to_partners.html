@@ -52,46 +52,38 @@
         <div class="wrapper wrapper-content animated fadeInRight">
         <div class="ibox-title">
           	<h5>Assign Payment Terms</h5>
+          	<div class="ibox-tools">
+           		<a class="btn btn-warning btn-sm" th:href="@{/master/paymentTermsMaster}" style="color: white;">
+                   <i class="fa fa-arrow-left "> </i> Back
+               </a>
+           </div>
          </div>
 		<div class="ibox-content">
 			<div class="row">
 				<div class="col-md-12">
+				<form id="assignPaymentTermsForm">
 					<div class="row">
 						<div class="col-md-12">
-							<form class="form-horizontal">
-								<div class="form-group">
-									<label class="col-lg-8 control-label text-navy text-right">
-										Select Partner : 
-									</label>
-									<div class="col-lg-4">
-										<select id="partnerSelect"
-											data-placeholder="Choose a Partner..."
-											class="chosen-select form-control" tabindex="0" required="">
-											<option th:each="user : ${USER_LIST}"
-												th:value="${user.userId}" th:text="${user.fullName}">
-											</option>
-										</select>
-									</div>
+							<div class="form-group">
+								<label class="col-lg-8 control-label text-navy text-right">
+									Select Partner : 
+								</label>
+								<div class="col-lg-4">
+									<select id="partnerSelect"
+										data-placeholder="Choose a Partner..."
+										class="chosen-select form-control" tabindex="0" required="" name="userId">
+										<option th:each="user : ${USER_LIST}"
+											th:value="${user.userId}" th:text="${user.fullName}">
+										</option>
+									</select>
 								</div>
-							</form>
+							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<form id="form" action="#" class="wizard-big">
-								<select class="form-control dual_select" multiple>
-									<option value="United States">United States</option>
-									<option value="United Kingdom">United Kingdom</option>
-									<option value="Australia">Australia</option>
-									<option selected value="Austria">Austria</option>
-									<option selected value="Bahamas">Bahamas</option>
-									<option value="Barbados">Barbados</option>
-									<option value="Belgium">Belgium</option>
-									<option value="Bermuda">Bermuda</option>
-									<option value="Brazil">Brazil</option>
-									<option value="Bulgaria">Bulgaria</option>
-									<option value="Cameroon">Cameroon</option>
-									<option value="Canada">Canada</option>
+								<select class="form-control dual_select payment-terms-select" name="paymentTermsList" multiple>
 								</select>
 							</form>
 						</div>
@@ -101,6 +93,7 @@
 							<button type="submit" class="btn btn-primary btn-sm savePaymentTermAndPartnerMappingBtn">Save</button>
 						</div>
 					</div>
+				</form>
 				</div>
 			</div>
 		</div>

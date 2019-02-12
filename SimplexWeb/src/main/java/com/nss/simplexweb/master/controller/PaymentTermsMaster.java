@@ -2,13 +2,17 @@ package com.nss.simplexweb.master.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nss.simplexweb.SessionUtility;
 import com.nss.simplexweb.enums.PAYMENT_TERMS;
 import com.nss.simplexweb.enums.USER;
+import com.nss.simplexweb.paymentterm.model.PaymentTermPartnerRel;
 import com.nss.simplexweb.paymentterm.service.PaymentTermsService;
 import com.nss.simplexweb.po.model.PaymentTerms;
 import com.nss.simplexweb.user.model.User;
@@ -36,7 +41,7 @@ public class PaymentTermsMaster {
 	private UserService userService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView getPaymentList(@SessionAttribute("USER") User user) {
+	public ModelAndView getPaymentTermsList(@SessionAttribute("USER") User user) {
 		ModelAndView mav = new ModelAndView();
 		mav
 			.addObject(USER.USER.name(), new User())
@@ -69,6 +74,7 @@ public class PaymentTermsMaster {
 		ModelAndView mav = new ModelAndView();
 		mav
 			.addObject(USER.USER.name(), new User())
+			.addObject(PAYMENT_TERMS.PAYMENT_TERMS.name(), new PaymentTerms())
 			.addObject(PAYMENT_TERMS.PYAMENT_TERMS_LIST.name(), paymentTermsService.getActivePaymentTermsList())
 			.addObject(USER.USER_LIST.name(), distributerService.findAllActiveDistributersList())
 			.setViewName("master/payment-terms/assign_payment_terms_to_partners");
@@ -83,5 +89,10 @@ public class PaymentTermsMaster {
 		map.put(PAYMENT_TERMS.PYAMENT_TERMS_LIST_FOR_PARTNER.name(), paymentTermsService.getPaymentTermsListByPartnerId(partnerId));
 		map.put(PAYMENT_TERMS.PYAMENT_TERMS_LIST.name(), paymentTermsService.getActivePaymentTermsList());
 		return map;
+	}
+
+	@RequestMapping(value={"/updatePaymentTermsForDistributer"}, method = RequestMethod.POST)
+	public @ResponseBody String updatePaymentTermsForDistributer(User user, @RequestParam (value="paymentTermsList", required = false) ArrayList<PaymentTerms> paymentTermsList) {
+		return paymentTermsService.savePaymentTermsForDistributer(user, paymentTermsList);
 	}
 }

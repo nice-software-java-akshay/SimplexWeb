@@ -52,8 +52,8 @@ public class PaymentTerms implements Serializable {
 	@JoinColumn(name="created_by")
 	private User createdBy;
 	
-	@OneToMany(mappedBy = "paymentTerms")
-    Set<PaymentTermPartnerRel> paymentTermPartnerRel;
+	/*@OneToMany(mappedBy = "paymentTerms")
+    Set<PaymentTermPartnerRel> paymentTermPartnerRel;*/
 	
 	@Column(name="is_active", nullable = false, columnDefinition = "int default 1")
 	private int isActive;
