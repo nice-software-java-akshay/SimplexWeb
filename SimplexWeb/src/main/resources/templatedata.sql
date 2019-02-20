@@ -186,15 +186,17 @@ INSERT INTO `other_liner_type_tbl` (`liner_type_id`, `liner_type_abbr`, `liner_t
 INSERT INTO `shipment_type_tbl` (`shipment_type_id`, `shipment_type_abbr`, `shipment_type_name`) VALUES (1, 'FOB', 'Free on Board - FOB');
 
 --########################################   PO Status   ########################################
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (1, 'PO_RECEIVED', 'PO Received', 1);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (2, 'PO_UNDER_CONFIRMATION', 'PO Under Confirmation', 0);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (3, 'PO_CONFIRMED', 'PO Confirmed', 0);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (4, 'UNDER_PRODUCTIOn', 'Under Production', 0);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (5, 'Production Complete', 'Production Complete', 1);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (6, 'DISPATCHED_FROM_FACTORY', 'Discpatched from Factory', 1);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (7, 'UNDER_ICD_EXAMINATION', 'Under Examination (At Nagpur ICD)', 0);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (8, 'RAILED_OUT', 'Railed Out', 0);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (9, 'CONTAINER_READY', 'Container Ready', 0);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (10, 'CONTAINER_DISPATCHED', 'Container Dispatched', 1);
-INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_is_main`) VALUES (11, 'CONTAINER_DELIVERED', 'Container Delivered', 1);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (1, 'PO_RECEIVED', 'PO Received', 1, 1, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (2, 'PO_UNDER_PROCESS', 'PO Under Process', 2, 1, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (3, 'PO_UNDER_CONFIRMATION', 'PO Under Confirmation', 3, 0, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (4, 'PO_CONFIRMED', 'PO Confirmed', 4, 0, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (5, 'UNDER_PRODUCTION', 'Under Production', 5, 0, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (6, 'PRODUCTION_COMPLETE', 'Production Complete', 6, 1, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (7, 'DISPATCHED_FROM_FACTORY', 'Discpatched from Factory', 7, 1, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (8, 'UNDER_ICD_EXAMINATION', 'Under Examination (At Nagpur ICD)', 8, 0, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (9, 'RAILED_OUT', 'Railed Out', 9, 0, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (10, 'CONTAINER_READY', 'Container Ready', 10, 0, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (11, 'CONTAINER_DISPATCHED', 'Container Dispatched', 11, 1, 0);
+INSERT INTO `po_tracking_status_master_tbl` (`po_status_id`, `po_status_abbr`, `po_status_name`, `po_status_order`, `po_status_is_main`, `mark_po_close`) VALUES (12, 'CONTAINER_DELIVERED', 'Container Delivered', 12, 1, 1);
+
 

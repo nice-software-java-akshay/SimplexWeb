@@ -42,7 +42,7 @@ public class UserService implements UserServiceInterface {
 	private EmailController emailController;
 	
 	@Value("${file.user.profile.image}")
-	private String UPLOADED_FOLDER_PATH;
+	private String PROFILE_PICTURE_UPLOADED_FOLDER_PATH;
 	
 	@Autowired
 	public UserService(UserRepository userRepository,
@@ -76,11 +76,11 @@ public class UserService implements UserServiceInterface {
 									.concat('.' + FilenameUtils.getExtension(file.getOriginalFilename()));
 		
 		//Set value to user bean
-		currentUser.setProfilePicFolderpath(UPLOADED_FOLDER_PATH);
+		currentUser.setProfilePicFolderpath(PROFILE_PICTURE_UPLOADED_FOLDER_PATH);
 		currentUser.setProfilePicFilename(UPLOAD_FILE_NAME);
 		
 		//Save
-		Utility.singleFileUpload(file, UPLOADED_FOLDER_PATH, UPLOAD_FILE_NAME);
+		Utility.singleFileUpload(file, PROFILE_PICTURE_UPLOADED_FOLDER_PATH, UPLOAD_FILE_NAME);
 		distributerService.updateMyProfilePictureDistributer(currentUser);
 	}
 

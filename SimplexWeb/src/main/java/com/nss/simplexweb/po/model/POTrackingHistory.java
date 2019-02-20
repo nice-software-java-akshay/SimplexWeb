@@ -36,7 +36,7 @@ public class POTrackingHistory implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="po_tracking_history_id")
-	private long poTrackingHistoryId;
+	private Long poTrackingHistoryId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "po_id")

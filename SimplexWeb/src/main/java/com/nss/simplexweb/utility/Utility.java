@@ -9,11 +9,13 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -27,6 +29,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import com.nss.simplexweb.enums.PROJECT;
 import com.nss.simplexweb.enums.UTILITY_CONSTANT;
 import com.nss.simplexweb.user.model.EndPoint;
+import com.nss.simplexweb.utility.document.model.Document;
 
 @Component("utility")
 public class Utility {
@@ -126,4 +129,52 @@ public class Utility {
 		}
 		return PROJECT.SUCCESS_MSG.name();
 	}
+
+	public static Document getMultipartFileDetails(MultipartFile file) {
+		Document document = null;
+		if(file.isEmpty()) {
+			return document;
+		}
+		
+		document = new Document();
+		document.setDocumentOriginalNameWithExtension(file.getOriginalFilename());
+		document.setDocumentExtension(file.getOriginalFilename().split("\\.")[1]);
+		document.setDocumentOriginalNameWithoutExtension(file.getOriginalFilename().split("\\.")[0]);
+		document.setDocumentMimeType(file.getContentType());
+		document.setDocumentSizeInBytes(file.getSize());
+		document.setDocumentSizeSmart(format(file.getSize(), 2));
+		
+		return document;
+	}
+	
+	 /**
+     * Method to format bytes in human readable format
+     * 
+     * @param bytes
+     *            - the value in bytes
+     * @param digits
+     *            - number of decimals to be displayed
+     * @return human readable format string
+     */
+    private static String format(double bytes, int digits) {
+        String[] dictionary = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+        int index = 0;
+        for (index = 0; index < dictionary.length; index++) {
+            if (bytes < 1024) {
+                break;
+            }
+            bytes = bytes / 1024;
+        }
+        return String.format("%." + digits + "f", bytes) + " " + dictionary[index];
+    }
+
+	public static String generatePODocumentName(String poNumber) {
+		return UTILITY_CONSTANT.PO_DOCUMENT_PREFIX + poNumber + "_" + generateRandomPassword(5);
+	}
+	
+	
+	public static Long getDateDifference(LocalDate dateBefore, LocalDate dateAfter) {
+		return ChronoUnit.DAYS.between(dateBefore, dateAfter);
+	}
+	
 }

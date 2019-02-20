@@ -162,6 +162,17 @@ $(document).ready(function(){
             }
         }
     });
+	
+	//Copy to clipboard
+	$('.copy-text').on('click', function(){
+		var that = $(this).data('copy-text');
+		var inp = document.createElement('input');
+		document.body.appendChild(inp)
+		inp.value = that
+		inp.select();
+		document.execCommand('copy');
+		inp.remove();
+	});
 
 });
 
@@ -180,7 +191,6 @@ function setNavigation() {
 	    var path = window.location.pathname;
 	    path = path.replace(/\/$/, "");
 	    path = decodeURIComponent(path);
-	    
 	    $(".nav a").each(function () {
 	        var href = $(this).attr('href');
 	        if(href != undefined && href != 'undefined'){

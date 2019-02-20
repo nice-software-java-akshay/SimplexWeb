@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.nss.simplexweb.enums.ROLE;
 import com.nss.simplexweb.user.model.Department;
 import com.nss.simplexweb.user.model.Role;
 import com.nss.simplexweb.user.model.User;

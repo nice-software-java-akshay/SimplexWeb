@@ -36,16 +36,26 @@ $(function() {
             		var PYAMENT_TERMS_LIST_FOR_PARTNER = data.PYAMENT_TERMS_LIST_FOR_PARTNER;
             		var TO_BE_SELECTED_TERMS_ARRAY = [];
             		
+            		var PYAMENT_TERMS_LIST_LENGTH = 0;
+            		var PYAMENT_TERMS_LIST_FOR_PARTNER_LENGTH = 0;
             		
-            		for(var i=0; i<PYAMENT_TERMS_LIST.length; i++){
+            		if(PYAMENT_TERMS_LIST != null){
+            			PYAMENT_TERMS_LIST_LENGTH = PYAMENT_TERMS_LIST.length;
+            		}
+            		
+            		if(PYAMENT_TERMS_LIST_FOR_PARTNER != null){
+            			PYAMENT_TERMS_LIST_FOR_PARTNER_LENGTH = PYAMENT_TERMS_LIST_FOR_PARTNER.length
+            		}
+            		
+            		for(var i=0; i<PYAMENT_TERMS_LIST_LENGTH; i++){
             			debugger
-            			for(var j=0; j<PYAMENT_TERMS_LIST_FOR_PARTNER.length; j++){
-                			if(PYAMENT_TERMS_LIST[i].paymentTermId == PYAMENT_TERMS_LIST_FOR_PARTNER[j].paymentTerms.paymentTermId){
-                				TO_BE_SELECTED_TERMS_ARRAY.push(PYAMENT_TERMS_LIST_FOR_PARTNER[j].paymentTerms.paymentTermId);
+            			for(var j=0; j<PYAMENT_TERMS_LIST_FOR_PARTNER_LENGTH; j++){
+                			if(PYAMENT_TERMS_LIST[i].paymentTermId == PYAMENT_TERMS_LIST_FOR_PARTNER[j].paymentTermId){
+                				TO_BE_SELECTED_TERMS_ARRAY.push(PYAMENT_TERMS_LIST_FOR_PARTNER[j].paymentTermId);
                 			}
                 		}
             		}
-            		for(var i=0; i<PYAMENT_TERMS_LIST.length; i++){
+            		for(var i=0; i<PYAMENT_TERMS_LIST_LENGTH; i++){
         				if(jQuery.inArray(PYAMENT_TERMS_LIST[i].paymentTermId, TO_BE_SELECTED_TERMS_ARRAY)!='-1' ){
         					var $option_html = "<option selected value='"+ PYAMENT_TERMS_LIST[i].paymentTermId +"'>"+ PYAMENT_TERMS_LIST[i].paymentTermCode +"</option>";
                 			$paymentTermSelect.append($option_html);

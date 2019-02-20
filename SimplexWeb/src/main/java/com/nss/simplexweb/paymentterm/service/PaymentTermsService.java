@@ -1,16 +1,14 @@
 package com.nss.simplexweb.paymentterm.service;
 
 import java.util.ArrayList;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nss.simplexweb.enums.PROJECT;
 import com.nss.simplexweb.paymentterm.model.PaymentTermPartnerRel;
+import com.nss.simplexweb.paymentterm.model.PaymentTerms;
 import com.nss.simplexweb.paymentterm.repository.PaymentTermPartnerRelRepository;
 import com.nss.simplexweb.paymentterm.repository.PaymentTermsRepository;
-import com.nss.simplexweb.po.model.PaymentTerms;
 import com.nss.simplexweb.user.model.User;
 import com.nss.simplexweb.user.service.UserService;
 
@@ -55,8 +53,18 @@ public class PaymentTermsService {
 		return paymentTermsRepository.save(paymentTerms);
 	}
 
-	public ArrayList<PaymentTermPartnerRel> getPaymentTermsListByPartnerId(Long partnerId) {
-		return paymentTermPartnerRelRepository.findByPartner(userService.findUserByUserId(partnerId));
+	public ArrayList<PaymentTerms> getPaymentTermsListByPartnerId(Long partnerId) {
+		ArrayList<PaymentTermPartnerRel> paymentTermPartnerRelList = paymentTermPartnerRelRepository.findByPartner(userService.findUserByUserId(partnerId));
+		ArrayList<PaymentTerms> paymentTermsList = null;
+		if(paymentTermPartnerRelList != null) {
+			for(PaymentTermPartnerRel paymentTermPartnerRel : paymentTermPartnerRelList) {
+				if(paymentTermsList == null) {
+					paymentTermsList = new ArrayList<>();
+				}
+				paymentTermsList.add(paymentTermPartnerRel.getPaymentTerms());
+			}
+		}
+		return paymentTermsList;
 	}
 
 	public String savePaymentTermsForDistributer(User user, ArrayList<PaymentTerms> paymentTermsList) {

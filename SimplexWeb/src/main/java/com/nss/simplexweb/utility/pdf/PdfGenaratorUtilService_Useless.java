@@ -1,13 +1,9 @@
 package com.nss.simplexweb.utility.pdf;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.xhtmlrenderer.pdf.ITextRenderer;
 
 @Component
 public class PdfGenaratorUtilService_Useless {

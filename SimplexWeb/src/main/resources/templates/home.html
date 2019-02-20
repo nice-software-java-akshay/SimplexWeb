@@ -1,82 +1,510 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
+ <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
      <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title>Simplex | Home </title>
-	
+
 	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+	
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    
     <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
 
+	<link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+	
+	<link th:href="@{/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet">
+	
+    <link th:href="@{/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/basic.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/dropzone.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/jasny/jasny-bootstrap.min.css}" rel="stylesheet">
+    
     <link th:href="@{/css/animate.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+    
+	<link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+	
+	
+	
+	<!-- Toastr style -->
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    
+    <!-- Sweet Alert -->
+    <link th:href="@{/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet">
+    
+    <!-- Chosen select -->
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+    
+    <!-- Tags Input -->
+    <link th:href="@{/css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css}" rel="stylesheet">
+    
     <link th:href="@{/css/style.css}" rel="stylesheet">
-
+    
+    <style type="text/css">
+    	.hr{
+    	 	display: block;
+		    height: 1px;
+		    border: 0;
+		    border-top: 1px solid #ff8d3f;
+		    margin: 1em 0;
+		    padding: 0; 
+    	}
+    	
+    	.bootstrap-tagsinput {
+		  width: 100% !important;
+		}
+		
+		.dataTables_wrapper{
+			padding-bottom: 0px;
+		}
+    </style>
 </head>
-
-<body>
+<body id="body">
 <div th:replace="/contextPage :: contextPage"> </div>
     <div id="wrapper">
     <div th:replace="/sidebar :: sidebar"> </div>
         <div id="page-wrapper" class="gray-bg">
         <div th:replace="/topbar :: topbar"> </div>
-            <div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-sm-4">
-                    <h2>This is main title</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            <a href="index.html">This is</a>
-                        </li>
-                        <li class="active">
-                            <strong>Breadcrumb</strong>
-                        </li>
-                    </ol>
+        <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">Monthly</span>
+                        <h5>Views</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">386,200</h1>
+                        <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                        <small>Total views</small>
+                    </div>
                 </div>
-                <div class="col-sm-8">
-                    <div class="title-action">
-                        <a href="" class="btn btn-primary">This is action area</a>
+            </div>
+            <div class="col-lg-2">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-info pull-right">Annual</span>
+                        <h5>Orders</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">80,800</h1>
+                        <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                        <small>New orders</small>
                     </div>
                 </div>
             </div>
 
-            <div class="wrapper wrapper-content">
-                <div class="middle-box text-center animated fadeInRightBig">
-                    <h3 class="font-bold">This is page content</h3>
-                    <div class="error-desc">
-                        You can create here any grid layout you want. And any variation layout you imagine:) Check out
-                        main dashboard and other site. It use many different layout.
-                        <br/><a href="index.html" class="btn btn-primary m-t">Dashboard</a>
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">Today</span>
+                        <h5>visits</h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1 class="no-margins">406,42</h1>
+                                <div class="font-bold text-navy">44% <i class="fa fa-level-up"></i> <small>Rapid pace</small></div>
+                            </div>
+                            <div class="col-md-6">
+                                <h1 class="no-margins">206,12</h1>
+                                <div class="font-bold text-navy">22% <i class="fa fa-level-up"></i> <small>Slow pace</small></div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
-            <footer>
-	        	<div th:replace="/footer :: footer"> </div>
-	        </footer>
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Monthly income</h5>
+                        <div class="ibox-tools">
+                            <span class="label label-primary">Updated 12.2015</span>
+                        </div>
+                    </div>
+                    <div class="ibox-content no-padding">
+                        <div class="flot-chart m-t-lg" style="height: 55px;">
+                            <div class="flot-chart-content" id="flot-chart1"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div>
+                                        <span class="pull-right text-right">
+                                        <small>Average value of sales in the past month in: <strong>United states</strong></small>
+                                            <br/>
+                                            All sales: 162,862
+                                        </span>
+                            <h3 class="font-bold no-margins">
+                                Half-year revenue margin
+                            </h3>
+                            <small>Sales marketing.</small>
+                        </div>
+
+                        <div class="m-t-sm">
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div>
+                                        <canvas id="lineChart" height="114"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="stat-list m-t-lg">
+                                        <li>
+                                            <h2 class="no-margins">2,346</h2>
+                                            <small>Total orders in period</small>
+                                            <div class="progress progress-mini">
+                                                <div class="progress-bar" style="width: 48%;"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins ">4,422</h2>
+                                            <small>Orders in last month</small>
+                                            <div class="progress progress-mini">
+                                                <div class="progress-bar" style="width: 60%;"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="m-t-md">
+                            <small class="pull-right">
+                                <i class="fa fa-clock-o"> </i>
+                                Update on 16.07.2015
+                            </small>
+                            <small>
+                                <strong>Analysis of sales:</strong> The value has been changed over time, and last month reached a level over $50,000.
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-warning pull-right">Data has changed</span>
+                        <h5>User activity</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <small class="stats-label">Pages / Visit</small>
+                                <h4>236 321.80</h4>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <small class="stats-label">% New Visits</small>
+                                <h4>46.11%</h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <small class="stats-label">Last week</small>
+                                <h4>432.021</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <small class="stats-label">Pages / Visit</small>
+                                <h4>643 321.10</h4>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <small class="stats-label">% New Visits</small>
+                                <h4>92.43%</h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <small class="stats-label">Last week</small>
+                                <h4>564.554</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <small class="stats-label">Pages / Visit</small>
+                                <h4>436 547.20</h4>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <small class="stats-label">% New Visits</small>
+                                <h4>150.23%</h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <small class="stats-label">Last week</small>
+                                <h4>124.990</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+        <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Custom responsive table </h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#">Config option 1</a>
+                    </li>
+                    <li><a href="#">Config option 2</a>
+                    </li>
+                </ul>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-sm-9 m-b-xs">
+                    <div data-toggle="buttons" class="btn-group">
+                        <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
+                        <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
+                        <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+
+                        <th>#</th>
+                        <th>Project </th>
+                        <th>Name </th>
+                        <th>Phone </th>
+                        <th>Company </th>
+                        <th>Completed </th>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Project <small>This is example of project</small></td>
+                        <td>Patrick Smith</td>
+                        <td>0800 051213</td>
+                        <td>Inceptos Hymenaeos Ltd</td>
+                        <td><span class="pie">0.52/1.561</span></td>
+                        <td>20%</td>
+                        <td>Jul 14, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Alpha project</td>
+                        <td>Alice Jackson</td>
+                        <td>0500 780909</td>
+                        <td>Nec Euismod In Company</td>
+                        <td><span class="pie">6,9</span></td>
+                        <td>40%</td>
+                        <td>Jul 16, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Betha project</td>
+                        <td>John Smith</td>
+                        <td>0800 1111</td>
+                        <td>Erat Volutpat</td>
+                        <td><span class="pie">3,1</span></td>
+                        <td>75%</td>
+                        <td>Jul 18, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Gamma project</td>
+                        <td>Anna Jordan</td>
+                        <td>(016977) 0648</td>
+                        <td>Tellus Ltd</td>
+                        <td><span class="pie">4,9</span></td>
+                        <td>18%</td>
+                        <td>Jul 22, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Alpha project</td>
+                        <td>Alice Jackson</td>
+                        <td>0500 780909</td>
+                        <td>Nec Euismod In Company</td>
+                        <td><span class="pie">6,9</span></td>
+                        <td>40%</td>
+                        <td>Jul 16, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Project <small>This is example of project</small></td>
+                        <td>Patrick Smith</td>
+                        <td>0800 051213</td>
+                        <td>Inceptos Hymenaeos Ltd</td>
+                        <td><span class="pie">0.52/1.561</span></td>
+                        <td>20%</td>
+                        <td>Jul 14, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Gamma project</td>
+                        <td>Anna Jordan</td>
+                        <td>(016977) 0648</td>
+                        <td>Tellus Ltd</td>
+                        <td><span class="pie">4,9</span></td>
+                        <td>18%</td>
+                        <td>Jul 22, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Project <small>This is example of project</small></td>
+                        <td>Patrick Smith</td>
+                        <td>0800 051213</td>
+                        <td>Inceptos Hymenaeos Ltd</td>
+                        <td><span class="pie">0.52/1.561</span></td>
+                        <td>20%</td>
+                        <td>Jul 14, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Alpha project</td>
+                        <td>Alice Jackson</td>
+                        <td>0500 780909</td>
+                        <td>Nec Euismod In Company</td>
+                        <td><span class="pie">6,9</span></td>
+                        <td>40%</td>
+                        <td>Jul 16, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Betha project</td>
+                        <td>John Smith</td>
+                        <td>0800 1111</td>
+                        <td>Erat Volutpat</td>
+                        <td><span class="pie">3,1</span></td>
+                        <td>75%</td>
+                        <td>Jul 18, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Gamma project</td>
+                        <td>Anna Jordan</td>
+                        <td>(016977) 0648</td>
+                        <td>Tellus Ltd</td>
+                        <td><span class="pie">4,9</span></td>
+                        <td>18%</td>
+                        <td>Jul 22, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Alpha project</td>
+                        <td>Alice Jackson</td>
+                        <td>0500 780909</td>
+                        <td>Nec Euismod In Company</td>
+                        <td><span class="pie">6,9</span></td>
+                        <td>40%</td>
+                        <td>Jul 16, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Project <small>This is example of project</small></td>
+                        <td>Patrick Smith</td>
+                        <td>0800 051213</td>
+                        <td>Inceptos Hymenaeos Ltd</td>
+                        <td><span class="pie">0.52/1.561</span></td>
+                        <td>20%</td>
+                        <td>Jul 14, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Gamma project</td>
+                        <td>Anna Jordan</td>
+                        <td>(016977) 0648</td>
+                        <td>Tellus Ltd</td>
+                        <td><span class="pie">4,9</span></td>
+                        <td>18%</td>
+                        <td>Jul 22, 2013</td>
+                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
         </div>
         </div>
+        </div>
 
+        </div>
+
+
+        </div>
+        <footer>
+       		<div th:replace="/footer :: footer"> </div>
+       </footer>	
+     </div>
+	</div>
     <!-- Mainly scripts -->
     <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
     <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 
     <!-- Custom and plugin javascript -->
     <script th:src="@{/js/inspinia.js}"></script>
+    
     <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
-
-    <!-- Peity -->
-    <script th:src="@{/js/plugins/peity/jquery.peity.min.js}"></script>
-
-    <!-- Peity -->
-    <script th:src="@{/js/demo/peity-demo.js}"></script>
-     
-    <!-- Data picker -->
+	
+	<!-- Data Table Plugin -->
+	<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+	
+	<!-- Data picker -->
    <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
    
    <!-- Chosen -->
@@ -87,10 +515,48 @@
    
    <!-- Input Mask-->
    <script th:src="@{/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
-	
-	<!-- Custom JS File -->
-   <script th:src="@{/js/custom.js}"></script>
+   
+   <!-- Toastr script -->
+   <script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+   
+   <!-- Sweet alert -->
+    <script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
+    
+    <!-- Steps -->
+    <script th:src="@{/js/plugins/steps/jquery.steps.min.js}"></script>
 
+    <!-- Jquery Validate -->
+    <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+    
+    <!-- iCheck -->
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+    
+    <!-- Tags Input -->
+    <script th:src="@{/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+    
+      <!-- DROPZONE -->
+    <script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
+    
+    <!-- Flot -->
+    <script th:src="@{/js/plugins/flot/jquery.flot.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.tooltip.min.js}"></script>
+    <script th:src="@{/js/plugins/flot/jquery.flot.resize.js}"></script>
+
+    <!-- ChartJS-->
+    <script th:src="@{/js/plugins/chartJs/Chart.min.js}"></script>
+
+    <!-- Peity -->
+    <script th:src="@{/js/plugins/peity/jquery.peity.min.js}"></script>
+    <!-- Peity demo -->
+    <script th:src="@{/js/demo/peity-demo.js}"></script>
+   
+   	<script th:src="@{/js/custom.js}"></script>
+   		   	
+   	<!-- new-po.js -->
+	<script th:src="@{/js/dashboard/dashboard.js}"></script>
 </body>
 
+<script>
+        
+    </script>
 </html>

@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import com.nss.simplexweb.enquiry.template.model.bottomdischarge.BottomDischargeType;
 import com.nss.simplexweb.enquiry.template.model.bottomdischarge.BottomType;
 import com.nss.simplexweb.enquiry.template.model.fabric.FabricBagSeamColor;
@@ -42,8 +40,6 @@ import com.nss.simplexweb.enquiry.template.model.topfilling.TopType;
 import com.nss.simplexweb.po.model.POStatus;
 import com.nss.simplexweb.user.model.User;
 import com.nss.simplexweb.utility.Utility;
-import com.nss.simplexweb.utility.mail.MailBean;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

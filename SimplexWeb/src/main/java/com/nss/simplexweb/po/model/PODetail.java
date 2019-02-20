@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nss.simplexweb.paymentterm.model.PaymentTerms;
+import com.nss.simplexweb.shipmenterm.model.ShipmentTerms;
 import com.nss.simplexweb.user.model.User;
 
 import lombok.AllArgsConstructor;
@@ -55,9 +57,6 @@ public class PODetail implements Serializable {
 		@Column(name="shipto_email")
 		private String shiptoEmail;
 		
-		@Column(name="shipto_address")
-		private String shiptoAddress;
-		
 		@Column(name="shipto_contact_number")
 		private String shiptoContactNumber;
 		
@@ -69,20 +68,21 @@ public class PODetail implements Serializable {
 		@Column(name="vendor_account_number")
 		private String vendorAccountNumber;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
+		@ManyToOne(fetch = FetchType.EAGER)
 	    @JoinColumn(name = "payment_term_id")
 		private PaymentTerms paymentTerms;
 		
 		@Column(name="etd")
 		private String etd;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
+		/*@ManyToOne(fetch = FetchType.EAGER)
 	    @JoinColumn(name = "delivery_method_id")
-		private DeliveryMethod deliveryMethod;
+		private DeliveryMethod deliveryMethod;*/
+		private String deliveryMethod;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
+		@ManyToOne(fetch = FetchType.EAGER)
 	    @JoinColumn(name = "shipping_term_id")
-		private ShippingTerms shippingTerms;
+		private ShipmentTerms shippingTerms;
 		
 		@Column(name="so_number")
 		private String soNumber;
@@ -95,8 +95,12 @@ public class PODetail implements Serializable {
 	
 		
 	/* --PO Items Details-- */
-		@OneToMany(mappedBy="poDetail", cascade = CascadeType.PERSIST)
+		@OneToMany(mappedBy="poDetail", fetch = FetchType.EAGER)
+		@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 		private List<POItems> poItmesList;
+		
+		/*@OneToMany(cascade = CascadeType.ALL)
+		private List<POItems> poItmesList;*/
 		
 	@Column(name="po_remark")
 	private String poRemark;
@@ -104,7 +108,7 @@ public class PODetail implements Serializable {
 	@Column(name="po_total_amount")
 	private Double poTotalAmount;
 		
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "po_status_id")
 	private POStatus poStatus;
 	
@@ -115,6 +119,13 @@ public class PODetail implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="processor_id")
 	private User processor;
+	
+	@ManyToOne
+	@JoinColumn(name="status_updated_by")
+	private User statusUpdatedBy;
+	
+	@Column(name="is_closed", nullable = false, columnDefinition = "int default 0")
+	private int isClosed;
 	
 	@Column(name = "po_create_timestamp", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Timestamp poCreateTimestamp;

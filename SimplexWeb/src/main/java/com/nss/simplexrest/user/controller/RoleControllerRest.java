@@ -3,16 +3,11 @@ package com.nss.simplexrest.user.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nss.simplexrest.custom.exception.NotFoundException;
-import com.nss.simplexweb.enums.ROLE;
 import com.nss.simplexweb.user.model.Role;
-import com.nss.simplexweb.user.model.User;
 import com.nss.simplexweb.user.service.RoleService;
 import com.nss.simplexweb.user.service.UserService;
 

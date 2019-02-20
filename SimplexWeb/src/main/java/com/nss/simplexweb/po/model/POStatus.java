@@ -6,11 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.nss.simplexweb.user.model.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +37,16 @@ public class POStatus implements Serializable {
 	@Column(name="po_status_abbr")
 	private String poStatusAbbr;
 	
+	@Column(name="po_status_order")
+	private int poStatusOrder;
+	
 	@Column(name="po_status_is_main")
-	private Long poStatusIsMain;
+	private int poStatusIsMain;
+	
+	@Column(name="mark_po_close")
+	private int markPOClose;
+	
+	@Column(name="po_status_long_description", columnDefinition = "TEXT")
+	private String poStatusLongDescription;
+	
 }

@@ -20,9 +20,6 @@ import com.nss.simplexweb.user.model.User;
 import com.nss.simplexweb.user.repository.CountryRepository;
 import com.nss.simplexweb.user.service.DistributerService;
 import com.nss.simplexweb.user.service.UserService;
-import com.nss.simplexweb.utility.Utility;
-
-import ch.qos.logback.classic.pattern.Util;
 
 @Controller
 public class UserController {

@@ -75,6 +75,22 @@
                 </a>
                 <ul class="nav nav-second-level collapse">
                     <li><a th:href="@{/po/newPOController/placeOrder}">Place Order</a></li>
+                    <li><a th:href="@{/po/newPOController/getPOHistoryForUser}">Order History</a></li>
+                    <li><a th:href="@{/po/newPOController/getOpenPORequestsView}">Open Requests</a></li>
+                    <li><a th:href="@{/po/newPOController/getMyPORequestsList}">My PO Requests</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="parent-menu">
+                	<i class="fa fa-file-o custom"></i> 
+                	<span class="nav-label">Documents</span> 
+                	<span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <!-- <li><a th:href="@{/documents/documentManagerController?documentCategoryId=-1&documentCategoryAbbr=ALL&userId=} + ${session.USER.userId}">Document Manager</a></li> -->
+                    <li><a th:href="@{/documents/documentManagerController}">Document Manager</a></li>
+                    <li><a>All Document</a></li>
+                    <li><a>My Document</a></li>
                 </ul>
             </li>
             <li class="special_link" style="display: none;">

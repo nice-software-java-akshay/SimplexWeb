@@ -2,14 +2,10 @@ package com.nss.simplexweb.master.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,9 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nss.simplexweb.SessionUtility;
 import com.nss.simplexweb.enums.PAYMENT_TERMS;
 import com.nss.simplexweb.enums.USER;
-import com.nss.simplexweb.paymentterm.model.PaymentTermPartnerRel;
+import com.nss.simplexweb.paymentterm.model.PaymentTerms;
 import com.nss.simplexweb.paymentterm.service.PaymentTermsService;
-import com.nss.simplexweb.po.model.PaymentTerms;
 import com.nss.simplexweb.user.model.User;
 import com.nss.simplexweb.user.service.DistributerService;
 import com.nss.simplexweb.user.service.UserService;
