@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Simplex | PO Tracking </title>
+
+	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+	
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+	<link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+	
+	<link th:href="@{/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet">
+	
+    <link th:href="@{/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/basic.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/dropzone.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/jasny/jasny-bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+    
+	<link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+	
+	
+	
+	<!-- Toastr style -->
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    
+    <!-- Sweet Alert -->
+    <link th:href="@{/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet">
+    
+    <!-- Chosen select -->
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+    
+    <!-- Tags Input -->
+    <link th:href="@{/css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <style type="text/css">
+    	.hr{
+    	 	display: block;
+		    height: 1px;
+		    border: 0;
+		    border-top: 1px solid #ff8d3f;
+		    margin: 1em 0;
+		    padding: 0; 
+    	}
+    	
+    	.bootstrap-tagsinput {
+		  width: 100% !important;
+		}
+		
+		.dataTables_wrapper{
+			padding-bottom: 0px;
+		}
+    </style>
+</head>
+<body id="body">
+<div th:replace="/contextPage :: contextPage"> </div>
+    <div id="wrapper">
+    <div th:replace="/sidebar :: sidebar"> </div>
+        <div id="page-wrapper" class="gray-bg">
+        <div th:replace="/topbar :: topbar"> </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+           <div class="row">
+           	<div class="col-lg-12">
+              <div class="ibox">
+		        <div class="ibox-title">
+		          	<h5>Purchase Order Tracking - <span th:text="${PO_DETAIL.poNumber}"></span></h5>
+		          	<div class="ibox-tools">
+		          	   <a th:href="@{/po/newPOController/getPOHistoryForUser}" class="btn btn-white poHistoryBtn" title="View Purchase Order History"><i class="fa fa-shopping-cart"></i> Order History </a>
+		            </div>
+		         </div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-12">
+								<h5 class="text-navy">Overall Progress</h5>
+								<div class="progress" th:title="${result} +'%'" th:with="listsize =${#lists.size(PO_TRACKING_HISTORY_LIST)} , result=${(listsize*100/11)}">
+	                                <div th:style="'width:' + ${result} +'%'" aria-valuemax="100" aria-valuemin="0" th:aria-valuenow="${result}" role="progressbar" class="progress-bar progress-bar-success">
+	                                    <span><span th:text="${result}"></span>% Progress</span>
+	                                </div>
+	                            </div>
+								<div class="row animated fadeInRight">
+					                <div class="col-lg-12">
+					                <div class="ibox float-e-margins">
+					                    <div class="row">
+					                    	<div class="col-sm-6">
+					                    		<h5 class="text-navy">Detailed View: </h5>
+					                    	</div>
+					                    	<div class="col-sm-6">
+					                    		<a href="#" class="btn btn-xs btn-primary pull-right" id="leftVersion">Toggle Style</a>
+					                    	</div>
+					                    </div>
+					                    <div class="ibox-content" id="ibox-content">
+					                        <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
+					                            <div class="vertical-timeline-block" th:if="${not #lists.isEmpty(PO_TRACKING_HISTORY_LIST)}" th:each="poTrackingHistory : ${PO_TRACKING_HISTORY_LIST}">
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'CONTAINER_DELIVERED'}?'vertical-timeline-icon navy-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'CONTAINER_DELIVERED'}?'fa fa-smile-o'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'CONTAINER_DISPATCHED'}?'vertical-timeline-icon yellow-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'CONTAINER_DISPATCHED'}?'fa fa-ship'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'CONTAINER_READY'}?'vertical-timeline-icon lazur-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'CONTAINER_READY'}?'fa fa-archive'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'RAILED_OUT'}?'vertical-timeline-icon blue-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'RAILED_OUT'}?'fa fa-train'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'UNDER_ICD_EXAMINATION'}?'vertical-timeline-icon navy-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'UNDER_ICD_EXAMINATION'}?'fa fa-list-alt'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'DISPATCHED_FROM_FACTORY'}?'vertical-timeline-icon yellow-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'DISPATCHED_FROM_FACTORY'}?'fa fa-truck'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PRODUCTION_COMPLETE'}?'vertical-timeline-icon lazur-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PRODUCTION_COMPLETE'}?'fa fa-shopping-bag'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'UNDER_PRODUCTION'}?'vertical-timeline-icon blue-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'UNDER_PRODUCTION'}?'fa fa-wrench'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PO_CONFIRMED'}?'vertical-timeline-icon navy-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PO_CONFIRMED'}?'fa fa-check'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PO_UNDER_CONFIRMATION'}?'vertical-timeline-icon yellow-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PO_UNDER_CONFIRMATION'}?'fa fa-exclamation-circle '"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PO_UNDER_PROCESS'}?'vertical-timeline-icon lazur-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PO_UNDER_PROCESS'}?'fa fa-refresh'"></i>
+					                                </div>
+					                                
+					                                <div th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PO_RECEIVED'}?'vertical-timeline-icon blue-bg'">
+					                                    <i th:attrappend="class=${poTrackingHistory.poStatus.poStatusAbbr == 'PO_RECEIVED'}?'fa fa-file-text'"></i>
+					                                </div>
+					
+					                                <div class="vertical-timeline-content">
+					                                    <h2 th:text="${poTrackingHistory.poStatus.poStatusName}"></h2>
+					                                    <p th:text="${poTrackingHistory.poStatus.poStatusLongDescription}"></p>
+					                                    <span class="vertical-date">
+					                                    	<time class="timeago" th:datetime="${poTrackingHistory.poTrackingStatusUpdateTimestamp}">
+					                                    		<span th:text="${#dates.format(poTrackingHistory.poTrackingStatusUpdateTimestamp, 'MMM dd, yyyy')}"></span>
+					                                    	</time>
+															 <br/>
+					                                        <small><span th:text="${#dates.format(poTrackingHistory.poTrackingStatusUpdateTimestamp, 'MMM dd, yyyy')}"></span></small>
+					                                    </span>
+					                                </div>
+					                            </div>
+					                        </div>
+					
+					                    </div>
+					                </div>
+					            </div>
+					            </div>
+							</div>
+						</div>
+					</div>
+			  </div>
+		   </div>
+		  </div>
+		</div>
+        <footer>
+       		<div th:replace="/footer :: footer"> </div>
+       </footer>	
+     </div>
+	</div>
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script th:src="@{/js/inspinia.js}"></script>
+    
+   <!--  <script th:src="@{/js/plugins/pace/pace.min.js}"></script> -->
+	
+	<!-- Data Table Plugin -->
+	<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+	
+	<!-- Data picker -->
+   <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+   
+   <!-- Chosen -->
+   <script th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>
+   
+   <!-- Validate -->
+   <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+   
+   <!-- Input Mask-->
+   <script th:src="@{/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+   
+   <!-- Toastr script -->
+   <script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+   
+   <!-- Sweet alert -->
+    <script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
+    
+    <!-- Steps -->
+    <script th:src="@{/js/plugins/steps/jquery.steps.min.js}"></script>
+
+    <!-- Jquery Validate -->
+    <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+    
+    <!-- iCheck -->
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+    
+    <!-- Tags Input -->
+    <script th:src="@{/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+    
+    <!-- DROPZONE -->
+    <script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
+   
+   	<!-- timeago -->
+    <script th:src="@{/js/plugins/timeago/jquery.timeago.js}"></script>
+   
+   	<script th:src="@{/js/custom.js}"></script>
+   		   	
+   	<!-- new-po.js -->
+	<script th:src="@{/js/po/po-tracking.js}"></script>
+</body>
+</html>

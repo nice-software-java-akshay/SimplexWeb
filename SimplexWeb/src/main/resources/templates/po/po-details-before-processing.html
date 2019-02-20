@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Simplex | PO Details </title>
+
+	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+	
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+	<link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+	
+	<link th:href="@{/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet">
+	
+    <link th:href="@{/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/basic.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/dropzone.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/jasny/jasny-bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+    
+	<link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+	
+	
+	
+	<!-- Toastr style -->
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    
+    <!-- Sweet Alert -->
+    <link th:href="@{/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet">
+    
+    <!-- Chosen select -->
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+    
+    <!-- Tags Input -->
+    <link th:href="@{/css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <style type="text/css">
+    	.hr{
+    	 	display: block;
+		    height: 1px;
+		    border: 0;
+		    border-top: 1px solid #ff8d3f;
+		    margin: 1em 0;
+		    padding: 0; 
+    	}
+    	
+    	.bootstrap-tagsinput {
+		  width: 100% !important;
+		}
+		
+		.dataTables_wrapper{
+			padding-bottom: 0px;
+		}
+    </style>
+</head>
+<body id="body">
+<div th:replace="/contextPage :: contextPage"> </div>
+    <div id="wrapper">
+    <div th:replace="/sidebar :: sidebar"> </div>
+        <div id="page-wrapper" class="gray-bg">
+        <div th:replace="/topbar :: topbar"> </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+           <div class="row">
+           	<div class="col-lg-12">
+              <div class="ibox">
+		        <div class="ibox-title">
+		          	<h5>Purchase Order Details - <span th:text="${PO_DETAIL.poNumber}"></span></h5>
+		          	<div class="ibox-tools">
+		          	   <a th:href="@{/po/newPOController/getOpenPORequestsView}" class="btn btn-white" title="View All Open Orders"><i class="fa fa-shopping-cart"></i> Open Requests </a>
+		               <a th:href="@{/po/newPOController/downloadPOAsPDF?} + 'poId=' + ${PO_DETAIL.poId} + '&poNumber=' + ${PO_DETAIL.poNumber}" class="btn btn-white dowmloadPOBtn" title="Download as PDF"><i class="fa fa-file-pdf-o text-navy"></i> Pdf </a>
+		               <a href="#" class="btn btn-white openPOEmailModalBtn" title="Send via email"><i class="fa fa-send-o text-info"></i> Email </a>
+		                <a class="dropdown-toggle btn btn-white dowmloadPOBtn" title="Open related documents" data-toggle="dropdown" href="#" >
+		          	   	   <i class="fa fa-paperclip"></i> Documents 
+		          	   </a>
+			          	   <ul class="dropdown-menu" th:if="${not #lists.isEmpty(PO_DOCUMENT)}">
+                              <li th:each="document : ${PO_DOCUMENT}">
+                              	<a th:href="@{/document/downloadDocumentByDocumentDetailId?documentDetailId=}+${document.documentDetailId}">
+                              		<i class="fa fa-file"></i>
+                              		<span th:text="${document.documentDownloadByName + '.' + document.documentExtension}"></span>
+                              	</a>
+                              </li>
+                            </ul>
+                            <ul class="dropdown-menu" th:if="${#lists.isEmpty(PO_DOCUMENT)}">
+                            	<li><a href="#">No Document Available</a></li>
+                            </ul>
+		            </div>
+		         </div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-12 text-center">
+								<h3 class="text-navy">Purchase Order</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-8">
+								<h5>Vendor:</h5>
+								<address>
+									<strong>
+										<span
+											th:text="${COMPANY.companyFullName}"></span></strong><br> 
+										<span
+											th:text="${COMPANY.companyAddressLineOne}"></span><br> 
+										<span
+											th:text="${COMPANY.companyAddressLineTwo + ' - ' + COMPANY.companyAddressPIN}"></span><br> 
+										<abbr
+											title="Phone">Ph:</abbr> 
+										<span
+											th:text="${COMPANY.companyPhonePrimary}"></span>
+								</address>
+								<p>
+									<span>
+										<strong>P.O. Number: <span class="text-navy" th:text="${PO_DETAIL.poNumber}"></span></strong>
+									</span>
+									<br/>
+								</p>
+							</div>
+	
+							<div class="col-sm-4">
+								<h5>Ship To:</h5>
+								<address>
+									<strong><span th:text="${PO_DETAIL.shiptoCompany}"></span></strong><br>
+
+									<strong>Contact Person:</strong> 
+									<span th:text="${PO_DETAIL.shiptoContactPerson}"></span><br>
+					
+									<strong>Email:</strong> 
+									<span th:text="${PO_DETAIL.shiptoEmail}"></span><br>
+									
+									<abbr title="Phone">Ph:</abbr> 
+									<span th:text="${PO_DETAIL.shiptoContactNumber}"></span><br>
+								</address>
+								<p>
+									<span><strong>P.O. Date:</strong> 
+									<span th:text="${#dates.format(PO_DETAIL.poCreateTimestamp, 'MMM dd, yyyy')}"></span></span><br/>
+								</p>
+							</div>
+						</div>
+	
+						<hr class="hr">
+	
+						<div class="m-t">
+							<div class="row">
+		                   		<div class="col-md-12 table-responsive">
+		                   			<table class="table">
+		                   				<thead>
+		                   					<tr>
+		                   						<th class="text-navy">Shipment Summary</th>
+		                   					</tr>
+		                   				</thead>
+		                   				<tbody>
+		                   					<tr>
+				                               <td><strong> Vendor # </strong></td>
+				                               <td> <span th:text="${PO_DETAIL.vendorNumber}"></span> </td>
+				                               
+				                               <td><strong> Shipping Terms </strong></td>
+				                               <td> <span th:text="${PO_DETAIL.shippingTerms.shipmentTermName}"></span> </td>
+				                           </tr>
+				                           <tr>
+				                               <td><strong> Account # </strong></td>
+				                               <td> <span th:text="${PO_DETAIL.vendorAccountNumber}"></span> </td>
+				                               
+				                               <td><strong> SO # </strong></td>
+				                               <td> <span th:text="${PO_DETAIL.soNumber}"></span> </td>
+				                           </tr>
+				                           <tr>
+				                               <td><strong> Payment Terms </strong></td>
+				                               <td> <span th:text="${PO_DETAIL.vendorNumber}"></span> </td>
+				                               
+				                               <td><strong> Purchasing Contact </strong></td>
+				                               <td> <span th:text="${PO_DETAIL.purchasingContact}"></span> </td>
+				                           </tr>
+				                           <tr>
+				                               <td><strong> Expected Date </strong></td>
+				                               <td> <span th:text="${PO_DETAIL.vendorNumber}"></span> </td>
+
+				                               <td><strong> Warehouse Address </strong></td>
+				                               <td> <span th:text="${PO_DETAIL.warehouse}"></span> </td>
+				                           </tr>
+		                   				</tbody>
+		                   			</table>
+		                   		</div>
+		                   	</div>
+						</div>	
+						
+						<hr class="hr">
+						
+						<div class="table-responsive">
+						   <h4 class="text-navy">PO Items</h4>
+			               <table class="table table-striped  table-hover" style="padding-bottom: 0px">
+			               	<thead>
+			               		<tr>
+			               		   <th>#</th>
+				                   <th>Item No.</th>
+				                   <th>Description</th>
+				                   <th>Model Type</th>
+				                   <th>Qty (Unit)</th>
+				                   <th>Rate ($)</th>
+				                   <th>Amount ($)</th>
+				               </tr>
+			               </thead>
+			               <tbody>
+			               		<tr th:each="poItem, rowStat : ${PO_DETAIL.poItmesList}">
+			                        <td th:text="${rowStat.index + 1}"></td>
+			                        <td th:text="${poItem.poItemNumber}"></td>
+			                        <td th:text="${poItem.poItemDesc}"></td>
+			                        <td th:text="${poItem.productModelType.modelTypeName}"></td>
+			                        <td th:text="${poItem.poItmeQty}"></td>
+			                        <td th:text="${poItem.poItemRate}"></td>
+			                        <td th:text="${poItem.poItemAmount}"></td>
+			                    </tr>          
+			               </tbody>
+			               </table>
+			               
+			               <hr>
+			               
+			               <div class="row" style="margin-right: 3%;">
+			               		<div class="col-md-5">
+			               			<div class="form-group">
+     	 								<label>Remark</label> 
+     	 								<textarea th:text="${PO_DETAIL.poRemark}" class="form-control" rows="" cols=""></textarea>
+     	 							</div>
+			               		</div>
+			               		<div class="col-md-5 text-right">
+    	 							<h4>Total ($) :</h4>
+    	 						</div>
+    	 						<div class="col-md-2">
+    	 							<span class="form-control" th:text="${PO_DETAIL.poTotalAmount}" style="border: none;"></span>
+    	 						</div>
+			               </div>
+			     	 	</div>
+					</div>
+			  </div>
+		   </div>
+		  </div>
+		</div>
+        <footer>
+       		<div th:replace="/footer :: footer"> </div>
+       </footer>	
+     </div>
+	</div>
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script th:src="@{/js/inspinia.js}"></script>
+    
+    <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+	
+	<!-- Data Table Plugin -->
+	<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+	
+	<!-- Data picker -->
+   <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+   
+   <!-- Chosen -->
+   <script th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>
+   
+   <!-- Validate -->
+   <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+   
+   <!-- Input Mask-->
+   <script th:src="@{/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+   
+   <!-- Toastr script -->
+   <script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+   
+   <!-- Sweet alert -->
+    <script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
+    
+    <!-- Steps -->
+    <script th:src="@{/js/plugins/steps/jquery.steps.min.js}"></script>
+
+    <!-- Jquery Validate -->
+    <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+    
+    <!-- iCheck -->
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+    
+    <!-- Tags Input -->
+    <script th:src="@{/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+    
+      <!-- DROPZONE -->
+    <script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
+   
+   	<script th:src="@{/js/custom.js}"></script>
+   		   	
+   	<!-- new-po.js -->
+	<script th:src="@{/js/po/po-details-before-processing.js}"></script>
+</body>
+</html>

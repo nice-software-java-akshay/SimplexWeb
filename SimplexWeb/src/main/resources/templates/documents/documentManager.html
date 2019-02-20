@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Simplex | Document Manager </title>
+
+	<link rel="shortcut icon" type="image/png" th:href="@{/favicon.ico}"/>
+	
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet">
+
+	<link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet">
+	
+	<link th:href="@{/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css}" rel="stylesheet">
+	
+    <link th:href="@{/css/plugins/steps/jquery.steps.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/basic.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dropzone/dropzone.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/jasny/jasny-bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet">
+    
+	<link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+	
+	
+	
+	<!-- Toastr style -->
+    <link th:href="@{/css/plugins/toastr/toastr.min.css}" rel="stylesheet">
+    
+    <!-- Sweet Alert -->
+    <link th:href="@{/css/plugins/sweetalert/sweetalert.css}" rel="stylesheet">
+    
+    <!-- Chosen select -->
+    <link th:href="@{/css/plugins/chosen/bootstrap-chosen.css}" rel="stylesheet">
+    
+    <!-- Tags Input -->
+    <link th:href="@{/css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <style type="text/css">
+    	.hr{
+    	 	display: block;
+		    height: 1px;
+		    border: 0;
+		    border-top: 1px solid #ff8d3f;
+		    margin: 1em 0;
+		    padding: 0; 
+    	}
+    	
+    	.bootstrap-tagsinput {
+		  width: 100% !important;
+		}
+		
+		.dataTables_wrapper{
+			padding-bottom: 0px;
+		}
+    </style>
+</head>
+<body id="body">
+<div th:replace="/contextPage :: contextPage"> </div>
+    <div id="wrapper">
+    <div th:replace="/sidebar :: sidebar"> </div>
+        <div id="page-wrapper" class="gray-bg">
+        <div th:replace="/topbar :: topbar"> </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="ibox float-e-margins">
+							<div class="ibox-content">
+								<div class="file-manager">
+									<h5>Select Partner</h5>
+									<select id="documentOwnerPartnerId" data-placeholder="Choose a product type" class="form-control" tabindex="1" required="">
+						                <option th:each="user : ${DISTRIBUTER_LIST}" 
+						                		th:value="${user.userId}" 
+						                		th:text="${user.fullName}">
+						                </option>
+					                </select>
+									<div class="hr-line-dashed"></div>
+									<button class="btn btn-primary btn-block">Upload Files</button>
+									<div class="hr-line-dashed"></div>
+									<h5>Folders</h5>
+									<ul class="folder-list" style="padding: 0">
+										<li data-document-category-id="-1" data-document-category-abbr="ALL" class="btn-warning documentCategoryLi">
+											<a href="#" style="padding-left: 2%;"><i class="fa fa-folder"></i> All</a>
+										</li>
+										<li class="documentCategoryLi" 
+											th:each="documentCategory, rowStat : ${ALL_DOCUMENT_CATEGORIES_LIST}" 
+											th:attr="data-document-category-id=${documentCategory.documentCategoryId}, 
+													data-document-category-abbr=${documentCategory.documentCategoryAbbr}">
+											<a href="#" style="padding-left: 2%;"><i class="fa fa-folder"></i> <span th:text="${documentCategory.documentCategoryName}"></span></a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9 animated fadeInRight">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="file-box">
+									<div class="file">
+										<a href="#"> <span class="corner"></span>
+											<div class="icon">
+												<i class="fa fa-file"></i>
+											</div>
+											<div class="file-name">
+												Document_2014.doc <br /> <small>Added: Jan 11, 2014</small>
+											</div>
+										</a>
+									</div>
+								</div>
+								<div class="file-box">
+									<div class="file">
+										<a href="#"> <span class="corner"></span>
+											<div class="icon">
+												<i class="fa fa-file"></i>
+											</div>
+											<div class="file-name">
+												Document_2014.doc <br /> <small>Added: Jan 11, 2014</small>
+											</div>
+										</a>
+									</div>
+								</div>
+								<div class="file-box">
+									<div class="file">
+										<a href="#"> <span class="corner"></span>
+											<div class="icon">
+												<i class="fa fa-file"></i>
+											</div>
+											<div class="file-name">
+												Document_2014.doc <br /> <small>Added: Jan 11, 2014</small>
+											</div>
+										</a>
+									</div>
+								</div>
+								<div class="file-box">
+									<div class="file">
+										<a href="#"> <span class="corner"></span>
+											<div class="icon">
+												<i class="fa fa-file"></i>
+											</div>
+											<div class="file-name">
+												Document_2014.doc <br /> <small>Added: Jan 11, 2014</small>
+											</div>
+										</a>
+									</div>
+								</div>
+								<div class="file-box">
+									<div class="file">
+										<a href="#"> <span class="corner"></span>
+											<div class="icon">
+												<i class="fa fa-file"></i>
+											</div>
+											<div class="file-name">
+												Document_2014.doc <br /> <small>Added: Jan 11, 2014</small>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        <footer>
+       		<div th:replace="/footer :: footer"> </div>
+       </footer>	
+     </div>
+	</div>
+    <!-- Mainly scripts -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script th:src="@{/js/inspinia.js}"></script>
+    
+    <script th:src="@{/js/plugins/pace/pace.min.js}"></script>
+	
+	<!-- Data Table Plugin -->
+	<script th:src="@{/js/plugins/dataTables/datatables.min.js}"></script>
+	
+	<!-- Data picker -->
+   <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+   
+   <!-- Chosen -->
+   <script th:src="@{/js/plugins/chosen/chosen.jquery.js}"></script>
+   
+   <!-- Validate -->
+   <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+   
+   <!-- Input Mask-->
+   <script th:src="@{/js/plugins/jasny/jasny-bootstrap.min.js}"></script>
+   
+   <!-- Toastr script -->
+   <script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+   
+   <!-- Sweet alert -->
+    <script th:src="@{/js/plugins/sweetalert/sweetalert.min.js}"></script>
+    
+    <!-- Steps -->
+    <script th:src="@{/js/plugins/steps/jquery.steps.min.js}"></script>
+
+    <!-- Jquery Validate -->
+    <script th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+    
+    <!-- iCheck -->
+    <script th:src="@{/js/plugins/iCheck/icheck.min.js}"></script>
+    
+    <!-- Tags Input -->
+    <script th:src="@{/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+    
+      <!-- DROPZONE -->
+    <script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
+   
+   	<script th:src="@{/js/custom.js}"></script>
+   		   	
+   	<!-- document-manager.js -->
+	<script th:src="@{/js/documents/document-manager.js}"></script>
+</body>
+</html>

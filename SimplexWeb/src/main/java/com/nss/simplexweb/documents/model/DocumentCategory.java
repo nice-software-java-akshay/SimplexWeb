@@ -1,7 +1,6 @@
-package com.nss.simplexweb.po.model;
+package com.nss.simplexweb.documents.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,17 +18,25 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor 
 @NoArgsConstructor
-@Table(name="shipping_terms_tbl")
-public class ShippingTerms implements Serializable {/**
+@Table(name="document_category_tbl")
+public class DocumentCategory implements Serializable {
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="shipping_term_id")
-	private Long shippingTermId;
+	@Column(name="document_category_id")
+	private Long documentCategoryId;
 	
-	@Column(name="shipping_term_desc")
-	private String shippingTermDesc;
+	@Column(name="document_category_name")
+	private String documentCategoryName;
+	
+	@Column(name="document_category_abbr")
+	private String documentCategoryAbbr;
+	
+	@Column(name="is_active", nullable = false, columnDefinition = "int default 1")
+	private int isActive;
 }
